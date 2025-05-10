@@ -1,0 +1,97 @@
+/* Page Title */
+.page-title {
+    margin: 30px 0 20px;
+    font-size: 2rem;
+    font-weight: 800;
+    color: #facc15;
+    text-align: center;
+  }
+  
+  /* Filters */
+  .filters {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+    justify-content: center;
+    margin-bottom: 30px;
+  }
+  
+  .filters select, .filters .search-bar {
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid #333;
+    color: #fff;
+    padding: 10px 15px;
+    border-radius: 10px;
+    font-family: 'Inter', sans-serif;
+    font-size: 0.9rem;
+    outline: none;
+    transition: border 0.3s ease;
+  }
+  
+  .filters select:focus, .filters .search-bar:focus {
+    border: 1px solid #facc15;
+  }
+  
+  /* News Grid */
+  .news-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(270px, 1fr));
+    gap: 20px;
+  }
+  
+  /* Load More Button */
+  .load-more {
+    display: block;
+    margin: 30px auto;
+    padding: 12px 24px;
+    background: #facc15;
+    color: #0d1117;
+    border: none;
+    font-weight: 700;
+    border-radius: 999px;
+    cursor: pointer;
+    transition: background 0.3s, transform 0.3s;
+  }
+  
+  .load-more:hover {
+    background: #fde68a;
+    transform: scale(1.05);
+  }
+
+  .search-container {
+    display: flex;
+    justify-content: center;  /* Centers horizontally */
+    align-items: center;      /* Centers vertically */
+    margin-bottom: 30px;      /* Optional: adds some space below */
+  }
+  
+  .universal-search {
+    width: 100%;
+    max-width: 400px;        /* Restricts max width of the search */
+    padding: 14px 20px;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid #333;
+    border-radius: 999px;
+    color: #fff;
+    font-family: 'Inter', sans-serif;
+    font-size: 1rem;
+    outline: none;
+    transition: border 0.3s, background 0.3s;
+  }
+  
+  .universal-search:focus {
+    border-color: #facc15;
+    background: rgba(255, 255, 255, 0.08);
+  }
+  
+
+  @keyframes fadeIn {
+    from {opacity: 0; transform: translateY(10px);}
+    to {opacity: 1; transform: translateY(0);}
+  }
+  
+  .fade-in {
+    animation: fadeIn 0.4s ease;
+  }
+    
+  

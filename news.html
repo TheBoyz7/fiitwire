@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>FootWire | News Hub</title>
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/news-hub.css">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+</head>
+<body>
+
+  <header class="site-header">
+    <div class="container">
+      <div class="logo">
+        <h1>FootWire</h1>
+      </div>
+      <nav class="main-nav">
+        <ul>
+          <li><a href="#">Home</a></li>
+          <li><a href="#">News</a></li>
+          <li><a href="#">Leagues</a></li>
+          <li><a href="#">Teams</a></li>
+          <li><a href="#">Live Scores</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main class="news-hub container">
+    <h2 class="page-title">Latest Football News</h2>
+
+    <input type="text" placeholder="Search news, leagues, teams, players…" class="search-bar universal-search">
+    <br>
+    <br>
+
+    <!-- News Grid -->
+    <div class="news-grid">
+      <article class="news-card">
+        <img src="images/article1.webp" alt="News">
+        <div class="news-info">
+          <span class="tag transfer">Transfer</span>
+          <h4><a href="#">Chelsea Makes Last-Minute Bid for Osimhen</a></h4>
+          <p>Sources claim Chelsea have entered the race to sign Napoli striker Victor Osimhen before the window closes.</p>
+          <span class="date">April 30, 2025</span>
+        </div>
+      </article>
+
+      <!-- More articles... -->
+    </div>
+
+    <button class="load-more">Load More</button>
+
+  </main>
+<script>
+    const searchInput = document.querySelector('.universal-search');
+const articles = document.querySelectorAll('.news-card');
+
+searchInput.addEventListener('input', () => {
+  const query = searchInput.value.toLowerCase();
+
+  articles.forEach(article => {
+    const content = article.textContent.toLowerCase();
+    if(content.includes(query)) {
+      article.style.display = 'block';
+      article.classList.add('fade-in');
+    } else {
+      article.style.display = 'none';
+    }
+  });
+});
+
+</script>
+</body>
+</html>
