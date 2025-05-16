@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>FootWire | Live Scores</title>
+  <link rel="stylesheet" href="css/style.css" />
+  <link rel="stylesheet" href="css/live.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <header class="site-header">
+    <div class="container">
+      <div class="logo">
+        <h1>FootWire</h1>
+      </div>
+      <nav class="main-nav">
+        <ul>
+          <li><a href="index.html">Home</a></li>
+          <li><a href="news.html">News</a></li>
+          <li><a href="league.html">Leagues</a></li>
+          <li><a href="team.html">Teams</a></li>
+          <li><a href="live.html">Live Scores</a></li>
+        </ul>
+      </nav>
+      <div class="auth-buttons">
+        <button class="login-btn">Login</button>
+        <button class="signup-btn">Sign Up</button>
+      </div>
+    </div>
+  </header>
+
+
+  <!-- 🔴 Date Tabs -->
+  <div class="score-tabs container" id="scoreTabs">
+    <!-- JS will populate tabs here -->
+  </div>
+
+  <!-- ⚽ Live Matches -->
+  <section class="live-matches container" id="matchList">
+    <!-- Example match card -->
+    <div class="match-card">
+      <div class="match-header">
+        <span>Champions League</span>
+        <em class="status live">LIVE</em>
+      </div>
+      <div class="teams">
+        <div class="team">Barcelona</div>
+        <strong>2 - 1</strong>
+        <div class="team">Inter Milan</div>
+      </div>
+      <div class="match-time">74'</div>
+    </div>
+  </section>
+
+  <div class="score-tabs container" id="scoreTabs"></div>
+
+  <section class="live-matches container" id="matchList"></section>
+  
+  <script>
+    const scoreTabs = document.getElementById('scoreTabs');
+
+    const daysToRender = [
+      { label: 'Yesterday', offset: -1 },
+      { label: 'Today', offset: 0 },
+      { label: 'Tomorrow', offset: 1 }
+    ];
+
+    // Add Previous 2 days
+    for (let i = 2; i <= 3; i++) {
+      daysToRender.unshift({ label: formatDateRelative(-i), offset: -i });
+    }
+
+    // Add next 7 days
+    for (let i = 2; i <= 7; i++) {
+      daysToRender.push({ label: formatDateRelative(i), offset: i });
+    }
+
+    // Render tabs
+    daysToRender.forEach((day, index) => {
+      const btn = document.createElement('button');
+      btn.classList.add('tab');
+      if (day.offset === 0) btn.classList.add('active');
+      btn.innerText = day.label;
+      btn.dataset.offset = day.offset;
+      btn.addEventListener('click', () => {
+        document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+        btn.classList.add('active');
+        // You could swap matches here based on the date offset if you had data
+        console.log(`Selected date offset: ${day.offset}`);
+      });
+      scoreTabs.appendChild(btn);
+    });
+
+    // Helper: format date relative to today
+    function formatDateRelative(offset) {
+      const date = new Date();
+      date.setDate(date.getDate() + offset);
+      const options = { weekday: 'short', month: 'short', day: 'numeric' };
+      return date.toLocaleDateString('en-US', options);
+    }
+  </script>
+
+  
+
+</body>
+</html>
+

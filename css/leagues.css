@@ -1,0 +1,310 @@
+/* league.css */
+
+/*==============================================
+  Container setup (assumes .container max-width set in styles.css)
+===============================================*/
+.league-container {
+    background: #121212;
+    color: #eee;
+    padding-bottom: 60px;
+  }
+  
+  /*==============================================
+    League Banner
+  ===============================================*/
+  .league-banner {
+    background: #1e1e1e;
+    border-bottom: 1px solid #333;
+    padding: 24px;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+  }
+  .league-banner .league-logo {
+    width: 48px;
+    height: 48px;
+  }
+  .league-banner .league-info h2 {
+    font-size: 2rem;
+    font-weight: 800;
+    color: #facc15;
+    margin: 0;
+  }
+  .league-banner .league-description {
+    font-size: 1rem;
+    color: #ccc;
+    margin-top: 4px;
+  }
+  
+  /*==============================================
+    Primary Tabs
+  ===============================================*/
+  .league-tabs {
+    display: flex;
+    overflow-x: auto;
+    gap: 12px;
+    padding: 16px 24px;
+    background: #121212;
+    scrollbar-width: none;
+  }
+  .league-tabs::-webkit-scrollbar { display: none; }
+  
+  .tab-btn {
+    flex: 0 0 auto;
+    padding: 10px 18px;
+    background: #222;
+    color: #eee;
+    border: none;
+    border-radius: 32px;
+    font-size: 1rem;
+    font-weight: 600;
+    transition: background 0.3s;
+    cursor: pointer;
+  }
+  .tab-btn.active {
+    background: #facc15;
+    color: #121212;
+  }
+  
+  /*==============================================
+    Tab Content
+  ===============================================*/
+  .tab-content {
+    display: none;
+    padding: 24px;
+    background: #1e1e1e;
+  }
+  .tab-content.active {
+    display: block;
+  }
+  
+  /* Section headings */
+  .tab-content h2,
+  .tab-content h3 {
+    font-size: 1.6rem;
+    font-weight: 700;
+    color: #facc15;
+    margin-bottom: 16px;
+  }
+  
+  /*==============================================
+    Overview Section
+  ===============================================*/
+  #overview p {
+    font-size: 1rem;
+    line-height: 1.6;
+    color: #ddd;
+  }
+  
+  /*==============================================
+    Standings Table
+  ===============================================*/
+  .standings-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 12px;
+  }
+  .standings-table th,
+  .standings-table td {
+    padding: 12px 8px;
+    border-bottom: 1px solid #333;
+    text-align: left;
+    font-size: 0.95rem;
+  }
+  .standings-table th {
+    color: #facc15;
+    font-weight: 700;
+  }
+  
+  /*==============================================
+    Fixtures List
+  ===============================================*/
+  .fixtures-list {
+    display: grid;
+    gap: 12px;
+    margin-top: 12px;
+  }
+  .fixture-card {
+    background: #222;
+    padding: 14px 18px;
+    border-radius: 12px;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.3);
+    font-size: 0.95rem;
+  }
+  
+  /*==============================================
+    Form Guide
+  ===============================================*/
+  .form-chart {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: 12px;
+  }
+  .form-chart .form-dot {
+    width: 14px;
+    height: 14px;
+    border-radius: 50%;
+    background: #444;
+  }
+  .form-chart .form-dot.win { background: #4caf50; }
+  .form-chart .form-dot.draw { background: #facc15; }
+  .form-chart .form-dot.loss { background: #e11d48; }
+  
+  /*==============================================
+    Statistics (with sub-tabs)
+  ===============================================*/
+  .sub-tabs {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 20px;
+  }
+  .sub-tab {
+    padding: 8px 16px;
+    background: #222;
+    color: #eee;
+    border: none;
+    border-radius: 24px;
+    font-size: 0.95rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.3s;
+  }
+  .sub-tab.active {
+    background: #facc15;
+    color: #121212;
+  }
+  
+  .sub-tab-content {
+    display: none;
+  }
+  .sub-tab-content.active {
+    display: block;
+  }
+  
+  /* Stat blocks */
+  .stat-block {
+    margin-bottom: 32px;
+  }
+  .stat-block h4 {
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: #facc15;
+    margin-bottom: 12px;
+  }
+  .stat-block ol,
+  .stat-block ul {
+    margin: 0 0 12px 20px;
+    padding: 0;
+    color: #ddd;
+  }
+  .stat-block li {
+    margin: 6px 0;
+    font-size: 0.95rem;
+  }
+  
+  /* “View More” buttons */
+  .view-more {
+    display: inline-block;
+    padding: 8px 14px;
+    background: #facc15;
+    color: #121212;
+    border: none;
+    border-radius: 999px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.3s;
+  }
+  .view-more:hover {
+    background: #fde68a;
+  }
+  .extra-list.hidden {
+    display: none;
+  }
+  
+  /*==============================================
+    News Grid
+  ===============================================*/
+  .news-grid {
+    display: grid;
+    gap: 16px;
+    margin-top: 16px;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  }
+  .news-card {
+    background: #222;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+    transition: transform 0.3s;
+  }
+  .news-card:hover {
+    transform: translateY(-4px);
+  }
+  .news-card img {
+    width: 100%;
+    display: block;
+  }
+  .news-card .news-info {
+    padding: 12px;
+  }
+  .news-card .news-info h4 {
+    font-size: 1rem;
+    font-weight: 600;
+    margin: 0 0 6px;
+    color: #facc15;
+  }
+  .news-card .news-info p {
+    font-size: 0.9rem;
+    color: #ccc;
+    margin: 0 0 8px;
+  }
+  .news-card .news-info .date {
+    font-size: 0.8rem;
+    color: #777;
+  }
+  
+  /*==============================================
+    Responsive Breakpoints
+  ===============================================*/
+  @media (max-width: 768px) {
+    .league-tabs {
+      gap: 8px;
+      padding: 12px 16px;
+    }
+    .tab-btn {
+      padding: 8px 14px;
+      font-size: 0.9rem;
+    }
+    .fixture-card, .news-card .news-info h4 {
+      font-size: 0.9rem;
+    }
+  }
+  
+  @media (max-width: 600px) {
+    .league-banner {
+      flex-direction: column;
+      text-align: center;
+      gap: 12px;
+    }
+    .league-banner .league-info h2 {
+      font-size: 1.6rem;
+    }
+    .tab-btn {
+      flex: 1 1 45%;
+      padding: 6px 10px;
+      font-size: 0.85rem;
+    }
+    .sub-tab {
+      flex: 1 1 45%;
+      padding: 6px 10px;
+      font-size: 0.85rem;
+    }
+    .stat-block li,
+    .fixture-card,
+    .news-card .news-info p {
+      font-size: 0.85rem;
+    }
+  }
+  

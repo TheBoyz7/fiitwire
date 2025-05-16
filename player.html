@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Rasmus Højlund - Player Profile</title>
+  <link rel="stylesheet" href="css/style.css" />
+  <link rel="stylesheet" href="css/player.css" />
+</head>
+<body>
+
+  <!-- Header Section -->
+  <header class="site-header">
+    <div class="container">
+      <div class="logo">
+        <h1>Footwire</h1>
+      </div>
+      <nav class="main-nav">
+        <ul>
+          <li><a href="/">Home</a></li>
+          <li><a href="/teams">Teams</a></li>
+          <li><a href="/players">Players</a></li>
+          <li><a href="/news">News</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Player Header -->
+  <section class="player-header container">
+    <img src="images/rasmus-hojlund.jpg" alt="Rasmus Højlund" class="player-photo" />
+    <div class="player-info">
+      <h1>Rasmus Højlund</h1>
+      <p class="position">Striker</p>
+      <p class="club">Manchester United</p>
+      <p class="nationality">🇩🇰 Denmark</p>
+      <p class="age">Born: 4 Feb 2003 (Age 22)</p>
+      <p class="height">Height: 1.91m</p>
+      <p class="foot">Preferred Foot: Left</p>
+    </div>
+  </section>
+
+  <!-- Tab Navigation -->
+  <section class="player-tabs container">
+    <div class="tabs">
+      <button class="tab-button active" data-tab="general">General</button>
+      <button class="tab-button" data-tab="attack">Attack</button>
+      <button class="tab-button" data-tab="defense">Defense</button>
+      <button class="tab-button" data-tab="matches">Matches</button>
+    </div>
+
+    <div class="tab-content active" id="general">
+      <div class="stat-card">
+        <h3>Overall Rating</h3>
+        <p>87</p>
+      </div>
+      <div class="stat-card">
+        <h3>Potential</h3>
+        <p>87</p>
+      </div>
+      <div class="stat-card">
+        <h3>Goals (2024/25)</h3>
+        <p>14</p>
+      </div>
+      <div class="stat-card">
+        <h3>Matches Played</h3>
+        <p>60</p>
+      </div>
+    </div>
+
+    <div class="tab-content" id="attack">
+      <div class="stat-card">
+        <h3>Goals</h3>
+        <p>14</p>
+      </div>
+      <div class="stat-card">
+        <h3>Assists</h3>
+        <p>5</p>
+      </div>
+      <div class="stat-card">
+        <h3>Shots on Target</h3>
+        <p>45</p>
+      </div>
+      <div class="stat-card">
+        <h3>Expected Goals (xG)</h3>
+        <p>12.3</p>
+      </div>
+    </div>
+
+    <div class="tab-content" id="defense">
+      <div class="stat-card">
+        <h3>Tackles</h3>
+        <p>10</p>
+      </div>
+      <div class="stat-card">
+        <h3>Interceptions</h3>
+        <p>8</p>
+      </div>
+      <div class="stat-card">
+        <h3>Clearances</h3>
+        <p>12</p>
+      </div>
+      <div class="stat-card">
+        <h3>Blocks</h3>
+        <p>5</p>
+      </div>
+    </div>
+
+    <div class="tab-content" id="matches">
+      <ul class="match-list">
+        <li>
+          <span class="match-date">May 25, 2024</span>
+          <span class="match-opponent">vs Manchester City</span>
+          <span class="match-result">2–1 Win</span>
+          <span class="match-contribution">1 Goal</span>
+        </li>
+        <!-- Additional match entries can be added here -->
+      </ul>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="site-footer">
+    <div class="container">
+      <p>&copy; 2025 Footwire. All rights reserved.</p>
+      <ul class="footer-links">
+        <li><a href="/privacy">Privacy Policy</a></li>
+        <li><a href="/terms">Terms of Service</a></li>
+      </ul>
+      <ul class="social-icons">
+        <li><a href="#"><img src="icons/twitter.svg" alt="Twitter" /></a></li>
+        <li><a href="#"><img src="icons/facebook.svg" alt="Facebook" /></a></li>
+        <li><a href="#"><img src="icons/instagram.svg" alt="Instagram" /></a></li>
+      </ul>
+    </div>
+  </footer>
+
+  <!-- JavaScript for Tabs -->
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      const tabButtons = document.querySelectorAll('.tab-button');
+      const tabContents = document.querySelectorAll('.tab-content');
+
+      tabButtons.forEach(button => {
+        button.addEventListener('click', () => {
+          // Remove 'active' class from all buttons and contents
+          tabButtons.forEach(btn => btn.classList.remove('active'));
+          tabContents.forEach(content => content.classList.remove('active'));
+
+          // Add 'active' class to the clicked button and corresponding content
+          button.classList.add('active');
+          document.getElementById(button.getAttribute('data-tab')).classList.add('active');
+        });
+      });
+    });
+  </script>
+
+</body>
+</html>

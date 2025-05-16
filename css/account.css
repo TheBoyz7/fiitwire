@@ -1,0 +1,131 @@
+/* 📌 Account Page Styles */
+
+.account-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 80px 20px;
+  }
+  
+  .account-card {
+    background: #1e1e1e;
+    padding: 40px;
+    border-radius: 24px;
+    box-shadow: 0 6px 24px rgba(0, 0, 0, 0.45);
+    width: 100%;
+    max-width: 440px;
+    text-align: center;
+  }
+  
+  .tab-buttons {
+    display: flex;
+    gap: 12px;
+    margin-bottom: 30px;
+  }
+  
+  .tab-buttons button {
+    flex: 1;
+    padding: 16px;
+    background: #333;
+    color: #eee;
+    border: none;
+    border-radius: 14px;
+    font-weight: 800;
+    font-size: 1.2rem;
+    cursor: pointer;
+    transition: background 0.3s ease;
+  }
+  
+  .tab-buttons button.active {
+    background: #facc15;
+    color: #121212;
+  }
+  
+  .form {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+  
+  .form h2 {
+    font-size: 1.8rem;
+    color: #facc15;
+    margin-bottom: 20px;
+    font-weight: 800;
+  }
+  
+  .form input {
+    padding: 16px;
+    border: 1px solid #333;
+    border-radius: 12px;
+    background: #121212;
+    color: #eee;
+    font-size: 1.1rem;
+    font-weight: 600;
+  }
+  
+  .neon-btn {
+    padding: 16px;
+    background: #facc15;
+    color: #121212;
+    border: none;
+    border-radius: 50px;
+    font-weight: 800;
+    font-size: 1.2rem;
+    cursor: pointer;
+    transition: background 0.3s ease;
+  }
+  
+  .neon-btn:hover {
+    background: #fde68a;
+  }
+  
+  .toggle-text {
+    font-size: 1rem;
+    color: #ccc;
+    font-weight: 500;
+  }
+  
+  .toggle-text span {
+    color: #facc15;
+    cursor: pointer;
+    font-weight: 700;
+  }
+  
+  .hidden {
+    display: none;
+  }
+  
+  /* 📱 Mobile Responsive */
+  @media (max-width: 600px) {
+    .account-card {
+      padding: 30px 20px;
+    }
+  
+    .tab-buttons {
+      flex-direction: column;
+    }
+  
+    .tab-buttons button {
+      padding: 14px;
+      font-size: 1.1rem;
+    }
+  
+    .form h2 {
+      font-size: 1.6rem;
+    }
+  
+    .form input {
+      font-size: 1.05rem;
+    }
+  
+    .neon-btn {
+      padding: 14px;
+      font-size: 1.15rem;
+    }
+  
+    .toggle-text {
+      font-size: 0.95rem;
+    }
+  }
+  

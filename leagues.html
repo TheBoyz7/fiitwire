@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>FootWire | Premier League Overview</title>
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/leagues.css">
+</head>
+<body>
+
+  <!-- Site Header -->
+  <header class="site-header">
+    <div class="container">
+      <h1>FootWire ⚽ Premier League</h1>
+      <nav class="main-nav">
+        <ul>
+          <li><a href="#">Home</a></li>
+          <li><a href="#">News</a></li>
+          <li><a href="#">Leagues</a></li>
+          <li><a href="#">Teams</a></li>
+          <li><a href="#">Live Scores</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <!-- League Banner -->
+  <section class="league-banner">
+    <div class="container">
+      <img src="premier-league-logo.png" alt="Premier League Logo" class="league-logo">
+      <div class="league-info">
+        <h2>Premier League</h2>
+        <p class="league-description">England’s top-flight competition featuring 20 clubs battling for glory.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Primary Tabs -->
+  <nav class="league-tabs container">
+    <button class="tab-btn active" data-tab="overview">Overview</button>
+    <button class="tab-btn" data-tab="standings">Standings</button>
+    <button class="tab-btn" data-tab="fixtures">Fixtures</button>
+    <button class="tab-btn" data-tab="form">Form</button>
+    <button class="tab-btn" data-tab="statistics">Statistics</button>
+    <button class="tab-btn" data-tab="news">News</button>
+  </nav>
+
+  <!-- Tab Contents -->
+  <main class="league-content container">
+
+    <!-- Overview -->
+    <section id="overview" class="tab-content active">
+      <h3>League Overview</h3>
+      <p>Welcome to the 2024–25 Premier League season. Here’s a snapshot of what to expect.</p>
+      
+    </section>
+
+    <!-- Standings -->
+    <section id="standings" class="tab-content">
+      <h3>Current Standings</h3>
+      <table class="standings-table">
+        <thead>
+          <tr><th>#</th><th>Club</th><th>MP</th><th>W</th><th>D</th><th>L</th><th>GF</th><th>GA</th><th>GD</th><th>PTS</th></tr>
+        </thead>
+        <tbody>
+          <!-- Rows to be injected by JS or templating -->
+        </tbody>
+      </table>
+    </section>
+
+    <!-- Fixtures -->
+    <section id="fixtures" class="tab-content">
+      <h3>Upcoming Fixtures</h3>
+      <div class="fixtures-list">
+        <!-- Fixture cards go here -->
+      </div>
+    </section>
+
+    <!-- Form -->
+    <section id="form" class="tab-content">
+      <h3>Recent Form</h3>
+      <div class="form-chart">
+        <!-- Could be SVG or styled divs showing W/D/L per club -->
+      </div>
+    </section>
+
+    <!-- Statistics -->
+    <section id="statistics" class="tab-content">
+      <h3>Statistics</h3>
+      <!-- Sub-tabs for Season vs All-Time -->
+      <div class="sub-tabs">
+        <button class="sub-tab active" data-subtab="season-stats">Season</button>
+        <button class="sub-tab" data-subtab="alltime-stats">All-Time</button>
+      </div>
+
+      <div id="season-stats" class="sub-tab-content active">
+        <div class="stat-block" id="top-scorers">
+          <h4>Top Scorers (2024–25)</h4>
+          <ol><!-- top 5 + expandable list --></ol>
+          <button class="view-more" data-target="full-scorers">View More</button>
+          <ol id="full-scorers" class="extra-list hidden"></ol>
+        </div>
+        <div class="stat-block" id="top-assists">
+          <h4>Top Assists</h4>
+          <ol></ol><button class="view-more" data-target="full-assists">View More</button>
+          <ol id="full-assists" class="extra-list hidden"></ol>
+        </div>
+        <!-- additional stat-blocks: clean sheets, xG, team goals, etc. -->
+      </div>
+
+      <div id="alltime-stats" class="sub-tab-content">
+        <div class="stat-block" id="alltime-titles">
+          <h4>All-Time Titles</h4>
+          <ol></ol><button class="view-more" data-target="full-titles">View More</button>
+          <ol id="full-titles" class="extra-list hidden"></ol>
+        </div>
+        <div class="stat-block" id="alltime-goals">
+          <h4>All-Time Goals</h4>
+          <ol></ol><button class="view-more" data-target="full-goals">View More</button>
+          <ol id="full-goals" class="extra-list hidden"></ol>
+        </div>
+        <!-- more all-time stats -->
+      </div>
+    </section>
+
+    <!-- News -->
+    <section id="news" class="tab-content">
+      <h3>Latest League News</h3>
+      <div class="news-grid">
+        <!-- News cards here -->
+      </div>
+      <button class="view-more-news">View More News</button>
+    </section>
+
+  </main>
+
+  <script>
+   
+    // MAIN TAB SWITCHING
+const tabButtons = document.querySelectorAll('.tab-btn');
+const tabContents = document.querySelectorAll('.tab-content');
+
+tabButtons.forEach(btn => {
+  btn.addEventListener('click', () => {
+    // deactivate all tabs & contents
+    tabButtons.forEach(b => b.classList.remove('active'));
+    tabContents.forEach(c => c.classList.remove('active'));
+    // activate clicked tab & its content panel
+    btn.classList.add('active');
+    document.getElementById(btn.dataset.tab).classList.add('active');
+    // scroll active tab into view on mobile
+    btn.scrollIntoView({ behavior: 'smooth', inline: 'center' });
+  });
+});
+
+// SUB-TAB SWITCHING (inside Statistics)
+const subTabButtons = document.querySelectorAll('.sub-tab');
+const subTabContents = document.querySelectorAll('.sub-tab-content');
+
+subTabButtons.forEach(st => {
+  st.addEventListener('click', () => {
+    subTabButtons.forEach(b => b.classList.remove('active'));
+    subTabContents.forEach(c => c.classList.remove('active'));
+    st.classList.add('active');
+    document.getElementById(st.dataset.subtab).classList.add('active');
+  });
+});
+
+// VIEW MORE / VIEW LESS TOGGLE FOR STAT LISTS
+const viewMoreButtons = document.querySelectorAll('.view-more');
+
+viewMoreButtons.forEach(button => {
+  button.addEventListener('click', () => {
+    const targetList = document.getElementById(button.dataset.target);
+    const isHidden = targetList.classList.toggle('hidden');
+    button.textContent = isHidden ? 'View More' : 'View Less';
+    // smooth scroll newly revealed content into view
+    if (!isHidden) {
+      targetList.scrollIntoView({ behavior: 'smooth' });
+    }
+  });
+});
+
+  </script>
+</body>
+</html>

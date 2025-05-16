@@ -1,0 +1,112 @@
+/* 🔴 ARTICLE PAGE - NEW STYLES */
+
+/* Main Article Layout */
+.article-content {
+    display: flex;
+    gap: 40px;
+    margin-top: 40px;
+  }
+  
+  .main-article {
+    flex: 3;
+  }
+  
+  .article-title {
+    font-size: 3rem;
+    font-weight: 800;
+    color: #facc15;
+    margin-bottom: 20px;
+  }
+  
+  .article-meta {
+    font-size: 1rem;
+    color: #999;
+    margin-bottom: 20px;
+  }
+  
+  .article-meta span {
+    font-weight: 600;
+  }
+  
+  .article-image {
+    width: 100%;
+    height: auto;
+    max-height: 600px;
+    object-fit: cover;
+    border-radius: 8px;
+    margin-bottom: 30px;
+  }
+  
+  .article-body {
+    font-size: 1.2rem;
+    line-height: 1.8;
+    color: #ddd;
+    margin-bottom: 40px;
+  }
+  
+  /* Sidebar Section */
+  .sidebar {
+    flex: 1;
+    background-color: #1e1e1e;
+    padding: 20px;
+    border-radius: 12px;
+  }
+  
+  .sidebar h3 {
+    font-size: 1.8rem;
+    color: #facc15;
+    margin-bottom: 20px;
+  }
+  
+  .related-articles {
+    list-style-type: none;
+    padding-left: 0;
+  }
+  
+  .related-articles li {
+    margin-bottom: 15px;
+  }
+  
+  .related-articles a {
+    font-size: 1.1rem;
+    color: #fff;
+    text-decoration: none;
+    transition: color 0.3s ease;
+  }
+  
+  .related-articles a:hover {
+    color: #facc15;
+  }
+  
+  /* Social Share Button */
+  .social-share {
+    margin-top: 30px;
+  }
+  
+  .share-btn {
+    display: inline-block;
+    padding: 12px 20px;
+    background-color: #facc15;
+    color: #121212;
+    border: none;
+    border-radius: 50px;
+    width: 100%;
+    font-size: 1rem;
+    text-align: center;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .share-btn:hover {
+    background-color: #e4b900;
+  }
+  
+  .share-btn:not(:last-child) {
+    margin-bottom: 15px;
+  }
+  
+  /* Add some spacing between main content and sidebar */
+  .main-article {
+    padding-right: 20px;
+  }
+  

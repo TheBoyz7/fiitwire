@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>FootWire | Teams</title>
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/team.css">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+</head>
+<body>
+    <header class="site-header">
+    <div class="container">
+      <div class="logo">
+        <h1>FootWire</h1>
+      </div>
+      <nav class="main-nav">
+        <ul>
+          <li><a href="index.html">Home</a></li>
+          <li><a href="news.html">News</a></li>
+          <li><a href="league.html">Leagues</a></li>
+          <li><a href="team.html">Teams</a></li>
+          <li><a href="live.html">Live Scores</a></li>
+        </ul>
+      </nav>
+      <div class="auth-buttons">
+        <button class="login-btn">Login</button>
+        <button class="signup-btn">Sign Up</button>
+      </div>
+    </div>
+  </header>
+
+  
+  <div class="team-tabs">
+    <button class="tab active" data-league="epl">Premier League</button>
+    <button class="tab" data-league="laliga">LaLiga</button>
+    <button class="tab" data-league="seriea">Serie A</button>
+    <button class="tab" data-league="bundesliga">Bundesliga</button>
+    <button class="tab" data-league="ligue1">Ligue 1</button>
+  </div>
+
+  <div id="team-sections">
+
+    <!-- EPL -->
+    <div class="teams-grid" id="epl">
+      <div class="team-card">
+        <img src="assets/logos/manutd.png" alt="Manchester United">
+        <h2>Manchester United</h2>
+        <p>20-time English champions, known for their legendary dominance in English football history.</p>
+        <a href="#">View News</a>
+      </div>
+      <div class="team-card">
+        <img src="assets/logos/liverpool.png" alt="Liverpool">
+        <h2>Liverpool</h2>
+        <p>Iconic Merseyside club with 19 league titles and 6 European Cups to their name.</p>
+        <a href="#">View News</a>
+      </div>
+    </div>
+
+    <!-- LaLiga -->
+    <div class="teams-grid hidden" id="laliga">
+      <div class="team-card">
+        <img src="assets/logos/realmadrid.png" alt="Real Madrid">
+        <h2>Real Madrid</h2>
+        <p>The most decorated club in Europe with 35 LaLiga titles and 14 UEFA Champions Leagues.</p>
+        <a href="#">View News</a>
+      </div>
+      <div class="team-card">
+        <img src="assets/logos/barcelona.png" alt="Barcelona">
+        <h2>Barcelona</h2>
+        <p>Historic Catalan side with a record of 27 league titles and a legacy of attacking football.</p>
+        <a href="#">View News</a>
+      </div>
+    </div>
+
+    <!-- Serie A -->
+    <div class="teams-grid hidden" id="seriea">
+      <div class="team-card">
+        <img src="assets/logos/juventus.png" alt="Juventus">
+        <h2>Juventus</h2>
+        <p>Italy’s most successful club with 36 Serie A titles and a history of defensive mastery.</p>
+        <a href="#">View News</a>
+      </div>
+      <div class="team-card">
+        <img src="assets/logos/milan.png" alt="AC Milan">
+        <h2>AC Milan</h2>
+        <p>7-time European champions with a legacy of iconic players and unforgettable nights.</p>
+        <a href="#">View News</a>
+      </div>
+    </div>
+
+    <!-- Bundesliga -->
+    <div class="teams-grid hidden" id="bundesliga">
+      <div class="team-card">
+        <img src="assets/logos/bayern.png" alt="Bayern Munich">
+        <h2>Bayern Munich</h2>
+        <p>Germany’s dominant force with 33 Bundesliga titles and 6 UEFA Champions Leagues.</p>
+        <a href="#">View News</a>
+      </div>
+      <div class="team-card">
+        <img src="assets/logos/dortmund.png" alt="Borussia Dortmund">
+        <h2>Borussia Dortmund</h2>
+        <p>Famed for its passionate fans and attacking football, with 8 league titles.</p>
+        <a href="#">View News</a>
+      </div>
+    </div>
+
+    <!-- Ligue 1 -->
+    <div class="teams-grid hidden" id="ligue1">
+      <div class="team-card">
+        <img src="assets/logos/psg.png" alt="Paris Saint-Germain">
+        <h2>Paris Saint-Germain</h2>
+        <p>France’s leading club with 11 Ligue 1 titles and superstar-laden squads.</p>
+        <a href="#">View News</a>
+      </div>
+      <div class="team-card">
+        <img src="assets/logos/marseille.png" alt="Marseille">
+        <h2>Olympique Marseille</h2>
+        <p>The only French side to win the UEFA Champions League (1993) with 9 league titles.</p>
+        <a href="#">View News</a>
+      </div>
+    </div>
+
+  </div>
+
+<script>
+  const tabs = document.querySelectorAll('.tab');
+  const sections = document.querySelectorAll('.teams-grid');
+
+  tabs.forEach(tab => {
+    tab.addEventListener('click', () => {
+      tabs.forEach(t => t.classList.remove('active'));
+      tab.classList.add('active');
+
+      sections.forEach(sec => {
+        sec.classList.add('hidden');
+      });
+
+      const league = tab.getAttribute('data-league');
+      document.getElementById(league).classList.remove('hidden');
+    });
+  });
+</script>
+
+</body>
+</html>

@@ -1,0 +1,249 @@
+/* ================================
+   Club Page Styles (club.css)
+   Inspired by FotMob Aesthetics
+   ================================ */
+
+/* Root Variables */
+:root {
+  --primary-color: #facc15;
+  --secondary-color: #000;
+  --text-color: #f0f0f0;
+  --muted-text: #989ca8;
+  --background-color: #000;
+  --border-radius: 8px;
+  --transition-speed: 0.3s;
+}
+
+/* General Styles */
+
+
+/* Tab Navigation */
+.club-tabs {
+  display: flex;
+  justify-content: center;
+  margin: 20px 0;
+  flex-wrap: wrap;
+}
+
+.tab-btn {
+  background-color: var(--secondary-color);
+  border: none;
+  border-radius: var(--border-radius);
+  color: var(--text-color);
+  padding: 10px 20px;
+  margin: 5px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color var(--transition-speed), transform var(--transition-speed);
+}
+
+.tab-btn:hover {
+  background-color: var(--primary-color);
+  color: #fff;
+  transform: translateY(-2px);
+}
+
+.tab-btn.active {
+  background-color: var(--primary-color);
+  color: #fff;
+}
+
+/* Tab Content */
+.tab-content {
+  display: none;
+  padding: 20px;
+  animation: fadeIn var(--transition-speed) ease-in-out;
+}
+
+.tab-content.active {
+  display: block;
+}
+
+/* Overview Grid */
+.overview-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 20px;
+  margin-top: 20px;
+}
+
+.overview-grid div {
+  background-color: var(--secondary-color);
+  border-radius: var(--border-radius);
+  padding: 15px;
+  text-align: center;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+}
+
+.overview-grid h3 {
+  margin-bottom: 10px;
+  color: var(--muted-text);
+  font-size: 1rem;
+  text-transform: uppercase;
+}
+
+.overview-grid p {
+  font-size: 1.2rem;
+  font-weight: bold;
+}
+
+/* Formation Grid */
+.formation-grid {
+  position: relative;
+  width: 100%;
+  max-width: 800px;
+  margin: 40px auto;
+  background: url('assets/pitch.png') no-repeat center center;
+  background-size: contain;
+  aspect-ratio: 16 / 9;
+}
+
+.formation-grid div {
+  position: absolute;
+  text-align: center;
+  transform: translate(-50%, -50%);
+}
+
+.formation-grid img {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  border: 2px solid var(--primary-color);
+  margin-bottom: 5px;
+}
+
+/* Player Positions */
+.pos-gk { top: 90%; left: 50%; }
+.pos-rb { top: 70%; left: 80%; }
+.pos-cb1 { top: 70%; left: 60%; }
+.pos-cb2 { top: 70%; left: 40%; }
+.pos-lb { top: 70%; left: 20%; }
+.pos-cm1 { top: 50%; left: 65%; }
+.pos-cm2 { top: 50%; left: 50%; }
+.pos-cm3 { top: 50%; left: 35%; }
+.pos-rw { top: 30%; left: 75%; }
+.pos-st { top: 30%; left: 50%; }
+.pos-lw { top: 30%; left: 25%; }
+
+/* Fixtures List */
+.fixtures-list {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.fixture-card {
+  background-color: var(--secondary-color);
+  border-radius: var(--border-radius);
+  padding: 15px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+}
+
+.fixture-card h4 {
+  margin-bottom: 5px;
+  color: var(--muted-text);
+}
+
+.fixture-card p {
+  margin: 2px 0;
+}
+
+/* Squad Grid */
+.squad-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+  gap: 20px;
+  margin-top: 20px;
+}
+
+.player-card {
+  background-color: var(--secondary-color);
+  border-radius: var(--border-radius);
+  padding: 10px;
+  text-align: center;
+  transition: transform var(--transition-speed);
+}
+
+.player-card:hover {
+  transform: translateY(-5px);
+}
+
+.player-card img {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  margin-bottom: 10px;
+}
+
+/* Stats Grid */
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 20px;
+  margin-top: 20px;
+}
+
+.stat-card {
+  background-color: var(--secondary-color);
+  border-radius: var(--border-radius);
+  padding: 15px;
+  text-align: center;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+}
+
+.stat-card h4 {
+  margin-bottom: 10px;
+  color: var(--muted-text);
+  font-size: 1rem;
+  text-transform: uppercase;
+}
+
+.stat-card p {
+  font-size: 1.5rem;
+  font-weight: bold;
+}
+
+/* Transfers List */
+.transfers-list {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  margin-top: 20px;
+}
+
+.transfer-card {
+  background-color: var(--secondary-color);
+  border-radius: var(--border-radius);
+  padding: 15px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+}
+
+.transfer-card h4 {
+  margin-bottom: 5px;
+  color: var(--muted-text);
+}
+
+.transfer-card p {
+  margin: 2px 0;
+}
+
+/* Honours List */
+.honours-list {
+  list-style: none;
+  padding: 0;
+  margin-top: 20px;
+}
+
+.honours-list li {
+  background-color: var(--secondary-color);
+  border-radius: var(--border-radius);
+  padding: 10px 15px;
+  margin-bottom: 10px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+}
+
+/* Animations */
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}

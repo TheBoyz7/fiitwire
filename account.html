@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>FootWire | Account</title>
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/account.css">
+</head>
+<body>
+
+  <header class="site-header">
+    <div class="container">
+      <div class="logo">
+        <h1>FootWire ⚡</h1>
+      </div>
+      <nav class="main-nav">
+        <ul>
+          <li><a href="#">Home</a></li>
+          <li><a href="#">News</a></li>
+          <li><a href="#">Leagues</a></li>
+          <li><a href="#">Teams</a></li>
+          <li><a href="#">Live Scores</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main class="account-container">
+    <div class="account-card">
+      <div class="tab-buttons">
+        <button id="signInTab" class="active">Sign In</button>
+        <button id="signUpTab">Sign Up</button>
+      </div>
+
+      <form id="signInForm" class="form">
+        <h2>Welcome Back 👋</h2>
+        <input type="email" placeholder="Email Address" required>
+        <input type="password" placeholder="Password" required>
+        <button type="submit" class="neon-btn">Sign In</button>
+        <p class="toggle-text">Don't have an account? <span id="goToSignUp">Sign Up</span></p>
+      </form>
+
+      <form id="signUpForm" class="form hidden">
+        <h2>Create Your Account 📝</h2>
+        <input type="text" placeholder="Full Name" required>
+        <input type="email" placeholder="Email Address" required>
+        <input type="password" placeholder="Create Password" required>
+        <button type="submit" class="neon-btn">Sign Up</button>
+        <p class="toggle-text">Already a member? <span id="goToSignIn">Sign In</span></p>
+      </form>
+    </div>
+  </main>
+
+  <script>
+    const signInTab = document.getElementById('signInTab');
+    const signUpTab = document.getElementById('signUpTab');
+    const signInForm = document.getElementById('signInForm');
+    const signUpForm = document.getElementById('signUpForm');
+    const goToSignUp = document.getElementById('goToSignUp');
+    const goToSignIn = document.getElementById('goToSignIn');
+
+    signInTab.addEventListener('click', () => {
+      signInTab.classList.add('active');
+      signUpTab.classList.remove('active');
+      signInForm.classList.remove('hidden');
+      signUpForm.classList.add('hidden');
+    });
+
+    signUpTab.addEventListener('click', () => {
+      signUpTab.classList.add('active');
+      signInTab.classList.remove('active');
+      signUpForm.classList.remove('hidden');
+      signInForm.classList.add('hidden');
+    });
+
+    goToSignUp.addEventListener('click', () => {
+      signUpTab.click();
+    });
+
+    goToSignIn.addEventListener('click', () => {
+      signInTab.click();
+    });
+  </script>
+
+</body>
+</html>

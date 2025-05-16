@@ -1,0 +1,498 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Manchester United vs Chelsea - Match Center</title>
+  <link rel="stylesheet" href="css/style.css" />
+  <link rel="stylesheet" href="css/match.css" />
+</head>
+<body>
+  <header class="site-header">
+    <div class="container">
+      <div class="logo">
+        <h1>Footwire</h1>
+      </div>
+      <nav class="main-nav">
+        <ul>
+          <li><a href="/">Home</a></li>
+          <li><a href="/matches">Matches</a></li>
+          <li><a href="/teams">Teams</a></li>
+          <li><a href="/players">Players</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container match-center">
+    <!-- Match Overview -->
+   <div class="match-overview">
+  <div class="team home-team">
+    <img src="manutd-logo.png" alt="Manchester United Logo" class="team-logo">
+    <span class="team-name">Manchester United</span>
+  </div>
+  <div class="score">
+    <span class="team-score">2</span>
+    <span class="match-status">FT</span>
+    <span class="team-score">1</span>
+  </div>
+  <div class="team away-team">
+    <img src="chelsea-logo.png" alt="Chelsea Logo" class="team-logo">
+    <span class="team-name">Chelsea</span>
+  </div>
+</div>
+
+<br>
+    <!-- Tabs Navigation -->
+    <section class="match-tabs">
+      <div class="tabs">
+        <button class="tab-button active" data-tab="summary">Summary</button>
+        <button class="tab-button" data-tab="lineups">Lineups</button>
+        <button class="tab-button" data-tab="stats">Stats</button>
+        <button class="tab-button" data-tab="commentary">Commentary</button>
+      </div>
+
+      <!-- Tab Contents -->
+      <div class="tab-content active" id="summary">
+        <div class="match-summary">
+  <div class="event-row home-event">
+    <div class="event-content">
+      <span class="event-time">12'</span>
+      <span class="event-icon">⚽️</span>
+      <span class="event-player">Bruno Fernandes</span>
+    </div>
+  </div>
+  <div class="event-row away-event">
+    <div class="event-content">
+      <span class="event-time">30'</span>
+      <span class="event-icon">⚽️</span>
+      <span class="event-player">Raheem Sterling</span>
+    </div>
+  </div>
+  <!-- Additional events will be dynamically inserted here -->
+</div>
+
+      </div>
+
+      <div class="tab-content" id="lineups">
+       <div class="lineups-content">
+  <h3>Starting Lineups</h3>
+  <div class="lineup-teams">
+    <!-- Manchester United Lineup -->
+    <div class="team-lineup" id="manutd-lineup">
+      <h4>Manchester United</h4>
+      <div class="pitch"></div>
+      <div class="substitutes">
+        <h5>Substitutes</h5>
+        <ul id="manutd-subs"></ul>
+      </div>
+      <div class="coach">
+        <h5>Coach</h5>
+        <p>Ruben Amorim</p>
+      </div>
+    </div>
+
+    <!-- Chelsea Lineup -->
+    <div class="team-lineup" id="chelsea-lineup">
+      <h4>Chelsea</h4>
+      <div class="pitch"></div>
+      <div class="substitutes">
+        <h5>Substitutes</h5>
+        <ul id="chelsea-subs"></ul>
+      </div>
+      <div class="coach">
+        <h5>Coach</h5>
+        <p>Enzo Maresca</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+         
+      </div>
+
+      <div class="tab-content" id="stats">
+      <div class="match-stats">
+  <div class="stat-row">
+    <div class="team-stat home-stat">
+      <span class="stat-value">55%</span>
+    </div>
+    <div class="stat-name">Possession</div>
+    <div class="team-stat away-stat">
+      <span class="stat-value">45%</span>
+    </div>
+  </div>
+  <div class="stat-bar">
+    <div class="bar home-bar" style="width: 55%;"></div>
+    <div class="bar away-bar" style="width: 45%;"></div>
+  </div>
+  <!-- Repeat for other stats -->
+</div>
+
+      </div>
+
+      <div class="tab-content" id="commentary">
+        <div class="commentary-container">
+  <!-- Events will be dynamically inserted here -->
+</div>
+
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <p>&copy; 2025 Footwire. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+  const tabButtons = document.querySelectorAll('.tab-button');
+  const tabContents = document.querySelectorAll('.tab-content');
+
+  tabButtons.forEach(button => {
+    button.addEventListener('click', () => {
+      // Remove 'active' class from all buttons and contents
+      tabButtons.forEach(btn => btn.classList.remove('active'));
+      tabContents.forEach(content => content.classList.remove('active'));
+
+      // Add 'active' class to the clicked button and corresponding content
+      button.classList.add('active');
+      const tabId = button.getAttribute('data-tab');
+      document.getElementById(tabId).classList.add('active');
+    });
+  });
+});
+
+// Define formations with relative positions
+const formations = {
+  '3-4-3': [
+    { role: 'GK', top: 90, left: 50 },
+    { role: 'CB', top: 70, left: 25 },
+    { role: 'CB', top: 70, left: 50 },
+    { role: 'CB', top: 70, left: 75 },
+    { role: 'LM', top: 50, left: 20 },
+    { role: 'CM', top: 50, left: 40 },
+    { role: 'CM', top: 50, left: 60 },
+    { role: 'RM', top: 50, left: 80 },
+    { role: 'LW', top: 30, left: 30 },
+    { role: 'CF', top: 30, left: 50 },
+    { role: 'RW', top: 30, left: 70 },
+  ],
+  '4-3-3': [
+    { role: 'GK', top: 90, left: 50 },
+    { role: 'LB', top: 70, left: 20 },
+    { role: 'CB', top: 70, left: 40 },
+    { role: 'CB', top: 70, left: 60 },
+    { role: 'RB', top: 70, left: 80 },
+    { role: 'LCM', top: 50, left: 30 },
+    { role: 'CM', top: 50, left: 50 },
+    { role: 'RCM', top: 50, left: 70 },
+    { role: 'LW', top: 30, left: 30 },
+    { role: 'CF', top: 30, left: 50 },
+    { role: 'RW', top: 30, left: 70 },
+  ],
+};
+
+// Define team data
+const teams = {
+  manutd: {
+    formation: '3-4-3',
+    players: [
+      'Altay Bayindir',
+      'Lisandro Martinez',
+      'Harry Maguire',
+      'Matthijs de Ligt',
+      'Diogo Dalot',
+      'Kobbie Mainoo',
+      'Manuel Ugarte',
+      'Noussair Mazraoui',
+      'Amad Diallo',
+      'Bruno Fernandes',
+      'Rasmus Højlund',
+    ],
+    substitutes: [
+      'Andre Onana',
+      'Victor Lindelof',
+      'Luke Shaw',
+      'Christian Eriksen',
+      'Mason Mount',
+      'Alejandro Garnacho',
+      'Antony',
+    ],
+  },
+  chelsea: {
+    formation: '4-3-3',
+    players: [
+      'Robert Sanchez',
+      'Marc Cucurella',
+      'Levi Colwill',
+      'Tosin Adarabioyo',
+      'Reece James',
+      'Romeo Lavia',
+      'Moises Caicedo',
+      'Enzo Fernandez',
+      'Raheem Sterling',
+      'Christopher Nkunku',
+      'Cole Palmer',
+    ],
+    substitutes: [
+      'Djordje Petrovic',
+      'Ben Chilwell',
+      'Trevoh Chalobah',
+      'Conor Gallagher',
+      'Mykhailo Mudryk',
+      'Noni Madueke',
+      'Deivid Washington',
+    ],
+  },
+};
+
+// Function to render lineup
+function renderLineup(teamId, teamData) {
+  const lineupContainer = document.getElementById(`${teamId}-lineup`);
+  const pitch = lineupContainer.querySelector('.pitch');
+  const subsList = document.getElementById(`${teamId}-subs`);
+
+  // Clear existing content
+  pitch.innerHTML = '';
+  subsList.innerHTML = '';
+
+  const formation = formations[teamData.formation];
+  if (!formation) {
+    console.error(`Formation ${teamData.formation} not defined.`);
+    return;
+  }
+
+  // Render starting players
+  teamData.players.forEach((player, index) => {
+    const position = formation[index];
+    if (!position) return;
+
+    const playerDiv = document.createElement('div');
+    playerDiv.className = 'player-position';
+    playerDiv.style.top = `${position.top}%`;
+    playerDiv.style.left = `${position.left}%`;
+    playerDiv.textContent = player;
+    pitch.appendChild(playerDiv);
+  });
+
+  // Render substitutes
+  teamData.substitutes.forEach((sub) => {
+    const li = document.createElement('li');
+    li.textContent = sub;
+    subsList.appendChild(li);
+  });
+}
+
+// Initialize lineups
+document.addEventListener('DOMContentLoaded', () => {
+  renderLineup('manutd', teams.manutd);
+  renderLineup('chelsea', teams.chelsea);
+});
+
+//summary
+const events = [
+  { minute: 12, type: 'goal', player: 'Bruno Fernandes', team: 'home' },
+  { minute: 30, type: 'goal', player: 'Raheem Sterling', team: 'away' },
+  { minute: 90+5, type: 'goal', player: 'Amad Diallo', team: 'home' },
+  // Additional events can be added here
+];
+
+function renderEvents() {
+  const summaryContainer = document.querySelector('.match-summary');
+  summaryContainer.innerHTML = ''; // Clear existing events
+
+  events.forEach(event => {
+    const eventRow = document.createElement('div');
+    eventRow.classList.add('event-row', `${event.team}-event`);
+
+    const eventContent = document.createElement('div');
+    eventContent.classList.add('event-content');
+
+    const timeSpan = document.createElement('span');
+    timeSpan.classList.add('event-time');
+    timeSpan.textContent = `${event.minute}'`;
+
+    const iconSpan = document.createElement('span');
+    iconSpan.classList.add('event-icon');
+    iconSpan.textContent = getEventIcon(event.type);
+
+    const playerSpan = document.createElement('span');
+    playerSpan.classList.add('event-player');
+    playerSpan.textContent = event.player;
+
+    eventContent.appendChild(timeSpan);
+    eventContent.appendChild(iconSpan);
+    eventContent.appendChild(playerSpan);
+    eventRow.appendChild(eventContent);
+    summaryContainer.appendChild(eventRow);
+  });
+}
+
+function getEventIcon(type) {
+  switch (type) {
+    case 'goal':
+      return '⚽️';
+    case 'yellow':
+      return '🟨';
+    case 'red':
+      return '🟥';
+    case 'sub':
+      return '🔄';
+    default:
+      return '';
+  }
+}
+
+document.addEventListener('DOMContentLoaded', renderEvents);
+
+
+//stats
+const stats = [
+  { name: 'Possession', home: 55, away: 45, isPercentage: true },
+  { name: 'Shots on Target', home: 7, away: 5 },
+  { name: 'Total Shots', home: 12, away: 10 },
+  { name: 'Pass Accuracy', home: 85, away: 78, isPercentage: true },
+  { name: 'Fouls', home: 10, away: 12 },
+  { name: 'Corners', home: 6, away: 4 },
+  { name: 'Yellow Cards', home: 2, away: 3 },
+  { name: 'Red Cards', home: 0, away: 1 },
+];
+
+function renderStats() {
+  const container = document.querySelector('.match-stats');
+  container.innerHTML = ''; // Clear existing content
+
+  stats.forEach(stat => {
+    const total = stat.home + stat.away || 1; // Prevent division by zero
+    const homePercent = (stat.home / total) * 100;
+    const awayPercent = (stat.away / total) * 100;
+
+    const statRow = document.createElement('div');
+    statRow.classList.add('stat-row');
+
+    const homeStat = document.createElement('div');
+    homeStat.classList.add('team-stat', 'home-stat');
+    homeStat.innerHTML = `<span class="stat-value">${stat.isPercentage ? stat.home + '%' : stat.home}</span>`;
+
+    const statName = document.createElement('div');
+    statName.classList.add('stat-name');
+    statName.textContent = stat.name;
+
+    const awayStat = document.createElement('div');
+    awayStat.classList.add('team-stat', 'away-stat');
+    awayStat.innerHTML = `<span class="stat-value">${stat.isPercentage ? stat.away + '%' : stat.away}</span>`;
+
+    statRow.appendChild(homeStat);
+    statRow.appendChild(statName);
+    statRow.appendChild(awayStat);
+
+    const statBar = document.createElement('div');
+    statBar.classList.add('stat-bar');
+
+    const homeBar = document.createElement('div');
+    homeBar.classList.add('bar', 'home-bar');
+    homeBar.style.width = `${homePercent}%`;
+
+    const awayBar = document.createElement('div');
+    awayBar.classList.add('bar', 'away-bar');
+    awayBar.style.width = `${awayPercent}%`;
+
+    statBar.appendChild(homeBar);
+    statBar.appendChild(awayBar);
+
+    container.appendChild(statRow);
+    container.appendChild(statBar);
+  });
+}
+
+document.addEventListener('DOMContentLoaded', renderStats);
+
+//commentary
+const event = [
+  {
+    minute: 12,
+    type: 'goal',
+    player: 'Bruno Fernandes',
+    team: 'home',
+    playerImage: 'bruno.jpg'
+  },
+  {
+    minute: 30,
+    type: 'goal',
+    player: 'Raheem Sterling',
+    team: 'away',
+    playerImage: 'sterling.jpg'
+  },
+  {
+    minute: 45,
+    type: 'big_chance',
+    player: 'Marcus Rashford',
+    team: 'home',
+    playerImage: 'rashford.jpg'
+  },
+  // Additional events can be added here
+];
+
+function renderCommentary() {
+  const container = document.querySelector('.commentary-container');
+  container.innerHTML = ''; // Clear existing events
+
+  events.forEach(event => {
+    const eventDiv = document.createElement('div');
+    eventDiv.classList.add('commentary-event', event.team);
+
+    const timeSpan = document.createElement('span');
+    timeSpan.classList.add('event-time');
+    timeSpan.textContent = `${event.minute}'`;
+
+    const iconSpan = document.createElement('span');
+    iconSpan.classList.add('event-icon');
+    iconSpan.textContent = getEventIcon(event.type);
+
+    const playerDiv = document.createElement('div');
+    playerDiv.classList.add('event-player');
+
+    const img = document.createElement('img');
+    img.classList.add('player-image');
+    img.src = event.playerImage;
+    img.alt = event.player;
+
+    const nameSpan = document.createElement('span');
+    nameSpan.textContent = event.player;
+
+    playerDiv.appendChild(img);
+    playerDiv.appendChild(nameSpan);
+
+    eventDiv.appendChild(timeSpan);
+    eventDiv.appendChild(iconSpan);
+    eventDiv.appendChild(playerDiv);
+
+    container.appendChild(eventDiv);
+  });
+}
+
+function getEventIcon(type) {
+  switch (type) {
+    case 'goal':
+      return '⚽️';
+    case 'yellow':
+      return '🟨';
+    case 'red':
+      return '🟥';
+    case 'sub':
+      return '🔄';
+    case 'big_chance':
+      return '🔥';
+    default:
+      return '';
+  }
+}
+
+document.addEventListener('DOMContentLoaded', renderCommentary);
+
+  </script>
+</body>
+</html>

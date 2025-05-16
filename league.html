@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>FootWire | Leagues</title>
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/leagues.css">
+</head>
+<body>
+    <header class="site-header">
+    <div class="container">
+      <div class="logo">
+        <h1>FootWire</h1>
+      </div>
+      <nav class="main-nav">
+        <ul>
+          <li><a href="index.html">Home</a></li>
+          <li><a href="news.html">News</a></li>
+          <li><a href="league.html">Leagues</a></li>
+          <li><a href="team.html">Teams</a></li>
+          <li><a href="live.html">Live Scores</a></li>
+        </ul>
+      </nav>
+      <div class="auth-buttons">
+        <button class="login-btn">Login</button>
+        <button class="signup-btn">Sign Up</button>
+      </div>
+    </div>
+  </header>
+
+
+  <main class="leagues-container">
+    <div class="league-card">
+      <div class="league-header">
+        <img src="img/epl.png" alt="EPL Logo">
+        <h2>Premier League</h2>
+      </div>
+      <ul class="fixtures">
+        <li>Arsenal vs Man City — 18:30</li>
+        <li>Liverpool vs Chelsea — 21:00</li>
+      </ul>
+      <button class="view-more" onclick="viewLeague('Premier League')">View More</button>
+    </div>
+
+    <div class="league-card">
+      <div class="league-header">
+        <img src="img/laliga.png" alt="La Liga Logo">
+        <h2>La Liga</h2>
+      </div>
+      <ul class="fixtures">
+        <li>Real Madrid vs Barcelona — 19:45</li>
+        <li>Atletico vs Sevilla — 22:00</li>
+      </ul>
+      <button class="view-more" onclick="viewLeague('La Liga')">View More</button>
+    </div>
+
+    <div class="league-card">
+      <div class="league-header">
+        <img src="img/seriea.png" alt="Serie A Logo">
+        <h2>Serie A</h2>
+      </div>
+      <ul class="fixtures">
+        <li>Juventus vs Milan — 20:45</li>
+        <li>Inter vs Roma — 18:00</li>
+      </ul>
+      <button class="view-more" onclick="viewLeague('Serie A')">View More</button>
+    </div>
+
+    <div class="league-card">
+      <div class="league-header">
+        <img src="img/bundesliga.png" alt="Bundesliga Logo">
+        <h2>Bundesliga</h2>
+      </div>
+      <ul class="fixtures">
+        <li>Bayern vs Dortmund — 20:30</li>
+        <li>Leipzig vs Leverkusen — 18:30</li>
+      </ul>
+      <button class="view-more" onclick="viewLeague('Bundesliga')">View More</button>
+    </div>
+
+    <div class="league-card">
+      <div class="league-header">
+        <img src="img/ligue1.png" alt="Ligue 1 Logo">
+        <h2>Ligue 1</h2>
+      </div>
+      <ul class="fixtures">
+        <li>PSG vs Marseille — 21:00</li>
+        <li>Lyon vs Monaco — 18:00</li>
+      </ul>
+      <button class="view-more" onclick="viewLeague('Ligue 1')">View More</button>
+    </div>
+  </main>
+
+  <script>
+    function viewLeague(leagueName) {
+      alert('Redirecting to ' + leagueName + ' full details page...');
+      // Example: window.location.href = 'league-details.html?league=' + encodeURIComponent(leagueName);
+    }
+  </script>
+</body>
+</html>
