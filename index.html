@@ -36,15 +36,15 @@
   <!-- 🔴 FEATURED NEWS -->
   <section class="featured-news">
     <div class="container">
-      <div class="headline">
+      <!-- <div class="headline">
         <img src="images/featured.jpg" alt="Breaking News" class="headline-img" />
         <div class="headline-content">
           <span class="tag breaking">Breaking</span>
-          <h2><a href="#">Mbappé Set to Join Real Madrid in Record-Breaking Deal</a></h2>
+          <h2><a href="article.html">Mbappé Set to Join Real Madrid in Record-Breaking Deal</a></h2>
           <p>The French superstar is rumored to sign a 5-year contract with Los Blancos this summer. Full details inside.</p>
           <span class="date">April 30, 2025</span>
         </div>
-      </div>
+      </div> -->
     </div>
   </section>
 
@@ -56,27 +56,8 @@
       <h3>Latest Headlines</h3>
       <div class="articles-grid">
         
-        <article class="news-card">
-          <img src="images/article1.webp" alt="News thumbnail" />
-          <div class="news-info">
-            <span class="tag transfer">Transfer</span>
-            <h4><a href="#">Chelsea Makes Last-Minute Bid for Osimhen</a></h4>
-            <p>Sources claim Chelsea have entered the race to sign Napoli striker Victor Osimhen before the window closes.</p>
-            <span class="date">April 30, 2025</span>
-          </div>
-        </article>
-
-        <article class="news-card">
-          <img src="images/article2.jpg" alt="News thumbnail" />
-          <div class="news-info">
-            <span class="tag injury">Injury</span>
-            <h4><a href="#">Haaland Out for 4 Weeks With Ankle Sprain</a></h4>
-            <p>Manchester City striker Erling Haaland will miss several crucial matches following an injury in training.</p>
-            <span class="date">April 30, 2025</span>
-          </div>
-        </article>
-
-        <!-- More articles... -->
+      
+        <!-- articles from js -->
 
       </div>
     </section>
@@ -133,6 +114,90 @@
       </ul>
     </div>
   </footer>
+<script>
+  const newsArticles = [
+  {
+    id: 1,
+    title: "Mbappé Set to Join Real Madrid in Record-Breaking Deal",
+    summary: "The French superstar is rumored to sign a 5-year contract with Los Blancos this summer. Full details inside.",
+    image: "images/featured.jpg",
+    tag: "Breaking",
+    date: "April 30, 2025",
+    featured: true,
+    link: "#"
+  },
+  {
+    id: 2,
+    title: "Chelsea Makes Last-Minute Bid for Osimhen",
+    summary: "Sources claim Chelsea have entered the race to sign Napoli striker Victor Osimhen before the window closes.",
+    image: "images/article1.webp",
+    tag: "Transfer",
+    date: "April 30, 2025",
+    featured: false,
+    link: "#"
+  },
+  {
+    id: 3,
+    title: "Haaland Out for 4 Weeks With Ankle Sprain",
+    summary: "Manchester City striker Erling Haaland will miss several crucial matches following an injury in training.",
+    image: "images/article2.jpg",
+    tag: "Injury",
+    date: "April 30, 2025",
+    featured: false,
+    link: "#"
+  }
+  
+];
+document.addEventListener('DOMContentLoaded', () => {
+  renderFeaturedNews();
+  renderLatestHeadlines();
+});
 
+function renderFeaturedNews() {
+  const featuredSection = document.querySelector('.featured-news .container');
+  const featuredArticle = newsArticles.find(article => article.featured);
+
+  if (featuredArticle) {
+    featuredSection.innerHTML = `
+      <div class="headline">
+        <img src="${featuredArticle.image}" alt="${featuredArticle.title}" class="headline-img" />
+        <div class="headline-content">
+          <span class="tag ${featuredArticle.tag.toLowerCase()}">${featuredArticle.tag}</span>
+          <h2><a href="${featuredArticle.link}">${featuredArticle.title}</a></h2>
+          <p>${featuredArticle.summary}</p>
+          <span class="date">${featuredArticle.date}</span>
+        </div>
+      </div>
+    `;
+  }
+}
+
+function renderLatestHeadlines() {
+  const articlesGrid = document.querySelector('.articles-grid');
+  articlesGrid.innerHTML = ''; // Clear existing articles
+
+  // Sort articles by date (assuming date is in a parseable format)
+  const sortedArticles = newsArticles
+    .filter(article => !article.featured)
+    .sort((a, b) => new Date(b.date) - new Date(a.date));
+
+  sortedArticles.forEach(article => {
+    const articleElement = document.createElement('article');
+    articleElement.classList.add('news-card');
+    articleElement.innerHTML = `
+      <img src="${article.image}" alt="News thumbnail" />
+      <div class="news-info">
+        <span class="tag ${article.tag.toLowerCase()}">${article.tag}</span>
+        <h4><a href="${article.link}">${article.title}</a></h4>
+        <p>${article.summary}</p>
+        <span class="date">${article.date}</span>
+      </div>
+    `;
+    articlesGrid.appendChild(articleElement);
+  });
+}
+
+
+</script>
 </body>
 </html>
