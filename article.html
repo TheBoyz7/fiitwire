@@ -67,6 +67,93 @@
       <p>&copy; 2025 FootWire. All rights reserved.</p>
     </div>
   </footer>
+<script>
+  
+  // Temporary database of articles
+  const newsArticles = [
+    {
+      id: 1,
+      title: "Mbappé Set to Join Real Madrid in Record-Breaking Deal",
+      summary: "The French superstar is rumored to sign a 5-year contract with Los Blancos this summer. Full details inside.",
+      image: "images/featured.jpg",
+      tag: "Breaking",
+      date: "April 30, 2025",
+      author: "John Doe",
+      body: `
+        <p>The French superstar is rumored to sign a 5-year contract with Los Blancos this summer. Full details inside.</p>
+        <p>Real Madrid are ready to break the bank for Mbappé after multiple failed attempts in previous seasons. Sources suggest the deal could surpass previous transfer records, making it one of the most significant moves in football history.</p>
+      `
+    },
+    {
+      id: 2,
+      title: "Chelsea Makes Last-Minute Bid for Osimhen",
+      summary: "Sources claim Chelsea have entered the race to sign Napoli striker Victor Osimhen before the window closes.",
+      image: "images/article1.webp",
+      tag: "Transfer",
+      date: "April 30, 2025",
+      author: "Jane Smith",
+      body: `
+        <p>Sources claim Chelsea have entered the race to sign Napoli striker Victor Osimhen before the window closes.</p>
+        <p>The Blues are reportedly preparing a substantial offer to lure the Nigerian forward to Stamford Bridge, aiming to bolster their attacking options ahead of the new season.</p>
+      `
+    },
+    {
+      id: 3,
+      title: "Haaland Out for 4 Weeks With Ankle Sprain",
+      summary: "Manchester City striker Erling Haaland will miss several crucial matches following an injury in training.",
+      image: "images/article2.jpg",
+      tag: "Injury",
+      date: "April 30, 2025",
+      author: "Alex Johnson",
+      body: `
+        <p>Manchester City striker Erling Haaland will miss several crucial matches following an injury in training.</p>
+        <p>The Norwegian international suffered an ankle sprain during a training session and is expected to be sidelined for approximately four weeks, impacting City's upcoming fixtures.</p>
+      `
+    }
+  ];
 
+  // Function to get the article ID from the URL
+  function getArticleIdFromURL() {
+    const params = new URLSearchParams(window.location.search);
+    return parseInt(params.get('id'));
+  }
+
+  // Function to render the article based on the ID
+  function renderArticle() {
+    const articleId = getArticleIdFromURL();
+    const article = newsArticles.find(item => item.id === articleId);
+
+    if (!article) {
+      document.querySelector('.article-content .main-article').innerHTML = `<h1>Article Not Found</h1>`;
+      return;
+    }
+
+    document.querySelector('.article-title').textContent = article.title;
+    document.querySelector('.article-meta span').textContent = article.date;
+    document.querySelector('.article-image').src = article.image;
+    document.querySelector('.article-image').alt = article.title;
+    document.querySelector('.article-body').innerHTML = article.body;
+
+    // Render related articles
+    renderRelatedArticles(articleId);
+  }
+
+  // Function to render related articles
+  function renderRelatedArticles(currentArticleId) {
+    const relatedArticles = newsArticles.filter(article => article.id !== currentArticleId).slice(0, 3);
+    const relatedList = document.querySelector('.related-articles');
+    relatedList.innerHTML = '';
+
+    relatedArticles.forEach(article => {
+      const listItem = document.createElement('li');
+      listItem.innerHTML = `<a href="article.html?id=${article.id}">${article.title}</a>`;
+      relatedList.appendChild(listItem);
+    });
+  }
+
+  // Initialize the article rendering on page load
+  document.addEventListener('DOMContentLoaded', renderArticle);
+
+</script>
 </body>
 </html>

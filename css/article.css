@@ -110,3 +110,49 @@
     padding-right: 20px;
   }
   
+  /* RESPONSIVE ARTICLE PAGE STYLES */
+
+@media (max-width: 1024px) {
+  .article-content {
+    flex-direction: column;
+  }
+
+  .main-article {
+    padding-right: 0;
+  }
+
+  .sidebar {
+    margin-top: 30px;
+  }
+}
+
+@media (max-width: 600px) {
+  .article-title {
+    font-size: 2rem;
+  }
+
+  .article-meta {
+    font-size: 0.9rem;
+  }
+
+  .article-body {
+    font-size: 1rem;
+  }
+
+  .sidebar {
+    padding: 15px;
+  }
+
+  .sidebar h3 {
+    font-size: 1.4rem;
+  }
+
+  .related-articles a {
+    font-size: 1rem;
+  }
+
+  .share-btn {
+    padding: 10px 16px;
+    font-size: 0.9rem;
+  }
+}
