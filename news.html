@@ -41,39 +41,88 @@
 
     <!-- News Grid -->
     <div class="news-grid">
-      <article class="news-card">
-        <img src="images/article1.webp" alt="News">
-        <div class="news-info">
-          <span class="tag transfer">Transfer</span>
-          <h4><a href="#">Chelsea Makes Last-Minute Bid for Osimhen</a></h4>
-          <p>Sources claim Chelsea have entered the race to sign Napoli striker Victor Osimhen before the window closes.</p>
-          <span class="date">April 30, 2025</span>
-        </div>
-      </article>
-
-      <!-- More articles... -->
+      <!-- check js -->
     </div>
 
-    <button class="load-more">Load More</button>
+    <!-- <button class="load-more">Load More</button> -->
 
   </main>
 <script>
-    const searchInput = document.querySelector('.universal-search');
-const articles = document.querySelectorAll('.news-card');
 
-searchInput.addEventListener('input', () => {
-  const query = searchInput.value.toLowerCase();
+const newsArticles = [
+  {
+    id: 1,
+    title: "Mbappé Set to Join Real Madrid in Record-Breaking Deal",
+    summary: "The French superstar is rumored to sign a 5-year contract with Los Blancos this summer. Full details inside.",
+    image: "images/featured.jpg",
+    tag: "Breaking",
+    date: "April 30, 2025",
+    featured: true,
+    content: "The French superstar is rumored to sign a 5-year contract with Los Blancos this summer. Full details inside. This would mark one of the biggest transfers in football history...",
+    author: "John Doe"
+  },
+  {
+    id: 7,
+    title: "Chelsea Makes Last-Minute Bid for Osimhen",
+    summary: "Sources claim Chelsea have entered the race to sign Napoli striker Victor Osimhen before the window closes.",
+    image: "images/article1.webp",
+    tag: "Transfer",
+    date: "April 30, 2025",
+    featured: false,
+    content: "Chelsea have launched a surprise bid to secure Victor Osimhen. The Napoli striker has been one of Europe’s most sought-after forwards and could be on the move before the deadline...",
+    author: "Jane Smith"
+  },
+  {
+    id: 3,
+    title: "Haaland Out for 4 Weeks With Ankle Sprain",
+    summary: "Manchester City striker Erling Haaland will miss several crucial matches following an injury in training.",
+    image: "images/article2.jpg",
+    tag: "Injury",
+    date: "April 30, 2025",
+    featured: false,
+    content: "In a blow for Manchester City, Erling Haaland has suffered an ankle sprain during training and is expected to be sidelined for a month...",
+    author: "Michael Brown"
+  }
+];
+ document.addEventListener('DOMContentLoaded', () => {
+    const newsGrid = document.querySelector('.news-grid');
 
-  articles.forEach(article => {
-    const content = article.textContent.toLowerCase();
-    if(content.includes(query)) {
-      article.style.display = 'block';
-      article.classList.add('fade-in');
-    } else {
-      article.style.display = 'none';
-    }
+    // Sort articles by date (assuming date is in a parseable format)
+    const sortedArticles = newsArticles
+      .sort((a, b) => new Date(b.date) - new Date(a.date));
+
+    sortedArticles.forEach(article => {
+      const articleElement = document.createElement('article');
+      articleElement.classList.add('news-card');
+      articleElement.innerHTML = `
+        <img src="${article.image}" alt="News">
+        <div class="news-info">
+          <span class="tag ${article.tag.toLowerCase()}">${article.tag}</span>
+          <h4><a href="article.html?id=${article.id}">${article.title}</a></h4>
+          <p>${article.summary}</p>
+          <span class="date">${article.date}</span>
+        </div>
+      `;
+      newsGrid.appendChild(articleElement);
+    });
   });
-});
+   const searchInput = document.querySelector('.universal-search');
+
+  searchInput.addEventListener('input', () => {
+    const query = searchInput.value.toLowerCase();
+    const articles = document.querySelectorAll('.news-card');
+
+    articles.forEach(article => {
+      const content = article.textContent.toLowerCase();
+      if(content.includes(query)) {
+        article.style.display = 'block';
+        article.classList.add('fade-in');
+      } else {
+        article.style.display = 'none';
+      }
+    });
+  });
+
 
 </script>
 </body>

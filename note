@@ -1,0 +1,9 @@
+function viewLeague(leagueName) {
+  const leagueId = leagueName.toLowerCase().replace(/\s+/g, '-');
+  window.location.href = `league-details.html?league=${leagueId}`;
+}
+//league specific page
+
+
+
+

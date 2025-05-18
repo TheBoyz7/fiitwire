@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>FootWire | Leagues</title>
   <link rel="stylesheet" href="css/style.css">
-  <link rel="stylesheet" href="css/leagues.css">
+  <link rel="stylesheet" href="css/league.css">
 </head>
 <body>
     <header class="site-header">
@@ -31,72 +31,114 @@
 
 
   <main class="leagues-container">
-    <div class="league-card">
-      <div class="league-header">
-        <img src="img/epl.png" alt="EPL Logo">
-        <h2>Premier League</h2>
-      </div>
-      <ul class="fixtures">
-        <li>Arsenal vs Man City — 18:30</li>
-        <li>Liverpool vs Chelsea — 21:00</li>
-      </ul>
-      <button class="view-more" onclick="viewLeague('Premier League')">View More</button>
-    </div>
-
-    <div class="league-card">
-      <div class="league-header">
-        <img src="img/laliga.png" alt="La Liga Logo">
-        <h2>La Liga</h2>
-      </div>
-      <ul class="fixtures">
-        <li>Real Madrid vs Barcelona — 19:45</li>
-        <li>Atletico vs Sevilla — 22:00</li>
-      </ul>
-      <button class="view-more" onclick="viewLeague('La Liga')">View More</button>
-    </div>
-
-    <div class="league-card">
-      <div class="league-header">
-        <img src="img/seriea.png" alt="Serie A Logo">
-        <h2>Serie A</h2>
-      </div>
-      <ul class="fixtures">
-        <li>Juventus vs Milan — 20:45</li>
-        <li>Inter vs Roma — 18:00</li>
-      </ul>
-      <button class="view-more" onclick="viewLeague('Serie A')">View More</button>
-    </div>
-
-    <div class="league-card">
-      <div class="league-header">
-        <img src="img/bundesliga.png" alt="Bundesliga Logo">
-        <h2>Bundesliga</h2>
-      </div>
-      <ul class="fixtures">
-        <li>Bayern vs Dortmund — 20:30</li>
-        <li>Leipzig vs Leverkusen — 18:30</li>
-      </ul>
-      <button class="view-more" onclick="viewLeague('Bundesliga')">View More</button>
-    </div>
-
-    <div class="league-card">
-      <div class="league-header">
-        <img src="img/ligue1.png" alt="Ligue 1 Logo">
-        <h2>Ligue 1</h2>
-      </div>
-      <ul class="fixtures">
-        <li>PSG vs Marseille — 21:00</li>
-        <li>Lyon vs Monaco — 18:00</li>
-      </ul>
-      <button class="view-more" onclick="viewLeague('Ligue 1')">View More</button>
-    </div>
+  <!-- in js -->
   </main>
 
   <script>
-    function viewLeague(leagueName) {
-      alert('Redirecting to ' + leagueName + ' full details page...');
-      // Example: window.location.href = 'league-details.html?league=' + encodeURIComponent(leagueName);
+  // Sample data structure for leagues
+  const leaguesData = [
+    {
+      name: "Premier League",
+      logo: "images/premier-league-logo-5F922E3/premier-league-logo.png",
+      fixtures: [
+        "Arsenal vs Man City — 18:30",
+        "Liverpool vs Chelsea — 21:00"
+      ]
+    },
+    {
+      name: "La Liga",
+      logo: "images/La_Liga-2023-brandlogos.net-OBnr7x/la_liga-logo_brandlogos.net_e6gnt.png",
+      fixtures: [
+        "Real Madrid vs Barcelona — 19:45",
+        "Atletico vs Sevilla — 22:00"
+      ]
+    },
+    {
+      name: "Serie A",
+      logo: "images/Serie_A-brandlogos.net-OVbpy8/serie_a-brandlogo.net.png",
+      fixtures: [
+        "Juventus vs Milan — 20:45",
+        "Inter vs Roma — 18:00"
+      ]
+    },
+    {
+      name: "Bundesliga",
+      logo: "images/bundesliga-logo-2AA0A/bundesliga-logo.png",
+      fixtures: [
+        "Bayern vs Dortmund — 20:30",
+        "Leipzig vs Leverkusen — 18:30"
+      ]
+    },
+    {
+      name: "Ligue 1",
+      logo: "images/Ligue_1-brandlogos.net-Nnef5/ligue_1-logo_brandlogos.net_ggpdc.png",
+      fixtures: [
+        "PSG vs Marseille — 21:00",
+        "Lyon vs Monaco — 18:00"
+      ]
     }
+    // Additional leagues can be added here
+  ];
+
+  // Function to create and render league cards
+  function renderLeagues(leagues) {
+    const container = document.querySelector('.leagues-container');
+    container.innerHTML = ''; // Clear existing content
+
+    leagues.forEach(league => {
+      // Create league card container
+      const card = document.createElement('div');
+      card.className = 'league-card';
+
+      // Create league header
+      const header = document.createElement('div');
+      header.className = 'league-header';
+
+      const logo = document.createElement('img');
+      logo.src = league.logo;
+      logo.alt = `${league.name} Logo`;
+
+      const title = document.createElement('h2');
+      title.textContent = league.name;
+
+      header.appendChild(logo);
+      header.appendChild(title);
+
+      // Create fixtures list
+      const fixturesList = document.createElement('ul');
+      fixturesList.className = 'fixtures';
+
+      league.fixtures.forEach(fixture => {
+        const listItem = document.createElement('li');
+        listItem.textContent = fixture;
+        fixturesList.appendChild(listItem);
+      });
+
+      // Create 'View More' button
+      const viewMoreBtn = document.createElement('button');
+      viewMoreBtn.className = 'view-more';
+      viewMoreBtn.textContent = 'View More';
+      viewMoreBtn.addEventListener('click', () => {
+        // Replace this with actual navigation logic
+        alert(`Redirecting to ${league.name} full details page...`);
+        // Example: window.location.href = `league-details.html?league=${encodeURIComponent(league.name)}`;
+      });
+
+      // Assemble the card
+      card.appendChild(header);
+      card.appendChild(fixturesList);
+      card.appendChild(viewMoreBtn);
+
+      // Append the card to the container
+      container.appendChild(card);
+    });
+  }
+
+  // Initialize the page with leagues
+  document.addEventListener('DOMContentLoaded', () => {
+    renderLeagues(leaguesData);
+  });
+
   </script>
 </body>
 </html>
