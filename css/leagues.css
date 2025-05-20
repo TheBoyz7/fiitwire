@@ -264,6 +264,8 @@
     font-size: 0.8rem;
     color: #777;
   }
+
+  
   
   /*==============================================
     Responsive Breakpoints
@@ -308,3 +310,224 @@
     }
   }
   
+
+  /* Overview video */
+.overview-video {
+  margin: 20px 0;
+}
+
+.overview-video h4 {
+  font-size: 1.4rem;
+  color: #facc15;
+  margin-bottom: 10px;
+}
+
+.video-container {
+  position: relative;
+  width: 700px;
+  height: 393.75px; /* 16:9 aspect ratio */
+  overflow: hidden;
+  border-radius: 8px;
+}
+
+.video-container iframe {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border: none;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .video-container {
+    width: 100%;
+    height: auto;
+    aspect-ratio: 16 / 9;
+  }
+}
+
+/* Wrap video + fixtures side-by-side */
+.overview-widgets {
+  display: flex;
+  gap: 30px;
+  flex-wrap: wrap;
+  margin-top: 20px;
+}
+
+/* Fixtures preview styling */
+.overview-fixtures {
+  flex: 1;
+  min-width: 280px;
+}
+
+.overview-fixtures h4 {
+  font-size: 1.4rem;
+  color: #facc15;
+  margin-bottom: 10px;
+}
+
+.fixtures-preview {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 15px;
+}
+
+/* Reset default link styles */
+.fixture-item {
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+  color: #ddd;
+  padding: 8px 0;
+  border-bottom: 1px solid #333;
+  transition: background 0.2s;
+}
+
+.fixture-item:hover {
+  background: rgba(250, 204, 21, 0.1);
+}
+
+.fixture-logo {
+  width: 24px;
+  height: 24px;
+  object-fit: contain;
+}
+
+.fixture-text {
+  flex: 1;
+  margin: 0 10px;
+  font-size: 1rem;
+}
+
+
+.btn.view-all-fixtures {
+  padding: 8px 16px;
+  background: #facc15;
+  color: #121212;
+  border: none;
+  border-radius: 50px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+
+.btn.view-all-fixtures:hover {
+  background: #fde68a;
+}
+
+/* Responsive: stack on narrow screens */
+@media (max-width: 768px) {
+  .overview-widgets {
+    flex-direction: column;
+  }
+}
+
+.overview-team-of-week h4 {
+   margin-bottom: 10px; 
+   color: #facc15; 
+  }
+.overview-team-of-week {
+  width: 100%;
+  max-width: 400px;
+  margin: 0 auto;
+}
+
+.pitch-container {
+  position: relative;
+  width: 100%;
+  background: #0a6217; /* Pitch background color */
+  border-radius: 8px;
+  height: 700px;
+  overflow: hidden;
+}
+
+.player-card {
+  position: absolute;
+  transform: translate(-50%, -50%);
+  text-align: center;
+  text-decoration: none;
+}
+
+.player-img {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  border: 2px solid #fff;
+}
+
+.player-rating {
+  display: block;
+  margin-top: 4px;
+  color: #fff;
+  font-weight: bold;
+  font-size: 0.9rem;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .overview-team-of-week {
+    max-width: 100%;
+  }
+
+  .player-img {
+    width: 30px;
+    height: 30px;
+  }
+
+  .player-rating {
+    font-size: 0.8rem;
+  }
+}
+
+.league-overview {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+.overview-team-of-week {
+  flex: 1 1 40%;
+  max-width: 40%;
+}
+
+.league-table-container {
+  flex: 1 1 60%;
+  max-width: 60%;
+}
+
+@media (max-width: 768px) {
+  .overview-team-of-week,
+  .league-table-container {
+    flex: 1 1 100%;
+    max-width: 100%;
+  }
+}
+
+/* League Table styling */
+.league-table-container {
+  flex: 1 1 300px;
+  overflow-x: auto;
+}
+
+/* Table styling */
+.league-table-container table {
+  width: 100%;
+  border-collapse: collapse;
+  min-width: 600px;
+}
+
+.league-table-container th,
+.league-table-container td {
+  border: 1px solid #ccc;
+  padding: 8px;
+  text-align: center;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .overview-section {
+    flex-direction: column;
+  }
+}

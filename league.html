@@ -38,6 +38,7 @@
   // Sample data structure for leagues
   const leaguesData = [
     {
+      id: 1,
       name: "Premier League",
       logo: "images/premier-league-logo-5F922E3/premier-league-logo.png",
       fixtures: [
@@ -46,6 +47,7 @@
       ]
     },
     {
+       id: 2,
       name: "La Liga",
       logo: "images/La_Liga-2023-brandlogos.net-OBnr7x/la_liga-logo_brandlogos.net_e6gnt.png",
       fixtures: [
@@ -53,7 +55,8 @@
         "Atletico vs Sevilla — 22:00"
       ]
     },
-    {
+    { 
+       id: 3,
       name: "Serie A",
       logo: "images/Serie_A-brandlogos.net-OVbpy8/serie_a-brandlogo.net.png",
       fixtures: [
@@ -62,6 +65,7 @@
       ]
     },
     {
+       id: 4,
       name: "Bundesliga",
       logo: "images/bundesliga-logo-2AA0A/bundesliga-logo.png",
       fixtures: [
@@ -70,6 +74,7 @@
       ]
     },
     {
+       id: 5,
       name: "Ligue 1",
       logo: "images/Ligue_1-brandlogos.net-Nnef5/ligue_1-logo_brandlogos.net_ggpdc.png",
       fixtures: [
@@ -77,6 +82,8 @@
         "Lyon vs Monaco — 18:00"
       ]
     }
+
+    
     // Additional leagues can be added here
   ];
 
@@ -119,9 +126,7 @@
       viewMoreBtn.className = 'view-more';
       viewMoreBtn.textContent = 'View More';
       viewMoreBtn.addEventListener('click', () => {
-        // Replace this with actual navigation logic
-        alert(`Redirecting to ${league.name} full details page...`);
-        // Example: window.location.href = `league-details.html?league=${encodeURIComponent(league.name)}`;
+          window.location.href = `leagues.html?id=${league.id}`
       });
 
       // Assemble the card

@@ -2,6 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
+   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>FootWire | Premier League Overview</title>
   <link rel="stylesheet" href="css/style.css">
   <link rel="stylesheet" href="css/leagues.css">
@@ -14,11 +15,11 @@
       <h1>FootWire ⚽ Premier League</h1>
       <nav class="main-nav">
         <ul>
-          <li><a href="#">Home</a></li>
-          <li><a href="#">News</a></li>
-          <li><a href="#">Leagues</a></li>
-          <li><a href="#">Teams</a></li>
-          <li><a href="#">Live Scores</a></li>
+          <li><a href="index.html">Home</a></li>
+          <li><a href="news.html">News</a></li>
+          <li><a href="league.html">Leagues</a></li>
+          <li><a href="team.html">Teams</a></li>
+          <li><a href="live.html">Live Scores</a></li>
         </ul>
       </nav>
     </div>
@@ -27,7 +28,7 @@
   <!-- League Banner -->
   <section class="league-banner">
     <div class="container">
-      <img src="premier-league-logo.png" alt="Premier League Logo" class="league-logo">
+      <img src="images/premier-league-logo-5F922E3/premier-league-logo.png" alt="Premier League Logo" class="league-logo">
       <div class="league-info">
         <h2>Premier League</h2>
         <p class="league-description">England’s top-flight competition featuring 20 clubs battling for glory.</p>
@@ -50,9 +51,35 @@
 
     <!-- Overview -->
     <section id="overview" class="tab-content active">
-      <h3>League Overview</h3>
-      <p>Welcome to the 2024–25 Premier League season. Here’s a snapshot of what to expect.</p>
-      
+     <div class="overview-widgets">
+  <div class="overview-video">
+    <h4>Weekly League News</h4>
+    <div class="video-container"><!-- iframe injected here --></div>
+  </div>
+
+  <div class="overview-fixtures">
+    <br>
+    <h4>Upcoming Fixtures</h4>
+    <ul class="fixtures-preview">
+      <!-- JS will insert <li>Team A vs Team B — Time</li> here -->
+    </ul>
+    <button class="btn view-all-fixtures">View All Fixtures</button>
+  </div>
+</div>
+
+<div class="league-overview">
+  <div class="overview-team-of-week">
+    <h4>Team of the Week</h4>
+    <div class="pitch-container">
+      <!-- Player cards will be injected here -->
+    </div>
+  </div>
+  <div class="league-table-container">
+    <!-- League Table content will be injected here -->
+  </div>
+</div>
+
+
     </section>
 
     <!-- Standings -->
@@ -132,23 +159,195 @@
       <button class="view-more-news">View More News</button>
     </section>
 
-  </main>
 
+    
+  </main>
+<!-- ⚫ FOOTER -->
+  <footer class="site-footer">
+    <div class="container">
+      <p>&copy; 2025 FootWire. All rights reserved.</p>
+      <ul class="footer-links">
+        <li><a href="">Privacy</a></li>
+        <li><a href="">Terms</a></li>
+        <li><a href="">Contact</a></li>
+      </ul>
+      <ul class="social-icons">
+        <li><a href=""><img src="icons/x.svg" alt="Twitter/X"></a></li>
+        <li><a href=""><img src="icons/instagram.svg" alt="Instagram"></a></li>
+        <li><a href=""><img src="icons/youtube.svg" alt="YouTube"></a></li>
+      </ul>
+    </div>
+  </footer>
   <script>
-   
-    // MAIN TAB SWITCHING
+  // Europe’s Top 5 Leagues Data
+const leagues = [
+  {
+    id: 1,
+    name: 'Premier League',
+    logo: 'images/premier-league-logo-5F922E3/premier-league-logo.png',
+    description: 'England’s top-flight competition featuring 20 clubs battling for glory.',
+    fixtures: [
+      {
+        home: 'Arsenal',
+        away: 'Man City',
+        time: '18:30',
+        homeLogo: 'images/logos/arsenal.png',
+        awayLogo: 'images/logos/mancity.png',
+        link: 'match.html?id=1001'
+      },
+      {
+        home: 'Liverpool',
+        away: 'Chelsea',
+        time: '21:00',
+        homeLogo: 'images/logos/liverpool.png',
+        awayLogo: 'images/logos/chelsea.png',
+        link: 'match.html?id=1002'
+      },
+      {
+        home: 'Newcastle',
+        away: 'Tottenham',
+        time: '16:00',
+        homeLogo: 'images/logos/newcastle.png',
+        awayLogo: 'images/logos/tottenham.png',
+        link: 'match.html?id=1003'
+      },
+    ],
+     teamOfWeek: [
+      { name: 'Alisson', position: 'GK', rating: 7.8, img: 'images/players/alisson.png' },
+      { name: 'Trent Alexander-Arnold', position: 'RB', rating: 8.2, img: 'images/players/trent.png' },
+      { name: 'Virgil van Dijk', position: 'CB', rating: 8.5, img: 'images/players/vandijk.png' },
+      { name: 'Saliba', position: 'CB', rating: 8.0, img: 'images/players/rudiger.png' },
+      { name: 'Luke Shaw', position: 'LB', rating: 8.1, img: 'images/players/cancelo.png' },
+      { name: 'Kevin De Bruyne', position: 'CM', rating: 8.7, img: 'images/players/debruyne.png' },
+      { name: 'Bruno Fernandes', position: 'CM', rating: 8.3, img: 'images/players/fernandes.png' },
+      { name: 'Maddison', position: 'CM', rating: 8.4, img: 'images/players/modric.png' },
+      { name: 'Mohamed Salah', position: 'RW', rating: 8.6, img: 'images/players/salah.png' },
+      { name: 'Erling Haaland', position: 'ST', rating: 8.9, img: 'images/players/haaland.png' },
+      { name: 'Bukayo Saka', position: 'LW', rating: 8.2, img: 'images/players/saka.png' }
+    ],
+    standings: [
+      { name: 'Liverpool', played: 36, won: 25, drawn: 8, lost: 3, gf: 83, ga: 37, gd: 46, points: 83 },
+      { name: 'Arsenal', played: 36, won: 18, drawn: 14, lost: 4, gf: 66, ga: 33, gd: 33, points: 68 },
+      { name: 'Newcastle United', played: 36, won: 20, drawn: 6, lost: 10, gf: 68, ga: 45, gd: 23, points: 66 },
+      { name: 'Manchester City', played: 36, won: 19, drawn: 8, lost: 9, gf: 67, ga: 43, gd: 24, points: 65 },
+      { name: 'Chelsea', played: 36, won: 18, drawn: 9, lost: 9, gf: 62, ga: 43, gd: 19, points: 63 },
+      { name: 'Aston Villa', played: 36, won: 18, drawn: 9, lost: 9, gf: 56, ga: 49, gd: 7, points: 63 },
+      { name: 'Nottingham Forest', played: 36, won: 18, drawn: 8, lost: 10, gf: 56, ga: 44, gd: 12, points: 62 },
+      { name: 'Brentford', played: 36, won: 16, drawn: 7, lost: 13, gf: 63, ga: 53, gd: 10, points: 55 },
+      { name: 'Brighton & Hove Albion', played: 36, won: 14, drawn: 13, lost: 9, gf: 59, ga: 56, gd: 3, points: 55 },
+      { name: 'Bournemouth', played: 36, won: 14, drawn: 11, lost: 11, gf: 55, ga: 43, gd: 12, points: 53 },
+      // ... other teams ...
+    ]
+  },
+  {
+    id: 2,
+    name: 'La Liga',
+    logo: 'images/La_Liga-2023-brandlogos.net-OBnr7x/la_liga-logo_brandlogos.net_e6gnt.png',
+    description: 'Spain’s premier professional football division with fierce rivalries.',
+     fixtures: [
+      {
+        home: 'Real Madrid',
+        away: 'Barcelona',
+        time: '18:30',
+        homeLogo: 'images/logos/arsenal.png',
+        awayLogo: 'images/logos/mancity.png',
+        link: 'match.html?id=2001'
+      },
+    
+    ],
+    teamOfWeek: [
+      { name: 'Jan Oblak', position: 'GK', rating: 8.0, img: 'images/players/oblak.png' },
+      { name: 'Dani Carvajal', position: 'RB', rating: 8.1, img: 'images/players/carvajal.png' },
+      { name: 'Éder Militão', position: 'CB', rating: 8.3, img: 'images/players/militao.png' },
+      { name: 'Asensio', position: 'CB', rating: 8.0, img: 'images/players/ramos.png' },
+      { name: 'Jordi Alba', position: 'LB', rating: 8.2, img: 'images/players/alba.png' },
+      { name: 'Jude Bellingham', position: 'CM', rating: 8.4, img: 'images/players/kroos.png' },
+      { name: 'Frenkie de Jong', position: 'CM', rating: 8.3, img: 'images/players/dejong.png' },
+      { name: 'Pedri', position: 'CM', rating: 8.1, img: 'images/players/pedri.png' },
+      { name: 'Mbappe', position: 'ST', rating: 8.5, img: 'images/players/benzema.png' },
+      { name: 'Yamal', position: 'LW', rating: 8.0, img: 'images/players/fati.png' },
+      { name: 'Vinícius Júnior', position: 'RW', rating: 8.2, img: 'images/players/vini.png' }
+    ]
+  },
+  {
+    id: 3,
+    name: 'Serie A',
+    logo: 'images/serie-a-logo.png',
+    description: 'Italy’s most prestigious football league, home to legendary clubs.',
+     fixtures: [
+      {
+        home: 'Juventus',
+        away: 'AC Milan',
+        time: '18:30',
+        homeLogo: 'images/logos/arsenal.png',
+        awayLogo: 'images/logos/mancity.png',
+        link: 'match.html?id=3001'
+      },
+     
+    ]
+  },
+  {
+    id: 4,
+    name: 'Bundesliga',
+    logo: 'images/bundesliga-logo.png',
+    description: 'Germany’s top professional football league known for passionate fans.',
+     fixtures: [
+      {
+        home: 'Bayern Munich',
+        away: 'Dortmund',
+        time: '18:30',
+        homeLogo: 'images/logos/arsenal.png',
+        awayLogo: 'images/logos/mancity.png',
+        link: 'match.html?id=4001'
+      },
+      
+    ]
+  },
+  {
+    id: 5,
+    name: 'Ligue 1',
+    logo: 'images/ligue-1-logo.png',
+    description: 'France’s elite football division showcasing world-class talent.',
+     fixtures: [
+      {
+        home: 'PSG',
+        away: 'Marseille',
+        time: '18:30',
+        homeLogo: 'images/logos/arsenal.png',
+        awayLogo: 'images/logos/mancity.png',
+        link: 'match.html?id=5001'
+      },
+    ]
+  }
+];
+
+// Get league ID from URL param (as number string)
+const urlParams = new URLSearchParams(window.location.search);
+const leagueNumId = urlParams.get('id');
+
+// Convert to number and find corresponding league by array index (subtract 1 since arrays are 0-based)
+const selectedLeague = leagues[leagueNumId - 1] || leagues[0]; // fallback to first (Premier League)
+
+// If found, update page content dynamically
+if (selectedLeague) {
+  document.title = `FootWire | ${selectedLeague.name} Overview`;
+  document.querySelector('.site-header h1').textContent = `FootWire ⚽ ${selectedLeague.name}`;
+  document.querySelector('.league-logo').src = selectedLeague.logo;
+  document.querySelector('.league-logo').alt = `${selectedLeague.name} Logo`;
+  document.querySelector('.league-info h2').textContent = selectedLeague.name;
+  document.querySelector('.league-description').textContent = selectedLeague.description;
+}
+
+// MAIN TAB SWITCHING
 const tabButtons = document.querySelectorAll('.tab-btn');
 const tabContents = document.querySelectorAll('.tab-content');
 
 tabButtons.forEach(btn => {
   btn.addEventListener('click', () => {
-    // deactivate all tabs & contents
     tabButtons.forEach(b => b.classList.remove('active'));
     tabContents.forEach(c => c.classList.remove('active'));
-    // activate clicked tab & its content panel
     btn.classList.add('active');
     document.getElementById(btn.dataset.tab).classList.add('active');
-    // scroll active tab into view on mobile
     btn.scrollIntoView({ behavior: 'smooth', inline: 'center' });
   });
 });
@@ -174,11 +373,171 @@ viewMoreButtons.forEach(button => {
     const targetList = document.getElementById(button.dataset.target);
     const isHidden = targetList.classList.toggle('hidden');
     button.textContent = isHidden ? 'View More' : 'View Less';
-    // smooth scroll newly revealed content into view
     if (!isHidden) {
       targetList.scrollIntoView({ behavior: 'smooth' });
     }
   });
+});
+
+// video 
+const weeklyNewsVideos = {
+  1: 'https://www.youtube.com/embed/https://youtu.be/XYoMhLSd3Ww?si=e_AmEjPWuONVtwQd',
+  2: 'https://www.youtube.com/embed/https://youtu.be/dz8uxFVRgrA?si=WouOZ-OPiPOMAH_k',
+  // …other leagues…
+};
+
+const overviewVideoContainer = document.querySelector('#overview .video-container');
+const leagueKey = selectedLeague.id; // from our league.js code above
+const videoURL = weeklyNewsVideos[leagueKey] || weeklyNewsVideos['premier-league'];
+
+overviewVideoContainer.innerHTML = `
+  <iframe
+    src="${videoURL}"
+    frameborder="0"
+    allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
+    allowfullscreen
+  ></iframe>
+`;
+
+// fixtures
+const fixturesPreview = document.querySelector('.fixtures-preview');
+fixturesPreview.innerHTML = '';
+
+(selectedLeague.fixtures || []).slice(0, 3).forEach(fx => {
+  const a = document.createElement('a');
+  a.href = fx.link;
+  a.className = 'fixture-item';
+
+  a.innerHTML = `
+    <img src="${fx.homeLogo}" alt="${fx.home} logo" class="fixture-logo">
+    <span class="fixture-text">${fx.home} vs ${fx.away} — ${fx.time}</span>
+    <img src="${fx.awayLogo}" alt="${fx.away} logo" class="fixture-logo">
+  `;
+
+  fixturesPreview.appendChild(a);
+});
+
+// --- Team of the Week ---
+
+
+// position mapping
+const formationPositions = {
+  GK: { top: 90, left: 50 },
+  LB: { top: 70, left: 15 },
+  CB: [
+    { top: 70, left: 40 },
+    { top: 70, left: 60 }
+  ],
+  RB: { top: 70, left: 85 },
+  CM: [
+    { top: 50, left: 25 },
+    { top: 50, left: 50 },
+    { top: 50, left: 75 }
+  ],
+  LW: { top: 30, left: 20 },
+  ST: { top: 30, left: 50 },
+  RW: { top: 30, left: 80 }
+};
+
+
+
+const pitchContainer = document.querySelector('.pitch-container');
+const positionCounters = {}; // To handle multiple players in the same position
+
+selectedLeague.teamOfWeek.forEach(player => {
+  const pos = player.position;
+  let coords;
+
+  if (Array.isArray(formationPositions[pos])) {
+    // Initialize counter if not present
+    if (!positionCounters[pos]) positionCounters[pos] = 0;
+    // Assign coordinates based on the counter
+    coords = formationPositions[pos][positionCounters[pos]];
+    positionCounters[pos]++;
+  } else {
+    coords = formationPositions[pos];
+  }
+
+  if (!coords) return; // Skip if position is undefined
+
+  // Create player card element
+  const playerCard = document.createElement('a');
+  playerCard.href = `player.html?id=${encodeURIComponent(player.name.toLowerCase().replace(/\s+/g, '-'))}`;
+  playerCard.className = 'player-card';
+  playerCard.style.top = `${coords.top}%`;
+  playerCard.style.left = `${coords.left}%`;
+
+  playerCard.innerHTML = `
+    <img src="${player.img}" alt="${player.name}" class="player-img">
+    <span class="player-rating">${player.rating.toFixed(1)}</span>
+  `;
+
+  pitchContainer.appendChild(playerCard);
+});
+
+
+
+//table
+// Function to extract the 'id' parameter from the URL
+function getLeagueIdFromURL() {
+  const params = new URLSearchParams(window.location.search);
+  const idParam = params.get('id');
+  return idParam ? parseInt(idParam, 10) : null;
+}
+
+// Function to render the league table for a given league ID
+function renderLeagueTable(leagueId) {
+  const league = leagues.find(l => l.id === leagueId);
+  if (!league || !league.standings) return;
+
+  const tableContainer = document.querySelector('.league-table-container');
+  tableContainer.innerHTML = `
+    <h2>${league.name} Standings</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>Pos</th>
+          <th>Club</th>
+          <th>Pl</th>
+          <th>W</th>
+          <th>D</th>
+          <th>L</th>
+          <th>GF</th>
+          <th>GA</th>
+          <th>GD</th>
+          <th>Pts</th>
+        </tr>
+      </thead>
+      <tbody>
+        ${league.standings
+          .slice(0, Math.ceil(league.standings.length / 2))
+          .map((team, index) => `
+            <tr>
+              <td>${index + 1}</td>
+              <td>${team.name}</td>
+              <td>${team.played}</td>
+              <td>${team.won}</td>
+              <td>${team.drawn}</td>
+              <td>${team.lost}</td>
+              <td>${team.gf}</td>
+              <td>${team.ga}</td>
+              <td>${team.gd}</td>
+              <td>${team.points}</td>
+            </tr>
+          `).join('')}
+      </tbody>
+    </table>
+  `;
+}
+
+// Initialize the league table rendering based on URL parameter
+document.addEventListener('DOMContentLoaded', () => {
+  const leagueId = getLeagueIdFromURL();
+  if (leagueId !== null) {
+    renderLeagueTable(leagueId);
+  } else {
+    console.warn('No league ID specified in the URL.');
+  }
 });
 
   </script>

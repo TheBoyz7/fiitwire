@@ -7,3 +7,24 @@ function viewLeague(leagueName) {
 
 
 
+const leagues = [
+  {
+    id: 1,
+    name: 'Premier League',
+    // ... other properties ...
+    standings: [
+      { name: 'Liverpool', played: 36, won: 25, drawn: 8, lost: 3, gf: 83, ga: 37, gd: 46, points: 83 },
+      { name: 'Arsenal', played: 36, won: 18, drawn: 14, lost: 4, gf: 66, ga: 33, gd: 33, points: 68 },
+      { name: 'Newcastle United', played: 36, won: 20, drawn: 6, lost: 10, gf: 68, ga: 45, gd: 23, points: 66 },
+      { name: 'Manchester City', played: 36, won: 19, drawn: 8, lost: 9, gf: 67, ga: 43, gd: 24, points: 65 },
+      { name: 'Chelsea', played: 36, won: 18, drawn: 9, lost: 9, gf: 62, ga: 43, gd: 19, points: 63 },
+      { name: 'Aston Villa', played: 36, won: 18, drawn: 9, lost: 9, gf: 56, ga: 49, gd: 7, points: 63 },
+      { name: 'Nottingham Forest', played: 36, won: 18, drawn: 8, lost: 10, gf: 56, ga: 44, gd: 12, points: 62 },
+      { name: 'Brentford', played: 36, won: 16, drawn: 7, lost: 13, gf: 63, ga: 53, gd: 10, points: 55 },
+      { name: 'Brighton & Hove Albion', played: 36, won: 14, drawn: 13, lost: 9, gf: 59, ga: 56, gd: 3, points: 55 },
+      { name: 'Bournemouth', played: 36, won: 14, drawn: 11, lost: 11, gf: 55, ga: 43, gd: 12, points: 53 },
+      // ... other teams ...
+    ]
+  },
+  // ... other leagues ...
+];
