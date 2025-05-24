@@ -85,14 +85,22 @@
     <!-- Standings -->
     <section id="standings" class="tab-content">
       <h3>Current Standings</h3>
-      <table class="standings-table">
-        <thead>
-          <tr><th>#</th><th>Club</th><th>MP</th><th>W</th><th>D</th><th>L</th><th>GF</th><th>GA</th><th>GD</th><th>PTS</th></tr>
-        </thead>
-        <tbody>
-          <!-- Rows to be injected by JS or templating -->
-        </tbody>
-      </table>
+     <div id="wg-api-football-standings"
+    data-host="v3.football.api-sports.io"
+    data-key="e629aa08d0bd877e4d50f892075d653e"
+    data-league="39"
+    data-team="10"
+    data-season="2021"
+    data-theme=""
+    data-show-errors="true"
+    data-show-logos="true"
+    class="wg_loader">
+</div>
+<script
+    type="module"
+    src="https://widgets.api-sports.io/2.0.3/widgets.js">
+</script>
+
     </section>
 
     <!-- Fixtures -->
