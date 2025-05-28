@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Season Standings</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      background: #111;
+      color: #eee;
+      padding: 20px;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 20px;
+      background: #222;
+    }
+    th, td {
+      padding: 8px 12px;
+      border: 1px solid #333;
+      text-align: left;
+    }
+    th {
+      background: #333;
+    }
+    #error {
+      color: red;
+      margin-top: 20px;
+    }
+    img.team-logo {
+      width: 20px;
+      height: 20px;
+      margin-right: 6px;
+      vertical-align: middle;
+    }
+  </style>
+</head>
+<body>
+  <h1>Season Standings</h1>
+  <div id="error"></div>
+  <table>
+    <thead>
+      <tr>
+        <th>Position</th>
+        <th>Team</th>
+        <th>Points</th>
+      </tr>
+    </thead>
+    <tbody id="standings-body">
+      <!-- Data rows will go here -->
+    </tbody>
+  </table>
+
+  <script>
+    fetch('http://localhost:3000/api/standings')
+      .then(response => response.json())
+      .then(data => {
+        const standingsBody = document.getElementById('standings-body');
+
+        if (!data.data || data.data.length === 0) {
+          document.getElementById('error').textContent = 'No standings data found.';
+          return;
+        }
+
+        data.data.forEach(team => {
+          const row = document.createElement('tr');
+
+          const positionCell = document.createElement('td');
+          positionCell.textContent = team.position;
+          row.appendChild(positionCell);
+
+          const teamCell = document.createElement('td');
+          const teamImg = document.createElement('img');
+          teamImg.src = team.participant.image_path;
+          teamImg.alt = team.participant.name;
+          teamImg.className = 'team-logo';
+          teamCell.appendChild(teamImg);
+          teamCell.appendChild(document.createTextNode(team.participant.name));
+          row.appendChild(teamCell);
+
+          const pointsCell = document.createElement('td');
+          pointsCell.textContent = team.points;
+          row.appendChild(pointsCell);
+
+          standingsBody.appendChild(row);
+        });
+      })
+      .catch(error => {
+        console.error('Error fetching standings:', error);
+        document.getElementById('error').textContent = 'Failed to load standings data.';
+      });
+  </script>
+</body>
+</html>

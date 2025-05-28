@@ -531,3 +531,100 @@
     flex-direction: column;
   }
 }
+
+
+
+/* api testing */
+ table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 20px;
+      background: #222;
+    }
+    th, td {
+      padding: 8px 12px;
+      border: 1px solid #333;
+      text-align: left;
+    }
+    th {
+      background: #333;
+    }
+    #error {
+      color: red;
+      margin-top: 20px;
+    }
+    img.team-logo {
+      width: 20px;
+      height: 20px;
+      margin-right: 6px;
+      vertical-align: middle;
+    }
+
+#statistics {
+  padding: 2rem;
+  background: #111827;
+  color: #facc15;
+  border-radius: 1rem;
+  margin-top: 2rem;
+}
+
+.sub-tabs {
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.sub-tab {
+  background: #1f2937;
+  border: none;
+  padding: 0.75rem 1.5rem;
+  color: #facc15;
+  cursor: pointer;
+  border-radius: 0.5rem;
+  font-weight: 600;
+}
+
+.sub-tab.active {
+  background: #facc15;
+  color: #111827;
+}
+
+.stat-block {
+  margin-bottom: 2rem;
+}
+
+.stat-block h4 {
+  font-size: 1.25rem;
+  margin-bottom: 0.75rem;
+  color: #facc15;
+}
+
+.stat-list,
+.extra-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.stat-list li,
+.extra-list li {
+  padding: 0.5rem 0;
+  border-bottom: 1px solid #374151;
+  display: flex;
+  justify-content: space-between;
+  color: #d1d5db;
+}
+
+.view-more {
+  margin-top: 0.75rem;
+  background: #374151;
+  border: none;
+  padding: 0.5rem 1rem;
+  color: #facc15;
+  border-radius: 0.5rem;
+  cursor: pointer;
+}
+
+.hidden {
+  display: none;
+}

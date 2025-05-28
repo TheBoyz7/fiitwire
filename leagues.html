@@ -85,21 +85,19 @@
     <!-- Standings -->
     <section id="standings" class="tab-content">
       <h3>Current Standings</h3>
-     <div id="wg-api-football-standings"
-    data-host="v3.football.api-sports.io"
-    data-key="e629aa08d0bd877e4d50f892075d653e"
-    data-league="39"
-    data-team="10"
-    data-season="2021"
-    data-theme=""
-    data-show-errors="true"
-    data-show-logos="true"
-    class="wg_loader">
-</div>
-<script
-    type="module"
-    src="https://widgets.api-sports.io/2.0.3/widgets.js">
-</script>
+       <div id="error"></div>
+  <table>
+    <thead>
+      <tr>
+        <th>Position</th>
+        <th>Team</th>
+        <th>Points</th>
+      </tr>
+    </thead>
+    <tbody id="standings-body">
+      <!-- Data rows will go here -->
+    </tbody>
+  </table>
 
     </section>
 
@@ -120,43 +118,24 @@
     </section>
 
     <!-- Statistics -->
-    <section id="statistics" class="tab-content">
-      <h3>Statistics</h3>
-      <!-- Sub-tabs for Season vs All-Time -->
-      <div class="sub-tabs">
-        <button class="sub-tab active" data-subtab="season-stats">Season</button>
-        <button class="sub-tab" data-subtab="alltime-stats">All-Time</button>
-      </div>
+   <section id="statistics" class="tab-content">
+  <h3>Statistics</h3>
 
-      <div id="season-stats" class="sub-tab-content active">
-        <div class="stat-block" id="top-scorers">
-          <h4>Top Scorers (2024–25)</h4>
-          <ol><!-- top 5 + expandable list --></ol>
-          <button class="view-more" data-target="full-scorers">View More</button>
-          <ol id="full-scorers" class="extra-list hidden"></ol>
-        </div>
-        <div class="stat-block" id="top-assists">
-          <h4>Top Assists</h4>
-          <ol></ol><button class="view-more" data-target="full-assists">View More</button>
-          <ol id="full-assists" class="extra-list hidden"></ol>
-        </div>
-        <!-- additional stat-blocks: clean sheets, xG, team goals, etc. -->
-      </div>
+  <div id="top-scorers">
+  <ul class="stat-list"></ul>
+  <ul id="full-scorers" class="hidden"></ul>
+</div>
+<div id="top-assists">
+  <ul class="stat-list"></ul>
+  <ul id="full-assists" class="hidden"></ul>
+</div>
+<div id="clean-sheets">
+  <ul class="stat-list"></ul>
+  <ul id="full-cleansheets" class="hidden"></ul>
+</div>
 
-      <div id="alltime-stats" class="sub-tab-content">
-        <div class="stat-block" id="alltime-titles">
-          <h4>All-Time Titles</h4>
-          <ol></ol><button class="view-more" data-target="full-titles">View More</button>
-          <ol id="full-titles" class="extra-list hidden"></ol>
-        </div>
-        <div class="stat-block" id="alltime-goals">
-          <h4>All-Time Goals</h4>
-          <ol></ol><button class="view-more" data-target="full-goals">View More</button>
-          <ol id="full-goals" class="extra-list hidden"></ol>
-        </div>
-        <!-- more all-time stats -->
-      </div>
-    </section>
+</section>
+
 
     <!-- News -->
     <section id="news" class="tab-content">
@@ -245,7 +224,8 @@ const leagues = [
       { name: 'Brighton & Hove Albion', played: 36, won: 14, drawn: 13, lost: 9, gf: 59, ga: 56, gd: 3, points: 55 },
       { name: 'Bournemouth', played: 36, won: 14, drawn: 11, lost: 11, gf: 55, ga: 43, gd: 12, points: 53 },
       // ... other teams ...
-    ]
+    ],
+    seasonId:'23690',
   },
   {
     id: 2,
@@ -275,7 +255,8 @@ const leagues = [
       { name: 'Mbappe', position: 'ST', rating: 8.5, img: 'images/players/benzema.png' },
       { name: 'Yamal', position: 'LW', rating: 8.0, img: 'images/players/fati.png' },
       { name: 'Vinícius Júnior', position: 'RW', rating: 8.2, img: 'images/players/vini.png' }
-    ]
+    ],
+     seasonId:'23584',
   },
   {
     id: 3,
@@ -547,6 +528,66 @@ document.addEventListener('DOMContentLoaded', () => {
     console.warn('No league ID specified in the URL.');
   }
 });
+
+
+// testing api
+if (!leagueNumId) {
+  document.getElementById('error').textContent = 'No league ID provided in URL.';
+} else {
+  const selectedLeague = leagues.find(l => l.id.toString() === leagueNumId);
+
+  if (!selectedLeague) {
+    document.getElementById('error').textContent = 'League not found.';
+  } else {
+    const seasonId = selectedLeague.seasonId;
+
+    fetch(`http://localhost:3000/api/standings/${seasonId}`)
+      .then(response => {
+        if (!response.ok) {
+          throw new Error('Network response was not ok');
+        }
+        return response.json();
+      })
+      .then(data => {
+        const standingsBody = document.getElementById('standings-body');
+        standingsBody.innerHTML = ''; 
+
+        if (!data.data || data.data.length === 0) {
+          document.getElementById('error').textContent = 'No standings data found.';
+          return;
+        }
+
+        data.data.forEach(team => {
+          const row = document.createElement('tr');
+
+          const positionCell = document.createElement('td');
+          positionCell.textContent = team.position;
+          row.appendChild(positionCell);
+
+          const teamCell = document.createElement('td');
+          const teamImg = document.createElement('img');
+          teamImg.src = team.participant.image_path;
+          teamImg.alt = team.participant.name;
+          teamImg.className = 'team-logo';
+          teamCell.appendChild(teamImg);
+          teamCell.appendChild(document.createTextNode(' ' + team.participant.name));
+          row.appendChild(teamCell);
+
+          const pointsCell = document.createElement('td');
+          pointsCell.textContent = team.points;
+          row.appendChild(pointsCell);
+
+          standingsBody.appendChild(row);
+        });
+      })
+      .catch(error => {
+        console.error('Error fetching standings:', error);
+        document.getElementById('error').textContent = 'Failed to load standings data.';
+      });
+  }
+}
+
+
 
   </script>
 </body>
