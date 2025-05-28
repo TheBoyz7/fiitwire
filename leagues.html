@@ -474,60 +474,63 @@ function getLeagueIdFromURL() {
   return idParam ? parseInt(idParam, 10) : null;
 }
 
-// Function to render the league table for a given league ID
 function renderLeagueTable(leagueId) {
   const league = leagues.find(l => l.id === leagueId);
-  if (!league || !league.standings) return;
+  if (!league || !league.seasonId) return;
 
+  const seasonId = league.seasonId;
   const tableContainer = document.querySelector('.league-table-container');
-  tableContainer.innerHTML = `
-    <h2>${league.name} Standings</h2>
-    <table>
-      <thead>
-        <tr>
-          <th>Pos</th>
-          <th>Club</th>
-          <th>Pl</th>
-          <th>W</th>
-          <th>D</th>
-          <th>L</th>
-          <th>GF</th>
-          <th>GA</th>
-          <th>GD</th>
-          <th>Pts</th>
-        </tr>
-      </thead>
-      <tbody>
-        ${league.standings
-          .slice(0, Math.ceil(league.standings.length / 2))
-          .map((team, index) => `
+  tableContainer.innerHTML = `<p>Loading standings for ${league.name}...</p>`;
+
+  fetch(`http://localhost:3000/api/standings/${seasonId}`)
+    .then(response => {
+      if (!response.ok) throw new Error('Failed to fetch standings');
+      return response.json();
+    })
+    .then(data => {
+      if (!data.data || data.data.length === 0) {
+        tableContainer.innerHTML = '<p>No standings data found.</p>';
+        return;
+      }
+
+      // Limit to top half of table
+      const standings = data.data.slice(0, Math.ceil(data.data.length / 2));
+
+      const tableHTML = `
+        <h2>${league.name} Standings</h2>
+        <table>
+          <thead>
             <tr>
-              <td>${index + 1}</td>
-              <td>${team.name}</td>
-              <td>${team.played}</td>
-              <td>${team.won}</td>
-              <td>${team.drawn}</td>
-              <td>${team.lost}</td>
-              <td>${team.gf}</td>
-              <td>${team.ga}</td>
-              <td>${team.gd}</td>
-              <td>${team.points}</td>
+              <th>Pos</th>
+              <th>Team</th>
+              <th>Pts</th>
             </tr>
-          `).join('')}
-      </tbody>
-    </table>
-  `;
+          </thead>
+          <tbody>
+            ${standings.map(team => `
+              <tr>
+                <td>${team.position}</td>
+                <td>
+                  <img src="${team.participant.image_path}" alt="${team.participant.name}" class="team-logo" />
+                  ${team.participant.name}
+                </td>
+                <td>${team.points}</td>
+              </tr>
+            `).join('')}
+          </tbody>
+        </table>
+      `;
+
+      tableContainer.innerHTML = tableHTML;
+    })
+    .catch(err => {
+      console.error('Error:', err);
+      tableContainer.innerHTML = `<p>Error loading standings.</p>`;
+    });
 }
 
-// Initialize the league table rendering based on URL parameter
-document.addEventListener('DOMContentLoaded', () => {
-  const leagueId = getLeagueIdFromURL();
-  if (leagueId !== null) {
-    renderLeagueTable(leagueId);
-  } else {
-    console.warn('No league ID specified in the URL.');
-  }
-});
+const leagueId = parseInt(urlParams.get('id'));
+renderLeagueTable(leagueId);
 
 
 // testing api
