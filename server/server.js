@@ -10,10 +10,10 @@ const port = 3000;
 // Enable CORS for all routes
 app.use(cors());
 
-// Your Sportmonks API token
-const apiToken = 'lARRrh4DmR4zOY4mMDEPlX7H44hE8SxRRKc9P7rwta12qLlguJVbLN2TF1i5'; 
+// Sportmonks API token
+const apiToken = 'lARRrh4DmR4zOY4mMDEPlX7H44hE8SxRRKc9P7rwta12qLlguJVbLN2TF1i5';
 
-// ✅ Standings for a given seasonId
+// Standings for a given seasonId
 app.get('/api/standings/:seasonId', async (req, res) => {
   const seasonId = req.params.seasonId;
   try {
@@ -27,7 +27,28 @@ app.get('/api/standings/:seasonId', async (req, res) => {
   }
 });
 
-// ✅ Start the server
+
+// ✅ Fixtures for a date range
+
+
+app.get('/api/fixtures', async (req, res) => {
+  const { startDate, endDate } = req.query;
+  const url = `https://api.sportmonks.com/v3/football/fixtures/between/${startDate}/${endDate}?api_token=${apiToken}&include=participants;league;scores`;
+
+  try {
+    const response = await axios.get(url);
+
+    // ✅ Send only the fixtures array, not the whole response
+    res.json(response.data.data);
+  } catch (error) {
+    console.error("Error fetching fixtures:", error.message);
+    res.status(500).json({ error: "Failed to fetch fixtures" });
+  }
+});
+
+
+
+// Start the server
 app.listen(port, () => {
   console.log(`Proxy server running at http://localhost:${port}`);
 });

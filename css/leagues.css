@@ -628,3 +628,39 @@
 .hidden {
   display: none;
 }
+
+
+
+
+
+
+
+
+.fixture-card {
+  background: #1f2937;
+  padding: 1rem;
+  border-radius: 12px;
+  margin-bottom: 1rem;
+  transition: transform 0.2s ease;
+}
+.fixture-card:hover {
+  transform: translateY(-2px);
+}
+.fixture-teams {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.fixture-teams .team {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+.fixture-teams img {
+  width: 24px;
+  height: 24px;
+}
+.fixture-time {
+  color: #facc15;
+  font-weight: bold;
+}

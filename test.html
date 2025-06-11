@@ -2,94 +2,206 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Season Standings</title>
+  <title>Sportmonks Fixtures | FiitWire</title>
   <style>
     body {
-      font-family: sans-serif;
-      background: #111;
-      color: #eee;
+      background-color: #111;
+      color: #facc15;
+      font-family: 'Inter', sans-serif;
       padding: 20px;
     }
-    table {
-      width: 100%;
-      border-collapse: collapse;
-      margin-top: 20px;
+
+    h1, h2 {
+      color: #facc15;
+    }
+
+    button {
+      background-color: #facc15;
+      color: #111;
+      border: none;
+      padding: 10px 20px;
+      font-size: 16px;
+      font-weight: bold;
+      border-radius: 8px;
+      cursor: pointer;
+      margin-bottom: 20px;
+    }
+
+    button:hover {
+      background-color: #eab308;
+    }
+
+    .fixture {
       background: #222;
+      padding: 15px;
+      margin-bottom: 15px;
+      border-radius: 10px;
+      box-shadow: 0 2px 8px rgba(255, 255, 255, 0.05);
     }
-    th, td {
-      padding: 8px 12px;
-      border: 1px solid #333;
-      text-align: left;
+
+    .fixture strong {
+      font-size: 18px;
     }
-    th {
+
+    .fixture em {
+      color: #999;
+      font-size: 14px;
+    }
+
+    #no-fixtures {
+      color: red;
+      display: none;
+    }
+    .fixture img {
+      border-radius: 50%;
+      margin: 0 5px;
       background: #333;
     }
-    #error {
-      color: red;
-      margin-top: 20px;
-    }
-    img.team-logo {
-      width: 20px;
-      height: 20px;
-      margin-right: 6px;
-      vertical-align: middle;
-    }
+    select {
+  background: #222;
+  color: #facc15;
+  border: 1px solid #facc15;
+  padding: 10px;
+  font-size: 16px;
+  border-radius: 8px;
+  margin-bottom: 20px;
+}
+
+
+
   </style>
 </head>
 <body>
-  <h1>Season Standings</h1>
-  <div id="error"></div>
-  <table>
-    <thead>
-      <tr>
-        <th>Position</th>
-        <th>Team</th>
-        <th>Points</th>
-      </tr>
-    </thead>
-    <tbody id="standings-body">
-      <!-- Data rows will go here -->
-    </tbody>
-  </table>
+
+  <h1>⚽ FootWire | Sportmonks Fixtures</h1>
+  <p>Click below to load football fixtures between a set range.</p>
+
+  <button onclick="fetchFixtures()">Fetch Fixtures</button>
+  <select id="league-filter">
+  <option value="all">All Leagues</option>
+</select>
+
+
+  <p id="no-fixtures">No fixtures found in this range.</p>
+  <div id="fixtures-container"></div>
 
   <script>
-    fetch('http://localhost:3000/api/standings')
-      .then(response => response.json())
-      .then(data => {
-        const standingsBody = document.getElementById('standings-body');
+  async function fetchFixtures() {
+  const startDate = '2023-08-01';
+  const endDate = '2023-10-30';
+  const container = document.getElementById('fixtures-container');
+  const noFixturesMsg = document.getElementById('no-fixtures');
+  const leagueSelect = document.getElementById('league-filter');
 
-        if (!data.data || data.data.length === 0) {
-          document.getElementById('error').textContent = 'No standings data found.';
-          return;
-        }
+  container.innerHTML = '';
+  noFixturesMsg.style.display = 'none';
+  leagueSelect.innerHTML = '<option value="all">All Leagues</option>';
 
-        data.data.forEach(team => {
-          const row = document.createElement('tr');
+  try {
+    const response = await fetch(`http://localhost:3000/api/fixtures?startDate=${startDate}&endDate=${endDate}`);
+    const fixtures = await response.json();
 
-          const positionCell = document.createElement('td');
-          positionCell.textContent = team.position;
-          row.appendChild(positionCell);
+    if (!fixtures.length) {
+      noFixturesMsg.style.display = 'block';
+      return;
+    }
 
-          const teamCell = document.createElement('td');
-          const teamImg = document.createElement('img');
-          teamImg.src = team.participant.image_path;
-          teamImg.alt = team.participant.name;
-          teamImg.className = 'team-logo';
-          teamCell.appendChild(teamImg);
-          teamCell.appendChild(document.createTextNode(team.participant.name));
-          row.appendChild(teamCell);
+    // Get unique leagues by id
+    const leagues = [];
+    fixtures.forEach(f => {
+      if (f.league && !leagues.some(l => l.id === f.league.id)) {
+        leagues.push({ id: f.league.id, name: f.league.name });
+      }
+    });
 
-          const pointsCell = document.createElement('td');
-          pointsCell.textContent = team.points;
-          row.appendChild(pointsCell);
+    leagues.forEach(l => {
+      const opt = document.createElement('option');
+      opt.value = l.id;
+      opt.textContent = l.name;
+      leagueSelect.appendChild(opt);
+    });
 
-          standingsBody.appendChild(row);
-        });
-      })
-      .catch(error => {
-        console.error('Error fetching standings:', error);
-        document.getElementById('error').textContent = 'Failed to load standings data.';
-      });
+    // Render fixtures initially
+    renderFixtures(fixtures);
+
+    // Single league filter event listener
+    leagueSelect.onchange = () => {
+      const selectedLeagueId = leagueSelect.value;
+      const filtered = selectedLeagueId === 'all'
+        ? fixtures
+        : fixtures.filter(f => f.league?.id == selectedLeagueId);
+      renderFixtures(filtered);
+    };
+
+  } catch (err) {
+    console.error('Error fetching fixtures:', err);
+    container.innerHTML = '<p style="color:red;">Error fetching fixtures. Check console for details.</p>';
+  }
+}
+
+function renderFixtures(fixtures) {
+  const container = document.getElementById('fixtures-container');
+  container.innerHTML = '<h2>Fixtures</h2>';
+
+  fixtures.forEach(fixture => {
+    const div = document.createElement('div');
+    div.className = 'fixture';
+
+    const participants = fixture.participants || [];
+
+    let home, away;
+    if (participants.length === 2 && participants[0].meta && participants[1].meta) {
+      home = participants.find(p => p.meta.location === 'home');
+      away = participants.find(p => p.meta.location === 'away');
+    }
+    if (!home || !away) {
+      home = participants[0];
+      away = participants[1];
+    }
+
+    const homeName = home?.name || 'TBD';
+    const awayName = away?.name || 'TBD';
+
+    const homeLogo = home?.image_path
+      ? `<img src="${home.image_path}" alt="${homeName}" style="height: 30px; vertical-align: middle;">`
+      : '';
+    const awayLogo = away?.image_path
+      ? `<img src="${away.image_path}" alt="${awayName}" style="height: 30px; vertical-align: middle;">`
+      : '';
+
+    const league = fixture.league?.name || 'Unknown League';
+    const kickoff = new Date(fixture.starting_at).toLocaleString();
+
+    // Get CURRENT scores by participant_id
+    const currentScores = fixture.scores?.filter(s => s.description === 'CURRENT') || [];
+
+    const homeScoreObj = currentScores.find(s => s.participant_id === home?.id);
+    const awayScoreObj = currentScores.find(s => s.participant_id === away?.id);
+
+    const homeScore = homeScoreObj?.score?.goals ?? '-';
+    const awayScore = awayScoreObj?.score?.goals ?? '-';
+
+    div.innerHTML = `
+      <div>
+        ${homeLogo} <strong>${homeName}</strong> 
+        <span style="font-size:18px; color:#facc15;">${homeScore}</span> 
+        - 
+        <span style="font-size:18px; color:#facc15;">${awayScore}</span> 
+        ${awayLogo} <strong>${awayName}</strong>
+      </div>
+      <em>${kickoff}</em><br>
+      <span>${league}</span>
+    `;
+
+    container.appendChild(div);
+  });
+}
+
+// ✅ Run immediately when page loads
+fetchFixtures();
+
+
   </script>
+
 </body>
 </html>

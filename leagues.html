@@ -15,8 +15,8 @@
       <h1>FootWire ⚽ Premier League</h1>
       <nav class="main-nav">
         <ul>
-          <li><a href="index.html">Home</a></li>
-          <li><a href="news.html">News</a></li>
+          <li><a href="index.php">Home</a></li>
+          <li><a href="news.php">News</a></li>
           <li><a href="league.html">Leagues</a></li>
           <li><a href="team.html">Teams</a></li>
           <li><a href="live.html">Live Scores</a></li>
@@ -62,6 +62,7 @@
     <h4>Upcoming Fixtures</h4>
     <ul class="fixtures-preview">
       <!-- JS will insert <li>Team A vs Team B — Time</li> here -->
+       
     </ul>
     <button class="btn view-all-fixtures">View All Fixtures</button>
   </div>
@@ -106,16 +107,12 @@
       <h3>Upcoming Fixtures</h3>
       <div class="fixtures-list">
         <!-- Fixture cards go here -->
+
+        <p id="no-fixtures" style="display:none; color:#facc15;">No fixtures found for this league in the selected date range.</p>
+
       </div>
     </section>
 
-    <!-- Form -->
-    <section id="form" class="tab-content">
-      <h3>Recent Form</h3>
-      <div class="form-chart">
-        <!-- Could be SVG or styled divs showing W/D/L per club -->
-      </div>
-    </section>
 
     <!-- Statistics -->
    <section id="statistics" class="tab-content">
@@ -212,20 +209,8 @@ const leagues = [
       { name: 'Erling Haaland', position: 'ST', rating: 8.9, img: 'images/players/haaland.png' },
       { name: 'Bukayo Saka', position: 'LW', rating: 8.2, img: 'images/players/saka.png' }
     ],
-    standings: [
-      { name: 'Liverpool', played: 36, won: 25, drawn: 8, lost: 3, gf: 83, ga: 37, gd: 46, points: 83 },
-      { name: 'Arsenal', played: 36, won: 18, drawn: 14, lost: 4, gf: 66, ga: 33, gd: 33, points: 68 },
-      { name: 'Newcastle United', played: 36, won: 20, drawn: 6, lost: 10, gf: 68, ga: 45, gd: 23, points: 66 },
-      { name: 'Manchester City', played: 36, won: 19, drawn: 8, lost: 9, gf: 67, ga: 43, gd: 24, points: 65 },
-      { name: 'Chelsea', played: 36, won: 18, drawn: 9, lost: 9, gf: 62, ga: 43, gd: 19, points: 63 },
-      { name: 'Aston Villa', played: 36, won: 18, drawn: 9, lost: 9, gf: 56, ga: 49, gd: 7, points: 63 },
-      { name: 'Nottingham Forest', played: 36, won: 18, drawn: 8, lost: 10, gf: 56, ga: 44, gd: 12, points: 62 },
-      { name: 'Brentford', played: 36, won: 16, drawn: 7, lost: 13, gf: 63, ga: 53, gd: 10, points: 55 },
-      { name: 'Brighton & Hove Albion', played: 36, won: 14, drawn: 13, lost: 9, gf: 59, ga: 56, gd: 3, points: 55 },
-      { name: 'Bournemouth', played: 36, won: 14, drawn: 11, lost: 11, gf: 55, ga: 43, gd: 12, points: 53 },
-      // ... other teams ...
-    ],
     seasonId:'23690',
+    league_id:'501',
   },
   {
     id: 2,
@@ -257,6 +242,7 @@ const leagues = [
       { name: 'Vinícius Júnior', position: 'RW', rating: 8.2, img: 'images/players/vini.png' }
     ],
      seasonId:'23584',
+     league_id:'271',
   },
   {
     id: 3,
@@ -590,8 +576,67 @@ if (!leagueNumId) {
   }
 }
 
+// fixtures api
+
+function renderFixtures(fixtures) {
+  const container = document.querySelector('.fixtures-list');
+  container.innerHTML = '';
+
+  fixtures.forEach(fixture => {
+    const div = document.createElement('div');
+    div.className = 'fixture';
+
+    const participants = fixture.participants || [];
+
+    let home, away;
+    if (participants.length === 2 && participants[0].meta && participants[1].meta) {
+      home = participants.find(p => p.meta.location === 'home');
+      away = participants.find(p => p.meta.location === 'away');
+    }
+    if (!home || !away) {
+      home = participants[0];
+      away = participants[1];
+    }
+
+    const homeName = home?.name || 'TBD';
+    const awayName = away?.name || 'TBD';
+
+    const homeLogo = home?.image_path
+      ? `<img src="${home.image_path}" alt="${homeName}" style="height: 30px; vertical-align: middle;">`
+      : '';
+    const awayLogo = away?.image_path
+      ? `<img src="${away.image_path}" alt="${awayName}" style="height: 30px; vertical-align: middle;">`
+      : '';
+
+    const kickoff = new Date(fixture.starting_at).toLocaleString();
+
+    const currentScores = fixture.scores?.filter(s => s.description === 'CURRENT') || [];
+
+    const homeScoreObj = currentScores.find(s => s.participant_id === home?.id);
+    const awayScoreObj = currentScores.find(s => s.participant_id === away?.id);
+
+    const homeScore = homeScoreObj?.score?.goals ?? '-';
+    const awayScore = awayScoreObj?.score?.goals ?? '-';
+
+    div.innerHTML = `
+      <div>
+        ${homeLogo} <strong>${homeName}</strong>
+        <span style="font-size:18px; color:#facc15;">${homeScore}</span>
+        -
+        <span style="font-size:18px; color:#facc15;">${awayScore}</span>
+        ${awayLogo} <strong>${awayName}</strong>
+      </div>
+      <em>${kickoff}</em>
+    `;
+
+    container.appendChild(div);
+  });
+}
 
 
+
+// Run when page loads
+window.addEventListener('DOMContentLoaded', fetchLeagueFixtures);
   </script>
 </body>
 </html>
