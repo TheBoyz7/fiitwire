@@ -3,495 +3,436 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Manchester United vs Chelsea - Match Center</title>
-  <link rel="stylesheet" href="css/style.css" />
-  <link rel="stylesheet" href="css/match.css" />
+  <title>Match Center</title>
+  <link rel="stylesheet" href="css/style.css"/>
+  <link rel="stylesheet" href="css/match.css"/>
 </head>
 <body>
   <header class="site-header">
     <div class="container">
-      <div class="logo">
-        <h1>Footwire</h1>
-      </div>
+      <div class="logo"><h1>Footwire</h1></div>
       <nav class="main-nav">
         <ul>
-          <li><a href="/">Home</a></li>
-          <li><a href="/matches">Matches</a></li>
-          <li><a href="/teams">Teams</a></li>
-          <li><a href="/players">Players</a></li>
+          <li><a href="index.php">Home</a></li>
+          <li><a href="news.php">News</a></li>
+          <li><a href="league.html">Leagues</a></li>
+          <li><a href="team.html">Teams</a></li>
+          <li><a href="live.html">Live Scores</a></li>
         </ul>
       </nav>
     </div>
   </header>
 
   <main class="container match-center">
-    <!-- Match Overview -->
-   <div class="match-overview">
-  <div class="team home-team">
-    <img src="manutd-logo.png" alt="Manchester United Logo" class="team-logo">
-    <span class="team-name">Manchester United</span>
-  </div>
-  <div class="score">
-    <span class="team-score">2</span>
-    <span class="match-status">FT</span>
-    <span class="team-score">1</span>
-  </div>
-  <div class="team away-team">
-    <img src="chelsea-logo.png" alt="Chelsea Logo" class="team-logo">
-    <span class="team-name">Chelsea</span>
-  </div>
-</div>
-
-<br>
-    <!-- Tabs Navigation -->
+    <div id="match-overview">Loading match details...</div>
     <section class="match-tabs">
       <div class="tabs">
         <button class="tab-button active" data-tab="summary">Summary</button>
         <button class="tab-button" data-tab="lineups">Lineups</button>
         <button class="tab-button" data-tab="stats">Stats</button>
-        <button class="tab-button" data-tab="commentary">Commentary</button>
+        <!-- <button class="tab-button" data-tab="commentary">Commentary</button> -->
       </div>
-
-      <!-- Tab Contents -->
-      <div class="tab-content active" id="summary">
-        <div class="match-summary">
-  <div class="event-row home-event">
-    <div class="event-content">
-      <span class="event-time">12'</span>
-      <span class="event-icon">⚽️</span>
-      <span class="event-player">Bruno Fernandes</span>
-    </div>
-  </div>
-  <div class="event-row away-event">
-    <div class="event-content">
-      <span class="event-time">30'</span>
-      <span class="event-icon">⚽️</span>
-      <span class="event-player">Raheem Sterling</span>
-    </div>
-  </div>
-  <!-- Additional events will be dynamically inserted here -->
-</div>
-
-      </div>
-
-      <div class="tab-content" id="lineups">
-       <div class="lineups-content">
-  <h3>Starting Lineups</h3>
-  <div class="lineup-teams">
-    <!-- Manchester United Lineup -->
-    <div class="team-lineup" id="manutd-lineup">
-      <h4>Manchester United</h4>
-      <div class="pitch"></div>
-      <div class="substitutes">
-        <h5>Substitutes</h5>
-        <ul id="manutd-subs"></ul>
-      </div>
-      <div class="coach">
-        <h5>Coach</h5>
-        <p>Ruben Amorim</p>
-      </div>
-    </div>
-
-    <!-- Chelsea Lineup -->
-    <div class="team-lineup" id="chelsea-lineup">
-      <h4>Chelsea</h4>
-      <div class="pitch"></div>
-      <div class="substitutes">
-        <h5>Substitutes</h5>
-        <ul id="chelsea-subs"></ul>
-      </div>
-      <div class="coach">
-        <h5>Coach</h5>
-        <p>Enzo Maresca</p>
-      </div>
-    </div>
-  </div>
-</div>
-
-         
-      </div>
-
-      <div class="tab-content" id="stats">
-      <div class="match-stats">
-  <div class="stat-row">
-    <div class="team-stat home-stat">
-      <span class="stat-value">55%</span>
-    </div>
-    <div class="stat-name">Possession</div>
-    <div class="team-stat away-stat">
-      <span class="stat-value">45%</span>
-    </div>
-  </div>
-  <div class="stat-bar">
-    <div class="bar home-bar" style="width: 55%;"></div>
-    <div class="bar away-bar" style="width: 45%;"></div>
-  </div>
-  <!-- Repeat for other stats -->
-</div>
-
-      </div>
-
-      <div class="tab-content" id="commentary">
-        <div class="commentary-container">
-  <!-- Events will be dynamically inserted here -->
-</div>
-
-      </div>
+      <div class="tab-content active" id="summary">Loading...</div>
+      <div class="tab-content" id="lineups">Loading...</div>
+      <div class="tab-content" id="stats">Loading...</div>
+      <div class="tab-content" id="commentary">Loading...</div>
     </section>
   </main>
 
   <footer class="site-footer">
-    <div class="container">
-      <p>&copy; 2025 Footwire. All rights reserved.</p>
-    </div>
+    <div class="container"><p>&copy; 2025 Footwire.</p></div>
   </footer>
 
   <script>
-    document.addEventListener('DOMContentLoaded', () => {
-  const tabButtons = document.querySelectorAll('.tab-button');
-  const tabContents = document.querySelectorAll('.tab-content');
-
-  tabButtons.forEach(button => {
-    button.addEventListener('click', () => {
-      // Remove 'active' class from all buttons and contents
-      tabButtons.forEach(btn => btn.classList.remove('active'));
-      tabContents.forEach(content => content.classList.remove('active'));
-
-      // Add 'active' class to the clicked button and corresponding content
-      button.classList.add('active');
-      const tabId = button.getAttribute('data-tab');
-      document.getElementById(tabId).classList.add('active');
+    document.querySelectorAll('.tab-button').forEach(btn => {
+      btn.addEventListener('click', () => {
+        document.querySelectorAll('.tab-button').forEach(b => b.classList.remove('active'));
+        document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+        btn.classList.add('active');
+        document.getElementById(btn.dataset.tab).classList.add('active');
+      });
     });
-  });
+
+    async function loadMatch(fixtureId) {
+      try {
+        const resp = await fetch(`http://localhost:3000/api/fixture/${fixtureId}`);
+        if (!resp.ok) throw new Error(`Status ${resp.status}`);
+        const data = await resp.json();
+        console.log('Fixture data:', data);
+
+       const home = data.participants.find(p => p.meta.location === 'home');
+const away = data.participants.find(p => p.meta.location === 'away');
+
+const currentScores = Array.isArray(data.scores) ? data.scores : [];
+const homeScore = currentScores.find(s => s.description === 'CURRENT' && s.participant_id == home.id)?.score?.goals ?? '-';
+const awayScore = currentScores.find(s => s.description === 'CURRENT' && s.participant_id == away.id)?.score?.goals ?? '-';
+
+const events = Array.isArray(data.events) ? data.events : [];
+
+// 🔥 Only real goal events — no own goals, no missed pens, no goals cancelled
+const goals = events.filter(e => {
+  const type = e.type?.name?.toLowerCase();
+  return type === 'goal' || type === 'penalty';
 });
 
-// Define formations with relative positions
-const formations = {
-  '3-4-3': [
-    { role: 'GK', top: 90, left: 50 },
-    { role: 'CB', top: 70, left: 25 },
-    { role: 'CB', top: 70, left: 50 },
-    { role: 'CB', top: 70, left: 75 },
-    { role: 'LM', top: 50, left: 20 },
-    { role: 'CM', top: 50, left: 40 },
-    { role: 'CM', top: 50, left: 60 },
-    { role: 'RM', top: 50, left: 80 },
-    { role: 'LW', top: 30, left: 30 },
-    { role: 'CF', top: 30, left: 50 },
-    { role: 'RW', top: 30, left: 70 },
-  ],
-  '4-3-3': [
-    { role: 'GK', top: 90, left: 50 },
-    { role: 'LB', top: 70, left: 20 },
-    { role: 'CB', top: 70, left: 40 },
-    { role: 'CB', top: 70, left: 60 },
-    { role: 'RB', top: 70, left: 80 },
-    { role: 'LCM', top: 50, left: 30 },
-    { role: 'CM', top: 50, left: 50 },
-    { role: 'RCM', top: 50, left: 70 },
-    { role: 'LW', top: 30, left: 30 },
-    { role: 'CF', top: 30, left: 50 },
-    { role: 'RW', top: 30, left: 70 },
-  ],
+const redCards = events.filter(e => e.type?.name?.toLowerCase().includes('red'));
+
+const formatGoal = (goal) => {
+  const player = goal.player?.display_name || goal.player_name || 'Unknown';
+  const min = goal.minute || '';
+  const extra = goal.extra_minute ? `+${goal.extra_minute}` : '';
+  return `<div style="margin-bottom: 6px; font-size: 14px; color: #222;">⚽ ${player} ${min}${extra}'</div>`;
 };
 
-// Define team data
-const teams = {
-  manutd: {
-    formation: '3-4-3',
-    players: [
-      'Altay Bayindir',
-      'Lisandro Martinez',
-      'Harry Maguire',
-      'Matthijs de Ligt',
-      'Diogo Dalot',
-      'Kobbie Mainoo',
-      'Manuel Ugarte',
-      'Noussair Mazraoui',
-      'Amad Diallo',
-      'Bruno Fernandes',
-      'Rasmus Højlund',
-    ],
-    substitutes: [
-      'Andre Onana',
-      'Victor Lindelof',
-      'Luke Shaw',
-      'Christian Eriksen',
-      'Mason Mount',
-      'Alejandro Garnacho',
-      'Antony',
-    ],
-  },
-  chelsea: {
-    formation: '4-3-3',
-    players: [
-      'Robert Sanchez',
-      'Marc Cucurella',
-      'Levi Colwill',
-      'Tosin Adarabioyo',
-      'Reece James',
-      'Romeo Lavia',
-      'Moises Caicedo',
-      'Enzo Fernandez',
-      'Raheem Sterling',
-      'Christopher Nkunku',
-      'Cole Palmer',
-    ],
-    substitutes: [
-      'Djordje Petrovic',
-      'Ben Chilwell',
-      'Trevoh Chalobah',
-      'Conor Gallagher',
-      'Mykhailo Mudryk',
-      'Noni Madueke',
-      'Deivid Washington',
-    ],
-  },
+const formatRed = (rc) => {
+  const player = rc.player?.display_name || rc.player_name || 'Unknown';
+  const min = rc.minute || '';
+  const extra = rc.extra_minute ? `+${rc.extra_minute}` : '';
+  return `<div style="margin-bottom: 6px;">🟥 ${player} ${min}${extra}'</div>`;
 };
 
-// Function to render lineup
-function renderLineup(teamId, teamData) {
-  const lineupContainer = document.getElementById(`${teamId}-lineup`);
-  const pitch = lineupContainer.querySelector('.pitch');
-  const subsList = document.getElementById(`${teamId}-subs`);
+// Defensive string comparison of team_id
+const teamId = (x) => String(x?.team_id ?? '');
 
-  // Clear existing content
-  pitch.innerHTML = '';
-  subsList.innerHTML = '';
+const homeGoals = goals.filter(g => teamId(g) === String(home.id)).map(formatGoal).join('');
+const awayGoals = goals.filter(g => teamId(g) === String(away.id)).map(formatGoal).join('');
+const homeReds = redCards.filter(r => teamId(r) === String(home.id)).map(formatRed).join('');
+const awayReds = redCards.filter(r => teamId(r) === String(away.id)).map(formatRed).join('');
 
-  const formation = formations[teamData.formation];
-  if (!formation) {
-    console.error(`Formation ${teamData.formation} not defined.`);
+const hasEvents = homeGoals || awayGoals || homeReds || awayReds;
+
+const overviewHTML = `
+  <div class="match-overview__wrapper">
+    <div class="match-overview__team match-overview__team--home">
+      <img src="${home.image_path}" alt="${home.name} logo">
+      <span class="team-name">${home.name}</span>
+    </div>
+
+    <div class="match-overview__score">
+      <span>${homeScore}</span>
+      <span class="vs">-</span>
+      <span>${awayScore}</span>
+    </div>
+
+    <div class="match-overview__team match-overview__team--away">
+      <img src="${away.image_path}" alt="${away.name} logo">
+      <span class="team-name">${away.name}</span>
+    </div>
+  </div>
+
+  ${hasEvents ? `
+    <div class="event-overview__wrapper">
+      <div class="event-overview__team event-overview__home">
+        ${homeGoals}
+        ${homeReds}
+      </div>
+      <div class="event-overview__team event-overview__away">
+        ${awayGoals}
+        ${awayReds}
+      </div>
+    </div>
+  ` : ''}
+`;
+
+document.getElementById('match-overview').innerHTML = overviewHTML;
+
+
+
+//summary
+let summaryHtml = '<div style="color: gray; text-align: center;">No match events yet. 😴</div>';
+
+if (Array.isArray(data.events) && data.events.length > 0) {
+  const homeTeamId = home.id;
+  const events = [...data.events];
+
+  // Sort events newest-first
+  events.sort((a, b) => {
+    const aTime = (a.minute || 0) * 100 + (a.extra_minute || 0);
+    const bTime = (b.minute || 0) * 100 + (b.extra_minute || 0);
+    return bTime - aTime;
+  });
+
+  // Group events by period
+  const grouped = {
+    '2nd Half': [],
+    '1st Half': [],
+    'Extra Time': [],
+  };
+
+  events.forEach(event => {
+    const periodId = event.period_id;
+    if (periodId === 4910346) grouped['2nd Half'].push(event);
+    else if (periodId === 4910146) grouped['1st Half'].push(event);
+    else grouped['Extra Time'].push(event);
+  });
+
+  const getEventEmoji = (type) => {
+    const t = type?.toLowerCase() || '';
+    if (t.includes('goal')) return '⚽';
+    if (t.includes('yellow')) return '🟨';
+    if (t.includes('red')) return '🟥';
+    if (t.includes('substitution')) return '🔁';
+    if (t.includes('foul')) return '🛑';
+    return '📌';
+  };
+
+  const renderEvent = (event) => {
+    const isHome = event.participant_id === homeTeamId;
+    const mainPlayer = event.player?.display_name || event.player_name || 'Unknown';
+    const relatedPlayer = event.related_player?.display_name || event.related_player_name || '';
+    const image = event.player?.image_path || 'https://cdn.sportmonks.com/images/soccer/player-placeholder.png';
+    const minute = event.minute ?? '';
+    const extra = event.extra_minute ? `+${event.extra_minute}` : '';
+    const emoji = getEventEmoji(event.type?.name);
+    const typeName = event.type?.name || 'Event';
+
+    // Substitution formatting
+    let title = '';
+    if (typeName.toLowerCase().includes('substitution')) {
+      title = `${emoji} <b>${mainPlayer}</b> came in for <b>${relatedPlayer}</b>`;
+    } else if (typeName.toLowerCase().includes('goal')) {
+      title = `${emoji} <b>${mainPlayer}</b>${relatedPlayer ? ` (Assist: <i>${relatedPlayer}</i>)` : ''}`;
+    } else {
+      title = `${emoji} <b>${mainPlayer}</b>`;
+    }
+
+
+    return `
+      <div style="display: flex; justify-content: ${isHome ? 'flex-start' : 'flex-end'}; margin-bottom: 12px;">
+        <div style="
+          display: flex;
+          align-items: center;
+          gap: 10px;
+          flex-direction: ${isHome ? 'row' : 'row-reverse'};
+          background: #f9f9f9;
+          border-left: ${isHome ? '4px solid #2196f3' : 'none'};
+          border-right: ${!isHome ? '4px solid #ff5252' : 'none'};
+          padding: 12px 16px;
+          border-radius: 12px;
+          box-shadow: 0 2px 6px rgba(0,0,0,0.08);
+          max-width: 80%;
+        ">
+          <img src="${image}" alt="${mainPlayer}" style="width: 38px; height: 38px; border-radius: 50%; object-fit: cover;">
+          <div style="text-align: ${isHome ? 'left' : 'right'};">
+            <div style="font-size: 1em; color: #333;">${title}</div>
+            <div style="font-size: 0.9em; color: #777;">${event.info || event.addition || typeName}</div>
+            <div style="font-size: 0.8em; color: #aaa;">${minute}${extra}'</div>
+          </div>
+        </div>
+      </div>
+    `;
+  };
+
+  const buildSection = (title, events) => {
+    if (!events.length) return '';
+    let html = `
+      <div class="half-section">
+        <h3 style="margin: 20px 0 10px; font-size: 1.2em; color: #444; border-bottom: 1px solid #eee;">${title}</h3>
+    `;
+    events.forEach(event => {
+      html += renderEvent(event);
+    });
+    html += `</div>`;
+    return html;
+  };
+
+  summaryHtml = `
+    <div class="summary-grid" style="display: flex; flex-direction: column; gap: 20px;">
+      ${buildSection('2nd Half', grouped['2nd Half'])}
+      ${buildSection('1st Half', grouped['1st Half'])}
+      ${buildSection('Extra Time', grouped['Extra Time'])}
+    </div>
+  `;
+}
+
+document.getElementById('summary').innerHTML = summaryHtml;
+
+//lineups
+ // 1. Grab lineups and split home/away
+const allLineups = Array.isArray(data.lineups) ? data.lineups : [];
+const homeId = home.id, awayId = away.id;
+const homeLineup = allLineups.filter(l => l.team_id === homeId);
+const awayLineup = allLineups.filter(l => l.team_id === awayId);
+
+// 2. Render one side’s lineup
+function renderLineup(teamLineups, teamName) {
+  // starters only
+  const starters = teamLineups
+    .filter(l => l.type_id === 11)
+    .sort((a, b) => (a.formation_position || 0) - (b.formation_position || 0));
+
+  let html = `
+    <h3 style="text-align:center; margin:10px 0; color:#facc15; font-size:1.1em;">
+      ${teamName} Starting XI
+    </h3>
+  `;
+
+  // Define the order of rows
+  const groups = [
+    { key: 'Goalkeeper', label: '' },
+    { key: 'Defender', label: 'Defenders' },
+    { key: 'Midfielder', label: 'Midfielders' },
+    { key: 'Attacker', label: 'Attackers' }
+  ];
+
+  groups.forEach(({key, label}) => {
+    const players = starters
+      .filter(l => l.position?.name === key);
+    if (!players.length) return;
+
+    html += `
+      <div style="margin-bottom:16px;">
+        ${ label ? `<div style="font-weight:600; margin-bottom:8px; color:#facc15; text-align:center; font-size:0.95em;">${label}</div>` : '' }
+        <div style="display:flex; flex-wrap:wrap; justify-content:center; gap:12px;">
+          ${players.map(l => {
+            const p    = l.player || {};
+            const name = p.display_name || l.player_name;
+            const img  = p.image_path || 'https://cdn.sportmonks.com/images/soccer/player-placeholder.png';
+            const num  = l.jersey_number || '';
+            return `
+              <div class="lineup-card">
+  <img src="${img}" alt="${name}">
+  <div class="player-name">${name}</div>
+  <div class="player-number">#${num}</div>
+</div>
+
+            `;
+          }).join('')}
+        </div>
+      </div>
+    `;
+  });
+
+  // 3. Bench
+  const bench = teamLineups
+    .filter(l => l.type_id !== 11)
+    .sort((a,b) => (a.formation_position||0) - (b.formation_position||0));
+
+  if (bench.length) {
+    html += `
+      <div style="margin-top:20px;">
+        <div style="font-weight:600; margin-bottom:8px; color:#facc15; text-align:center;">Substitutes</div>
+        <div style="display:flex; flex-wrap:wrap; justify-content:center; gap:10px;">
+          ${bench.map(l => {
+            const p    = l.player || {};
+            const name = p.display_name || l.player_name;
+            const img  = p.image_path || 'https://cdn.sportmonks.com/images/soccer/player-placeholder.png';
+            return `
+              <div style="text-align:center;">
+                <img src="${img}" alt="${name}" style="
+                  width:36px;height:36px;
+                  border-radius:8px;
+                  object-fit:cover;
+                ">
+                <div style="font-size:0.75em; color:#ccc;">${name}</div>
+              </div>
+            `;
+          }).join('')}
+        </div>
+      </div>
+    `;
+  }
+
+  return html;
+}
+
+// 4. Inject both teams
+document.getElementById('lineups').innerHTML = `
+  <div style="
+    display:flex;
+    flex-wrap:wrap;
+    justify-content:center;
+    gap:40px;
+    padding:20px 0;
+  ">
+    <div style="flex:1; min-width:300px; max-width:480px;">
+      ${renderLineup(homeLineup, home.name)}
+    </div>
+    <div style="flex:1; min-width:300px; max-width:480px;">
+      ${renderLineup(awayLineup, away.name)}
+    </div>
+  </div>
+`;
+
+  //stats
+  (function renderStats() {
+  const stats = Array.isArray(data.statistics) ? data.statistics : [];
+  if (!stats.length) {
+    document.getElementById('stats').innerHTML =
+      `<p style="text-align:center; color:gray; margin-top:20px;">
+         No stats available. 😶
+       </p>`;
     return;
   }
 
-  // Render starting players
-  teamData.players.forEach((player, index) => {
-    const position = formation[index];
-    if (!position) return;
-
-    const playerDiv = document.createElement('div');
-    playerDiv.className = 'player-position';
-    playerDiv.style.top = `${position.top}%`;
-    playerDiv.style.left = `${position.left}%`;
-    playerDiv.textContent = player;
-    pitch.appendChild(playerDiv);
-  });
-
-  // Render substitutes
-  teamData.substitutes.forEach((sub) => {
-    const li = document.createElement('li');
-    li.textContent = sub;
-    subsList.appendChild(li);
-  });
-}
-
-// Initialize lineups
-document.addEventListener('DOMContentLoaded', () => {
-  renderLineup('manutd', teams.manutd);
-  renderLineup('chelsea', teams.chelsea);
-});
-
-//summary
-const events = [
-  { minute: 12, type: 'goal', player: 'Bruno Fernandes', team: 'home' },
-  { minute: 30, type: 'goal', player: 'Raheem Sterling', team: 'away' },
-  { minute: 90+5, type: 'goal', player: 'Amad Diallo', team: 'home' },
-  // Additional events can be added here
-];
-
-function renderEvents() {
-  const summaryContainer = document.querySelector('.match-summary');
-  summaryContainer.innerHTML = ''; // Clear existing events
-
-  events.forEach(event => {
-    const eventRow = document.createElement('div');
-    eventRow.classList.add('event-row', `${event.team}-event`);
-
-    const eventContent = document.createElement('div');
-    eventContent.classList.add('event-content');
-
-    const timeSpan = document.createElement('span');
-    timeSpan.classList.add('event-time');
-    timeSpan.textContent = `${event.minute}'`;
-
-    const iconSpan = document.createElement('span');
-    iconSpan.classList.add('event-icon');
-    iconSpan.textContent = getEventIcon(event.type);
-
-    const playerSpan = document.createElement('span');
-    playerSpan.classList.add('event-player');
-    playerSpan.textContent = event.player;
-
-    eventContent.appendChild(timeSpan);
-    eventContent.appendChild(iconSpan);
-    eventContent.appendChild(playerSpan);
-    eventRow.appendChild(eventContent);
-    summaryContainer.appendChild(eventRow);
-  });
-}
-
-function getEventIcon(type) {
-  switch (type) {
-    case 'goal':
-      return '⚽️';
-    case 'yellow':
-      return '🟨';
-    case 'red':
-      return '🟥';
-    case 'sub':
-      return '🔄';
-    default:
-      return '';
-  }
-}
-
-document.addEventListener('DOMContentLoaded', renderEvents);
-
-
-//stats
-const stats = [
-  { name: 'Possession', home: 55, away: 45, isPercentage: true },
-  { name: 'Shots on Target', home: 7, away: 5 },
-  { name: 'Total Shots', home: 12, away: 10 },
-  { name: 'Pass Accuracy', home: 85, away: 78, isPercentage: true },
-  { name: 'Fouls', home: 10, away: 12 },
-  { name: 'Corners', home: 6, away: 4 },
-  { name: 'Yellow Cards', home: 2, away: 3 },
-  { name: 'Red Cards', home: 0, away: 1 },
-];
-
-function renderStats() {
-  const container = document.querySelector('.match-stats');
-  container.innerHTML = ''; // Clear existing content
-
+  const grouped = {};
   stats.forEach(stat => {
-    const total = stat.home + stat.away || 1; // Prevent division by zero
-    const homePercent = (stat.home / total) * 100;
-    const awayPercent = (stat.away / total) * 100;
-
-    const statRow = document.createElement('div');
-    statRow.classList.add('stat-row');
-
-    const homeStat = document.createElement('div');
-    homeStat.classList.add('team-stat', 'home-stat');
-    homeStat.innerHTML = `<span class="stat-value">${stat.isPercentage ? stat.home + '%' : stat.home}</span>`;
-
-    const statName = document.createElement('div');
-    statName.classList.add('stat-name');
-    statName.textContent = stat.name;
-
-    const awayStat = document.createElement('div');
-    awayStat.classList.add('team-stat', 'away-stat');
-    awayStat.innerHTML = `<span class="stat-value">${stat.isPercentage ? stat.away + '%' : stat.away}</span>`;
-
-    statRow.appendChild(homeStat);
-    statRow.appendChild(statName);
-    statRow.appendChild(awayStat);
-
-    const statBar = document.createElement('div');
-    statBar.classList.add('stat-bar');
-
-    const homeBar = document.createElement('div');
-    homeBar.classList.add('bar', 'home-bar');
-    homeBar.style.width = `${homePercent}%`;
-
-    const awayBar = document.createElement('div');
-    awayBar.classList.add('bar', 'away-bar');
-    awayBar.style.width = `${awayPercent}%`;
-
-    statBar.appendChild(homeBar);
-    statBar.appendChild(awayBar);
-
-    container.appendChild(statRow);
-    container.appendChild(statBar);
+    const id = stat.type_id;
+    if (!grouped[id]) {
+      grouped[id] = {
+        label: stat.type?.name || `Stat ${id}`,
+        home: '-',
+        away: '-'
+      };
+    }
+    grouped[id][stat.location] = stat.data?.value ?? '-';
   });
-}
 
-document.addEventListener('DOMContentLoaded', renderStats);
+  const rows = Object.values(grouped).map(stat => {
+    const label = stat.label;
+    const home = isNaN(stat.home) ? parseFloat(stat.home) : +stat.home;
+    const away = isNaN(stat.away) ? parseFloat(stat.away) : +stat.away;
 
-//commentary
-const event = [
-  {
-    minute: 12,
-    type: 'goal',
-    player: 'Bruno Fernandes',
-    team: 'home',
-    playerImage: 'bruno.jpg'
-  },
-  {
-    minute: 30,
-    type: 'goal',
-    player: 'Raheem Sterling',
-    team: 'away',
-    playerImage: 'sterling.jpg'
-  },
-  {
-    minute: 45,
-    type: 'big_chance',
-    player: 'Marcus Rashford',
-    team: 'home',
-    playerImage: 'rashford.jpg'
-  },
-  // Additional events can be added here
-];
+    const isNumeric = !isNaN(home) && !isNaN(away);
 
-function renderCommentary() {
-  const container = document.querySelector('.commentary-container');
-  container.innerHTML = ''; // Clear existing events
+    let bars = '';
+    if (isNumeric) {
+      const total = home + away || 1;
+      const hPercent = (home / total) * 100;
+      const aPercent = (away / total) * 100;
 
-  events.forEach(event => {
-    const eventDiv = document.createElement('div');
-    eventDiv.classList.add('commentary-event', event.team);
+      bars = `
+        <div style="display:flex; height:8px; margin:4px 0; background:#eee; border-radius:4px; overflow:hidden;">
+          <div style="width:${hPercent}%; background:#2196f3;"></div>
+          <div style="width:${aPercent}%; background:#ff5252;"></div>
+        </div>
+      `;
+    }
 
-    const timeSpan = document.createElement('span');
-    timeSpan.classList.add('event-time');
-    timeSpan.textContent = `${event.minute}'`;
-
-    const iconSpan = document.createElement('span');
-    iconSpan.classList.add('event-icon');
-    iconSpan.textContent = getEventIcon(event.type);
-
-    const playerDiv = document.createElement('div');
-    playerDiv.classList.add('event-player');
-
-    const img = document.createElement('img');
-    img.classList.add('player-image');
-    img.src = event.playerImage;
-    img.alt = event.player;
-
-    const nameSpan = document.createElement('span');
-    nameSpan.textContent = event.player;
-
-    playerDiv.appendChild(img);
-    playerDiv.appendChild(nameSpan);
-
-    eventDiv.appendChild(timeSpan);
-    eventDiv.appendChild(iconSpan);
-    eventDiv.appendChild(playerDiv);
-
-    container.appendChild(eventDiv);
+    return `
+      <div style="display:grid; grid-template-columns:1fr 2fr 1fr; align-items:center; margin-bottom:14px; font-size:0.95em;">
+        <div style="text-align:right; padding-right:8px;">${isNaN(stat.home) ? stat.home : home}</div>
+        <div style="text-align:center;">
+          <strong>${label}</strong>
+          ${bars}
+        </div>
+        <div style="text-align:left; padding-left:8px;">${isNaN(stat.away) ? stat.away : away}</div>
+      </div>
+    `;
   });
-}
 
-function getEventIcon(type) {
-  switch (type) {
-    case 'goal':
-      return '⚽️';
-    case 'yellow':
-      return '🟨';
-    case 'red':
-      return '🟥';
-    case 'sub':
-      return '🔄';
-    case 'big_chance':
-      return '🔥';
-    default:
-      return '';
-  }
-}
+  document.getElementById('stats').innerHTML = `
+    <div style="padding:20px 10px;">
+      ${rows.join('')}
+    </div>
+  `;
+})();
 
-document.addEventListener('DOMContentLoaded', renderCommentary);
+      } catch (e) {
+        console.error('Error fetching match:', e);
+        document.getElementById('match-overview').textContent = 'Failed to load match details.';
+      }
+    }
+
+    // Pull fixture ID from URL
+const urlParams = new URLSearchParams(window.location.search);
+const fixtureId = urlParams.get('id');
+
+if (fixtureId) {
+  loadMatch(fixtureId);
+} else {
+  document.getElementById('match-overview').textContent = 'No fixture ID in URL 😬';
+}
 
   </script>
 </body>

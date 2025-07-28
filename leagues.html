@@ -6,6 +6,7 @@
   <title>FootWire | Premier League Overview</title>
   <link rel="stylesheet" href="css/style.css">
   <link rel="stylesheet" href="css/leagues.css">
+  <link rel="stylesheet" href="css/leaguesstats.css">
 </head>
 <body>
 
@@ -41,9 +42,8 @@
     <button class="tab-btn active" data-tab="overview">Overview</button>
     <button class="tab-btn" data-tab="standings">Standings</button>
     <button class="tab-btn" data-tab="fixtures">Fixtures</button>
-    <button class="tab-btn" data-tab="form">Form</button>
     <button class="tab-btn" data-tab="statistics">Statistics</button>
-    <button class="tab-btn" data-tab="news">News</button>
+    <!-- <button class="tab-btn" data-tab="news">News</button> -->
   </nav>
 
   <!-- Tab Contents -->
@@ -62,6 +62,7 @@
     <h4>Upcoming Fixtures</h4>
     <ul class="fixtures-preview">
       <!-- JS will insert <li>Team A vs Team B — Time</li> here -->
+     
        
     </ul>
     <button class="btn view-all-fixtures">View All Fixtures</button>
@@ -104,7 +105,7 @@
 
     <!-- Fixtures -->
     <section id="fixtures" class="tab-content">
-      <h3>Upcoming Fixtures</h3>
+      <h3>Upcoming Fixtures </h3>
       <div class="fixtures-list">
         <!-- Fixture cards go here -->
 
@@ -112,26 +113,46 @@
 
       </div>
     </section>
+    
 
 
     <!-- Statistics -->
-   <section id="statistics" class="tab-content">
-  <h3>Statistics</h3>
+  <section id="statistics" class="tab-content">
+  <h3>Statistics123</h3>
 
-  <div id="top-scorers">
-  <ul class="stat-list"></ul>
-  <ul id="full-scorers" class="hidden"></ul>
-</div>
-<div id="top-assists">
-  <ul class="stat-list"></ul>
-  <ul id="full-assists" class="hidden"></ul>
-</div>
-<div id="clean-sheets">
-  <ul class="stat-list"></ul>
-  <ul id="full-cleansheets" class="hidden"></ul>
-</div>
+  <div id="stats-sections">
+    <section>
+      <h2>Top Scorers</h2>
+      <ul id="top-goals"></ul>
+    </section>
 
+    <section>
+      <h2>Top Assists</h2>
+      <ul id="top-assists"></ul>
+    </section>
+
+    <section>
+      <h2>Red Cards</h2>
+      <ul id="top-reds"></ul>
+    </section>
+
+    <section>
+      <h2>Yellow Cards</h2>
+      <ul id="top-yellows"></ul>
+    </section>
+
+    <section>
+      <h2>Most Goals (Team)</h2>
+      <ul id="team-goals"></ul>
+    </section>
+
+    <section>
+      <h2>Most Clean Sheets (Team)</h2>
+      <ul id="team-cleansheets"></ul>
+    </section>
+  </div>
 </section>
+
 
 
     <!-- News -->
@@ -170,32 +191,6 @@ const leagues = [
     name: 'Premier League',
     logo: 'images/premier-league-logo-5F922E3/premier-league-logo.png',
     description: 'England’s top-flight competition featuring 20 clubs battling for glory.',
-    fixtures: [
-      {
-        home: 'Arsenal',
-        away: 'Man City',
-        time: '18:30',
-        homeLogo: 'images/logos/arsenal.png',
-        awayLogo: 'images/logos/mancity.png',
-        link: 'match.html?id=1001'
-      },
-      {
-        home: 'Liverpool',
-        away: 'Chelsea',
-        time: '21:00',
-        homeLogo: 'images/logos/liverpool.png',
-        awayLogo: 'images/logos/chelsea.png',
-        link: 'match.html?id=1002'
-      },
-      {
-        home: 'Newcastle',
-        away: 'Tottenham',
-        time: '16:00',
-        homeLogo: 'images/logos/newcastle.png',
-        awayLogo: 'images/logos/tottenham.png',
-        link: 'match.html?id=1003'
-      },
-    ],
      teamOfWeek: [
       { name: 'Alisson', position: 'GK', rating: 7.8, img: 'images/players/alisson.png' },
       { name: 'Trent Alexander-Arnold', position: 'RB', rating: 8.2, img: 'images/players/trent.png' },
@@ -217,17 +212,6 @@ const leagues = [
     name: 'La Liga',
     logo: 'images/La_Liga-2023-brandlogos.net-OBnr7x/la_liga-logo_brandlogos.net_e6gnt.png',
     description: 'Spain’s premier professional football division with fierce rivalries.',
-     fixtures: [
-      {
-        home: 'Real Madrid',
-        away: 'Barcelona',
-        time: '18:30',
-        homeLogo: 'images/logos/arsenal.png',
-        awayLogo: 'images/logos/mancity.png',
-        link: 'match.html?id=2001'
-      },
-    
-    ],
     teamOfWeek: [
       { name: 'Jan Oblak', position: 'GK', rating: 8.0, img: 'images/players/oblak.png' },
       { name: 'Dani Carvajal', position: 'RB', rating: 8.1, img: 'images/players/carvajal.png' },
@@ -249,50 +233,24 @@ const leagues = [
     name: 'Serie A',
     logo: 'images/serie-a-logo.png',
     description: 'Italy’s most prestigious football league, home to legendary clubs.',
-     fixtures: [
-      {
-        home: 'Juventus',
-        away: 'AC Milan',
-        time: '18:30',
-        homeLogo: 'images/logos/arsenal.png',
-        awayLogo: 'images/logos/mancity.png',
-        link: 'match.html?id=3001'
-      },
-     
-    ]
+    seasonId:'23690',
+    league_id:'501',
   },
   {
     id: 4,
     name: 'Bundesliga',
     logo: 'images/bundesliga-logo.png',
     description: 'Germany’s top professional football league known for passionate fans.',
-     fixtures: [
-      {
-        home: 'Bayern Munich',
-        away: 'Dortmund',
-        time: '18:30',
-        homeLogo: 'images/logos/arsenal.png',
-        awayLogo: 'images/logos/mancity.png',
-        link: 'match.html?id=4001'
-      },
-      
-    ]
+     seasonId:'23584',
+     league_id:'271',
   },
   {
     id: 5,
     name: 'Ligue 1',
     logo: 'images/ligue-1-logo.png',
     description: 'France’s elite football division showcasing world-class talent.',
-     fixtures: [
-      {
-        home: 'PSG',
-        away: 'Marseille',
-        time: '18:30',
-        homeLogo: 'images/logos/arsenal.png',
-        awayLogo: 'images/logos/mancity.png',
-        link: 'match.html?id=5001'
-      },
-    ]
+     seasonId:'23584',
+     league_id:'271',
   }
 ];
 
@@ -378,19 +336,61 @@ overviewVideoContainer.innerHTML = `
 const fixturesPreview = document.querySelector('.fixtures-preview');
 fixturesPreview.innerHTML = '';
 
-(selectedLeague.fixtures || []).slice(0, 3).forEach(fx => {
-  const a = document.createElement('a');
-  a.href = fx.link;
-  a.className = 'fixture-item';
+// Get the current league_id from the global selectedLeague object
+const leagueId = selectedLeague.league_id;
 
-  a.innerHTML = `
-    <img src="${fx.homeLogo}" alt="${fx.home} logo" class="fixture-logo">
-    <span class="fixture-text">${fx.home} vs ${fx.away} — ${fx.time}</span>
-    <img src="${fx.awayLogo}" alt="${fx.away} logo" class="fixture-logo">
-  `;
+const startDate = '2025-07-01';
+const endDate = '2025-09-30';
 
-  fixturesPreview.appendChild(a);
-});
+fetch(`http://localhost:3000/api/fixtures?startDate=${startDate}&endDate=${endDate}`)
+  .then(res => res.json())
+  .then(fixtures => {
+    const now = new Date();
+
+    const filtered = fixtures
+      .filter(f => f.league?.id == leagueId)
+      .filter(f => new Date(f.starting_at) > now); // Exclude past or ongoing fixtures
+
+    const latest3 = filtered.slice(0, 3); // Still show only top 3 upcoming
+
+    latest3.forEach(fx => {
+      const participants = fx.participants || [];
+      const home = participants.find(p => p.meta?.location === 'home') || participants[0];
+      const away = participants.find(p => p.meta?.location === 'away') || participants[1];
+
+      const homeName = home?.name || 'TBD';
+      const awayName = away?.name || 'TBD';
+      const homeLogo = home?.image_path || '';
+      const awayLogo = away?.image_path || '';
+      const kickoff = new Date(fx.starting_at).toLocaleString([], {  
+        day: 'numeric', 
+        month: 'short', 
+        hour: '2-digit', 
+        minute: '2-digit' 
+      });
+
+      const a = document.createElement('a');
+      a.href = `match.html?id=${fx.id}`;
+      a.className = 'fixture-item';
+
+      a.innerHTML = `
+        <img src="${homeLogo}" alt="${homeName} logo" class="fixture-logo">
+        <span class="fixture-text">${homeName} vs ${awayName} — ${kickoff}</span>
+        <img src="${awayLogo}" alt="${awayName} logo" class="fixture-logo">
+      `;
+
+      fixturesPreview.appendChild(a);
+    });
+
+    if (latest3.length === 0) {
+      fixturesPreview.innerHTML = '<p style="color:#facc15;">No upcoming fixtures available.</p>';
+    }
+  })
+  .catch(err => {
+    console.error('Error fetching fixtures preview:', err);
+    fixturesPreview.innerHTML = '<p style="color:red;">Failed to load fixtures preview.</p>';
+  });
+
 
 // --- Team of the Week ---
 
@@ -460,8 +460,8 @@ function getLeagueIdFromURL() {
   return idParam ? parseInt(idParam, 10) : null;
 }
 
-function renderLeagueTable(leagueId) {
-  const league = leagues.find(l => l.id === leagueId);
+function renderLeagueTable(leaguesId) {
+  const league = leagues.find(l => l.id === leaguesId);
   if (!league || !league.seasonId) return;
 
   const seasonId = league.seasonId;
@@ -515,11 +515,12 @@ function renderLeagueTable(leagueId) {
     });
 }
 
-const leagueId = parseInt(urlParams.get('id'));
-renderLeagueTable(leagueId);
+const leaguesId = parseInt(urlParams.get('id'));
+renderLeagueTable(leaguesId);
 
 
 // testing api
+//standings
 if (!leagueNumId) {
   document.getElementById('error').textContent = 'No league ID provided in URL.';
 } else {
@@ -578,65 +579,259 @@ if (!leagueNumId) {
 
 // fixtures api
 
-function renderFixtures(fixtures) {
-  const container = document.querySelector('.fixtures-list');
-  container.innerHTML = '';
+document.addEventListener("DOMContentLoaded", () => {
+  const fixturesTab = document.querySelector('#fixtures');
 
-  fixtures.forEach(fixture => {
-    const div = document.createElement('div');
-    div.className = 'fixture';
+  if (!fixturesTab) return;
 
-    const participants = fixture.participants || [];
-
-    let home, away;
-    if (participants.length === 2 && participants[0].meta && participants[1].meta) {
-      home = participants.find(p => p.meta.location === 'home');
-      away = participants.find(p => p.meta.location === 'away');
-    }
-    if (!home || !away) {
-      home = participants[0];
-      away = participants[1];
-    }
-
-    const homeName = home?.name || 'TBD';
-    const awayName = away?.name || 'TBD';
-
-    const homeLogo = home?.image_path
-      ? `<img src="${home.image_path}" alt="${homeName}" style="height: 30px; vertical-align: middle;">`
-      : '';
-    const awayLogo = away?.image_path
-      ? `<img src="${away.image_path}" alt="${awayName}" style="height: 30px; vertical-align: middle;">`
-      : '';
-
-    const kickoff = new Date(fixture.starting_at).toLocaleString();
-
-    const currentScores = fixture.scores?.filter(s => s.description === 'CURRENT') || [];
-
-    const homeScoreObj = currentScores.find(s => s.participant_id === home?.id);
-    const awayScoreObj = currentScores.find(s => s.participant_id === away?.id);
-
-    const homeScore = homeScoreObj?.score?.goals ?? '-';
-    const awayScore = awayScoreObj?.score?.goals ?? '-';
-
-    div.innerHTML = `
-      <div>
-        ${homeLogo} <strong>${homeName}</strong>
-        <span style="font-size:18px; color:#facc15;">${homeScore}</span>
-        -
-        <span style="font-size:18px; color:#facc15;">${awayScore}</span>
-        ${awayLogo} <strong>${awayName}</strong>
-      </div>
-      <em>${kickoff}</em>
-    `;
-
-    container.appendChild(div);
+  // Only load fixtures when the tab becomes visible
+  const observer = new MutationObserver(() => {
+    if (!fixturesTab.classList.contains('active')) return;
+    observer.disconnect(); // Run only once
+    fetchFixtures();
   });
+
+  observer.observe(fixturesTab, { attributes: true, attributeFilter: ['class'] });
+
+  // Fallback: manual trigger if you know tab is already active
+  if (fixturesTab.classList.contains('active')) {
+    fetchFixtures();
+  }
+});
+
+async function fetchFixtures() {
+  const startDate = '2025-07-01';
+  const endDate = '2025-09-30';
+
+  const list = document.querySelector('.fixtures-list');
+  const noFixturesMsg = document.getElementById('no-fixtures');
+  if (!list) return;
+
+  list.innerHTML = '';
+  noFixturesMsg.style.display = 'none';
+
+  const urlParams = new URLSearchParams(window.location.search);
+  const localLeagueId = urlParams.get('id');
+
+  if (!localLeagueId) {
+    list.innerHTML = '<p style="color:red;">League ID not found in URL.</p>';
+    return;
+  }
+
+  const league = leagues.find(l => l.id == localLeagueId);
+  if (!league) {
+    list.innerHTML = '<p style="color:red;">League not found.</p>';
+    return;
+  }
+
+  const leagueId = league.league_id;
+
+  try {
+    const response = await fetch(`http://localhost:3000/api/fixtures?startDate=${startDate}&endDate=${endDate}`);
+    const fixtures = await response.json();
+
+    const leagueFixtures = fixtures.filter(f => f.league?.id == leagueId);
+
+    if (!leagueFixtures.length) {
+      noFixturesMsg.style.display = 'block';
+      return;
+    }
+
+    leagueFixtures.forEach(fixture => {
+      const participants = fixture.participants || [];
+      let home = participants.find(p => p.meta?.location === 'home') || participants[0];
+      let away = participants.find(p => p.meta?.location === 'away') || participants[1];
+
+      const homeName = home?.name || 'TBD';
+      const awayName = away?.name || 'TBD';
+      const homeLogo = home?.image_path ? `<img src="${home.image_path}" alt="${homeName}" height="30" style="border-radius:50%">` : '';
+      const awayLogo = away?.image_path ? `<img src="${away.image_path}" alt="${awayName}" height="30" style="border-radius:50%">` : '';
+
+      const kickoff = new Date(fixture.starting_at).toLocaleString();
+      const scores = fixture.scores?.filter(s => s.description === 'CURRENT') || [];
+      const homeScore = scores.find(s => s.participant_id === home?.id)?.score?.goals ?? '-';
+      const awayScore = scores.find(s => s.participant_id === away?.id)?.score?.goals ?? '-';
+
+      const a = document.createElement('a');
+      a.href = `match.html?id=${fixture.id}`;
+      a.style = 'text-decoration: none; color: inherit;';
+
+      const div = document.createElement('div');
+      div.className = 'fixture-card';
+      div.style = `
+        background:#222;
+        padding:15px;
+        margin-bottom:10px;
+        border-radius:8px;
+        color:#facc15;
+        font-family:'Inter',sans-serif;
+        box-shadow:0 2px 4px rgba(255,255,255,0.05);
+      `;
+
+      div.innerHTML = `
+        <div style="display:flex;align-items:center;justify-content:space-between;">
+          <div style="display:flex;align-items:center;gap:10px;">
+            ${homeLogo} <strong>${homeName}</strong>
+          </div>
+          <div style="font-weight:bold; font-size:18px;">${homeScore} - ${awayScore}</div>
+          <div style="display:flex;align-items:center;gap:10px;">
+            <strong>${awayName}</strong> ${awayLogo}
+          </div>
+        </div>
+        <em style="font-size:14px;color:#aaa;">${kickoff}</em>
+      `;
+
+      a.appendChild(div);
+      list.appendChild(a);
+    });
+  } catch (error) {
+    console.error('Error fetching fixtures:', error);
+    list.innerHTML = '<p style="color:red;">Failed to fetch fixtures.</p>';
+  }
+}
+
+//stats
+const baseURL = 'http://localhost:3000/api';
+
+if (!selectedLeague || !selectedLeague.seasonId) {
+  console.error('❌ League not found or season ID missing.');
+} else {
+  const seasonId = selectedLeague.seasonId;
+
+  const fetchStat = async (endpoint) => {
+    try {
+      const res = await fetch(`${baseURL}${endpoint}`);
+      const data = await res.json();
+      return Array.isArray(data) ? data : data.data || [];
+    } catch (err) {
+      console.error('❌ Error fetching:', endpoint, err);
+      return [];
+    }
+  };
+
+  const renderPlayerList = (selector, items, valueLabel = '') => {
+    const list = document.querySelector(selector);
+    if (!list) return;
+
+    list.innerHTML = '';
+    items.forEach(item => {
+      const playerName = item.player?.display_name || 'Unknown';
+      const playerImg = item.player?.image_path || 'https://via.placeholder.com/32';
+      const teamName = item.participant?.name || 'Unknown Team';
+      const teamImg = item.participant?.image_path || 'https://via.placeholder.com/32';
+      const value = item.total ?? 0;
+
+      const li = document.createElement('li');
+      li.innerHTML = `
+        <div class="info">
+          <img src="${playerImg}" alt="${playerName}">
+          <strong>${playerName}</strong>
+          <small>(${teamName})</small>
+          <img src="${teamImg}" alt="${teamName}" style="width:24px;height:24px;">
+        </div>
+        <span><strong>${value}</strong> ${valueLabel}</span>
+      `;
+      list.appendChild(li);
+    });
+  };
+
+  const renderTeamList = (selector, teams, label = '') => {
+    const list = document.querySelector(selector);
+    if (!list) return;
+
+    list.innerHTML = '';
+    teams
+      .sort((a, b) => b.total - a.total)
+      .slice(0, 5)
+      .forEach(team => {
+        const li = document.createElement('li');
+        li.innerHTML = `
+          <div class="info">
+            <img src="${team.image}" alt="${team.name}">
+            <strong>${team.name}</strong>
+          </div>
+          <span><strong>${team.total}</strong> ${label}</span>
+        `;
+        list.appendChild(li);
+      });
+  };
+
+  const loadAllStats = async () => {
+    const [
+      topScorers,
+      topAssisters,
+      redCards,
+      yellowCards,
+      teamGoals,
+      teamCleansheets
+    ] = await Promise.all([
+      fetchStat(`/topscorers/${seasonId}?filters=seasonTopscorerTypes:208`),
+      fetchStat(`/topassists/${seasonId}`),
+      fetchStat(`/redcards/${seasonId}`),
+      fetchStat(`/yellowcards/${seasonId}`),
+      fetchStat(`/teamstats/goals/${seasonId}`),
+      fetchStat(`/teamstats/cleansheets/${seasonId}`)
+    ]);
+
+    renderPlayerList('#top-goals', topScorers.slice(0, 5), 'goals');
+    renderPlayerList('#top-assists', topAssisters.slice(0, 5), 'assists');
+    renderPlayerList('#top-reds', redCards.slice(0, 5), 'reds');
+    renderPlayerList('#top-yellows', yellowCards.slice(0, 5), 'yellows');
+    renderTeamList('#team-goals', teamGoals, 'goals');
+    renderTeamList('#team-cleansheets', teamCleansheets, 'clean sheets');
+  };
+
+  document.querySelectorAll('ul').forEach(ul => {
+  if (ul.children.length > 5) {
+    const btn = document.createElement('button');
+    btn.textContent = 'View More';
+    btn.className = 'view-more-btn';
+
+    btn.addEventListener('click', () => {
+      ul.classList.toggle('expanded');
+      btn.textContent = ul.classList.contains('expanded') ? 'View Less' : 'View More';
+    });
+
+    ul.parentElement.appendChild(btn);
+  }
+});
+
+
+  loadAllStats();
+
+  document.querySelectorAll('ul').forEach(ul => {
+  if (ul.children.length > 5) {
+    const btn = document.createElement('button');
+    btn.textContent = 'View More';
+    btn.className = 'view-more-btn';
+
+    btn.addEventListener('click', () => {
+      ul.classList.toggle('expanded');
+      btn.textContent = ul.classList.contains('expanded') ? 'View Less' : 'View More';
+    });
+
+    ul.parentElement.appendChild(btn);
+  }
+});
+
 }
 
 
+  </script>
 
-// Run when page loads
-window.addEventListener('DOMContentLoaded', fetchLeagueFixtures);
+  <script>
+    const sections = document.querySelectorAll('#stats-sections section');
+sections.forEach((sec, i) => {
+  sec.style.opacity = 0;
+  sec.style.transform = 'translateY(30px)';
+  sec.style.transition = `opacity 0.6s ease ${i * 0.1}s, transform 0.6s ease ${i * 0.1}s`;
+
+  setTimeout(() => {
+    sec.style.opacity = 1;
+    sec.style.transform = 'translateY(0)';
+  }, 300);
+});
+
   </script>
 </body>
 </html>

@@ -2,20 +2,18 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>FootWire | Manchester United Overview</title>
-  
-   <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>FootWire | Club Overview</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="css/style.css">
-  <link rel="stylesheet" href="css/club.css">
+  <link rel="stylesheet" href="css/bclubs.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" integrity="sha512-..." crossorigin="anonymous" referrerpolicy="no-referrer" />
+
 </head>
 <body>
-
-   <!-- 🔵 HEADER -->
-   <header class="site-header">
+  <!-- HEADER -->
+  <header class="site-header">
     <div class="container">
-      <div class="logo">
-        <h1>FootWire</h1>
-      </div>
+      <div class="logo"><h1>FootWire</h1></div>
       <nav class="main-nav">
         <ul>
           <li><a href="index.php">Home</a></li>
@@ -25,315 +23,40 @@
           <li><a href="live.html">Live Scores</a></li>
         </ul>
       </nav>
-      <div class="auth-buttons">
-        <button class="login-btn">Login</button>
-        <button class="signup-btn">Sign Up</button>
-      </div>
     </div>
   </header>
 
-
-
-  <!-- Club Banner -->
+  <!-- CLUB BANNER -->
   <section class="club-banner">
     <div class="container">
-      <img src="images/Manchester_United_F.C.-brandlogos.net-Oe5zmr/manchester_united_f.c.-logo_brandlogos.net_uw5rg.png" alt="Manchester United Logo" class="club-logo">
+      <img src="" alt="Club Logo" class="club-logo-banner">
       <div class="club-info">
-        <h2>Manchester United</h2>
-        <p>Founded: 1878 | Old Trafford, Manchester | Nickname: The Red Devils</p>
+        <h2>Loading...</h2>
+        <p></p>
       </div>
     </div>
   </section>
 
-  <!-- Tab Buttons -->
-<div class="club-tabs">
-  <button class="tab-btn active" data-tab="overview">Overview</button>
-  <button class="tab-btn" data-tab="fixtures">Fixtures</button>
-  <button class="tab-btn" data-tab="squad">Squad</button>
-  <button class="tab-btn" data-tab="stats">Stats</button>
-  <button class="tab-btn" data-tab="transfers">Transfers</button>
-  <button class="tab-btn" data-tab="honours">Honours</button>
-</div>
+  <!-- TAB BUTTONS -->
+  <div class="club-tabs">
+    <button class="tab-btn active" data-tab="overview">Overview</button>
+    <button class="tab-btn" data-tab="fixtures">Fixtures</button>
+    <button class="tab-btn" data-tab="squad">Squad</button>
+    <!-- <button class="tab-btn" data-tab="stats">Stats</button> -->
+    <button class="tab-btn" data-tab="transfers">Transfers</button>
+    <button class="tab-btn" data-tab="honours">Honours</button>
+  </div>
 
-<!-- Tab Contents -->
-<div id="overview" class="tab-content active"></div>
-<div id="fixtures" class="tab-content"></div>
-<div id="squad" class="tab-content"></div>
-<div id="stats" class="tab-content"></div>
-<div id="transfers" class="tab-content"></div>
-<div id="honours" class="tab-content"></div>
+  <!-- TAB CONTENT CONTAINER -->
+  <div class="tab-content-container">
+    <div id="overview" class="tab-content"></div>
+    <div id="fixtures" class="tab-content"></div>
+    <div id="squad" class="tab-content"></div>
+    <div id="stats" class="tab-content"></div>
+    <div id="transfers" class="tab-content"></div>
+    <div id="honours" class="tab-content"></div>
+  </div>
 
-
-    <!-- Overview -->
-    <section id="overview" class="tab-content active">
-      <h3>Club Overview</h3>
-      <div class="overview-grid">
-        <div><strong>Manager:</strong> Erik ten Hag</div>
-        <div><strong>Stadium:</strong> Old Trafford (Capacity: 74,140)</div>
-        <div><strong>Current League Position:</strong> 3rd</div>
-        <div><strong>Form (last 5):</strong> W-D-W-W-L</div>
-        <div><strong>Top Scorer:</strong> Marcus Rashford (17)</div>
-        <div><strong>Top Assister:</strong> Bruno Fernandes (12)</div>
-      </div>
-
-    <!-- Table -->
-    <section id="table" class="tab-content">
-      <h3>League Table</h3>
-      <table class="standings-table">
-        <thead><tr><th>#</th><th>Club</th><th>MP</th><th>W</th><th>D</th><th>L</th><th>PTS</th></tr></thead>
-        <tbody>
-          <!-- JS-injected rows: position, club logo+name, stats -->
-        </tbody>
-      </table>
-    </section>
-
-    <!-- Fixtures -->
-    <section id="fixtures" class="tab-content">
-      <h3>Upcoming & Recent Fixtures</h3>
-      <div class="fixtures-list">
-        <!-- Fixture cards: date, opponent, score/status -->
-      </div>
-    </section>
-
-    <!-- Squad -->
-    <section id="squad" class="tab-content">
-      <h3>First-Team Squad</h3>
-      <div class="squad-grid">
-        <!-- Player cards: photo, name, position -->
-      </div>
-    </section>
-
-    <!-- Stats -->
-    <section id="stats" class="tab-content">
-      <h3>Season Statistics</h3>
-      <div class="stats-grid">
-        <!-- Cards for appearances, goals, assists, clean sheets, etc. top 5 -->
-      </div>
-      <button class="view-more" data-target="full-stats">View More Stats</button>
-      <div id="full-stats" class="extra-list hidden">
-        <!-- Full stats list -->
-      </div>
-    </section>
-
-    <!-- Transfers -->
-    <section id="transfers" class="tab-content">
-      <h3>Transfer Activity</h3>
-      <div class="transfers-list">
-        <!-- In and Out lists with transfer fees and dates -->
-      </div>
-    </section>
-
-    <!-- History -->
-    <section id="history" class="tab-content">
-      <h3>Club History & Honours</h3>
-      <ul class="honours-list">
-        <li>Premier League Titles: 13</li>
-        <li>FA Cups: 12</li>
-        <li>UEFA Champions League: 3</li>
-        <!-- more honours -->
-      </ul>
-    </section>
-
-  </main>
-
-  <!-- JS to switch tabs, populate data, etc. -->
-  <script>
-    document.addEventListener('DOMContentLoaded', () => {
-  // Tab Navigation
-  const tabButtons = document.querySelectorAll('.tab-btn');
-  const tabContents = document.querySelectorAll('.tab-content');
-
-  tabButtons.forEach(button => {
-    button.addEventListener('click', () => {
-      // Remove active class from all buttons and contents
-      tabButtons.forEach(btn => btn.classList.remove('active'));
-      tabContents.forEach(content => content.classList.remove('active'));
-
-      // Add active class to clicked button and corresponding content
-      button.classList.add('active');
-      const tabId = button.getAttribute('data-tab');
-      document.getElementById(tabId).classList.add('active');
-    });
-  });
-
-  // Load Overview Content
-  loadOverview();
-
-  // Load Fixtures
-  loadFixtures();
-
-  // Load Squad
-  loadSquad();
-
-  // Load Stats
-  loadStats();
-
-  // Load Transfers
-  loadTransfers();
-
-  // Load Honours
-  loadHonours();
-});
-
-// Function to load Overview Content
-function loadOverview() {
-  const overviewSection = document.getElementById('overview');
-  overviewSection.innerHTML = `
-    <div class="overview-grid">
-      <div>
-        <h3>Current Position</h3>
-        <p>3rd in Premier League</p>
-      </div>
-      <div>
-        <h3>Recent Form</h3>
-        <p>W-W-D-L-W</p>
-      </div>
-      <div>
-        <h3>Top Scorer</h3>
-        <p>Marcus Rashford - 15 Goals</p>
-      </div>
-      <div>
-        <h3>Next Match</h3>
-        <p>vs. Liverpool - May 18, 2025</p>
-      </div>
-    </div>
-
-    <h2 style="margin-top: 40px;">Team of the Season (4-3-3)</h2>
-    <div class="formation-grid">
-      ${renderFormation()}
-    </div>
-  `;
-}
-
-// Function to render the 4-3-3 Formation
-function renderFormation() {
-  const players = [
-    { name: 'David de Gea', position: 'pos-gk', img: 'assets/players/degea.png' },
-    { name: 'Diogo Dalot', position: 'pos-rb', img: 'assets/players/dalot.png' },
-    { name: 'Raphaël Varane', position: 'pos-cb1', img: 'assets/players/varane.png' },
-    { name: 'Lisandro Martínez', position: 'pos-cb2', img: 'assets/players/martinez.png' },
-    { name: 'Luke Shaw', position: 'pos-lb', img: 'assets/players/shaw.png' },
-    { name: 'Casemiro', position: 'pos-cm1', img: 'assets/players/casemiro.png' },
-    { name: 'Bruno Fernandes', position: 'pos-cm2', img: 'assets/players/fernandes.png' },
-    { name: 'Christian Eriksen', position: 'pos-cm3', img: 'assets/players/eriksen.png' },
-    { name: 'Antony', position: 'pos-rw', img: 'assets/players/antony.png' },
-    { name: 'Marcus Rashford', position: 'pos-st', img: 'assets/players/rashford.png' },
-    { name: 'Jadon Sancho', position: 'pos-lw', img: 'assets/players/sancho.png' },
-  ];
-
-  return players.map(player => `
-    <div class="${player.position}">
-      <img src="${player.img}" alt="${player.name}">
-      <p>${player.name}</p>
-    </div>
-  `).join('');
-}
-
-// Function to load Fixtures
-function loadFixtures() {
-  const fixturesSection = document.getElementById('fixtures');
-  fixturesSection.innerHTML = `
-    <div class="fixtures-list">
-      <div class="fixture-card">
-        <h4>May 18, 2025</h4>
-        <p>Manchester United vs. Liverpool</p>
-        <p>Old Trafford</p>
-      </div>
-      <div class="fixture-card">
-        <h4>May 25, 2025</h4>
-        <p>Manchester United vs. Chelsea</p>
-        <p>Stamford Bridge</p>
-      </div>
-    </div>
-  `;
-}
-
-// Function to load Squad
-function loadSquad() {
-  const squadSection = document.getElementById('squad');
-  const players = [
-    { name: 'David de Gea', img: 'assets/players/degea.png' },
-    { name: 'Diogo Dalot', img: 'assets/players/dalot.png' },
-    { name: 'Raphaël Varane', img: 'assets/players/varane.png' },
-    { name: 'Lisandro Martínez', img: 'assets/players/martinez.png' },
-    { name: 'Luke Shaw', img: 'assets/players/shaw.png' },
-    { name: 'Casemiro', img: 'assets/players/casemiro.png' },
-    { name: 'Bruno Fernandes', img: 'assets/players/fernandes.png' },
-    { name: 'Christian Eriksen', img: 'assets/players/eriksen.png' },
-    { name: 'Antony', img: 'assets/players/antony.png' },
-    { name: 'Marcus Rashford', img: 'assets/players/rashford.png' },
-    { name: 'Jadon Sancho', img: 'assets/players/sancho.png' },
-  ];
-
-  squadSection.innerHTML = `
-    <div class="squad-grid">
-      ${players.map(player => `
-        <div class="player-card">
-          <img src="${player.img}" alt="${player.name}">
-          <p>${player.name}</p>
-        </div>
-      `).join('')}
-    </div>
-  `;
-}
-
-// Function to load Stats
-function loadStats() {
-  const statsSection = document.getElementById('stats');
-  statsSection.innerHTML = `
-    <div class="stats-grid">
-      <div class="stat-card">
-        <h4>Goals Scored</h4>
-        <p>65</p>
-      </div>
-      <div class="stat-card">
-        <h4>Goals Conceded</h4>
-        <p>30</p>
-      </div>
-      <div class="stat-card">
-        <h4>Clean Sheets</h4>
-        <p>18</p>
-      </div>
-      <div class="stat-card">
-        <h4>Possession</h4>
-        <p>58%</p>
-      </div>
-    </div>
-  `;
-}
-
-// Function to load Transfers
-function loadTransfers() {
-  const transfersSection = document.getElementById('transfers');
-  transfersSection.innerHTML = `
-    <div class="transfers-list">
-      <div class="transfer-card">
-        <h4>In: Mason Mount</h4>
-        <p>From: Chelsea</p>
-        <p>Fee: £55m</p>
-      </div>
-      <div class="transfer-card">
-        <h4>Out: Harry Maguire</h4>
-        <p>To: West Ham</p>
-        <p>Fee: £30m</p>
-      </div>
-    </div>
-  `;
-}
-
-// Function to load Honours
-function loadHonours() {
-  const honoursSection = document.getElementById('honours');
-  honoursSection.innerHTML = `
-    <ul class="honours-list">
-      <li>Premier League: 13 Titles</li>
-      <li>FA Cup: 12 Titles</li>
-      <li>UEFA Champions League: 3 Titles</li>
-      <li>League Cup: 6 Titles</li>
-    </ul>
-  `;
-}
-
-  </script>
+  <script src="js/club.js"></script>
 </body>
 </html>

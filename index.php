@@ -51,10 +51,10 @@ $latestStmt->close();
           <li><a href="live.php">Live Scores</a></li>
         </ul>
       </nav>
-      <div class="auth-buttons">
+      <!-- <div class="auth-buttons">
         <button class="login-btn">Login</button>
         <button class="signup-btn">Sign Up</button>
-      </div>
+      </div> -->
     </div>
   </header>
 

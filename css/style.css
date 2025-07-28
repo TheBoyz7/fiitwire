@@ -36,7 +36,7 @@
     to {transform: translateY(0);}
   }
   
-  .logo h1 {
+  .site-header h1 {
     font-weight: 800;
     font-size: 1.8rem;
     color: #facc15;
@@ -314,3 +314,6 @@
     }
   }
   
+  a {
+    text-decoration: none;
+  }

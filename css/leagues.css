@@ -154,54 +154,7 @@
   /*==============================================
     Statistics (with sub-tabs)
   ===============================================*/
-  .sub-tabs {
-    display: flex;
-    gap: 10px;
-    margin-bottom: 20px;
-  }
-  .sub-tab {
-    padding: 8px 16px;
-    background: #222;
-    color: #eee;
-    border: none;
-    border-radius: 24px;
-    font-size: 0.95rem;
-    font-weight: 600;
-    cursor: pointer;
-    transition: background 0.3s;
-  }
-  .sub-tab.active {
-    background: #facc15;
-    color: #121212;
-  }
   
-  .sub-tab-content {
-    display: none;
-  }
-  .sub-tab-content.active {
-    display: block;
-  }
-  
-  /* Stat blocks */
-  .stat-block {
-    margin-bottom: 32px;
-  }
-  .stat-block h4 {
-    font-size: 1.2rem;
-    font-weight: 700;
-    color: #facc15;
-    margin-bottom: 12px;
-  }
-  .stat-block ol,
-  .stat-block ul {
-    margin: 0 0 12px 20px;
-    padding: 0;
-    color: #ddd;
-  }
-  .stat-block li {
-    margin: 6px 0;
-    font-size: 0.95rem;
-  }
   
   /* “View More” buttons */
   .view-more {
@@ -303,7 +256,6 @@
       padding: 6px 10px;
       font-size: 0.85rem;
     }
-    .stat-block li,
     .fixture-card,
     .news-card .news-info p {
       font-size: 0.85rem;
@@ -363,66 +315,96 @@
 }
 
 .overview-fixtures h4 {
-  font-size: 1.4rem;
+  font-size: 1.5rem;
   color: #facc15;
-  margin-bottom: 10px;
+  margin-bottom: 12px;
+  font-weight: 700;
 }
 
 .fixtures-preview {
   list-style: none;
   padding: 0;
-  margin: 0 0 15px;
+  margin: 0 0 20px;
+  border-radius: 12px;
+  overflow: hidden;
+  background-color: #1a1a1a;
 }
 
-/* Reset default link styles */
 .fixture-item {
   display: flex;
   align-items: center;
+  justify-content: space-between;
   text-decoration: none;
-  color: #ddd;
-  padding: 8px 0;
+  color: #e5e5e5;
+  padding: 12px 16px;
   border-bottom: 1px solid #333;
-  transition: background 0.2s;
+  transition: background 0.25s ease;
 }
 
 .fixture-item:hover {
-  background: rgba(250, 204, 21, 0.1);
+  background: rgba(250, 204, 21, 0.08);
 }
 
 .fixture-logo {
-  width: 24px;
-  height: 24px;
+  width: 32px;
+  height: 32px;
   object-fit: contain;
+  border-radius: 50%;
+  background-color: #2a2a2a;
+  padding: 2px;
 }
 
 .fixture-text {
   flex: 1;
-  margin: 0 10px;
-  font-size: 1rem;
+  text-align: center;
+  font-size: 1.05rem;
+  font-weight: 500;
+  color: #fef9c3;
+  padding: 0 10px;
 }
 
+.fixture-time {
+  font-size: 0.95rem;
+  color: #a3a3a3;
+  text-align: right;
+  min-width: 80px;
+}
 
+/* View All Button */
 .btn.view-all-fixtures {
-  padding: 8px 16px;
+  padding: 10px 18px;
   background: #facc15;
   color: #121212;
   border: none;
-  border-radius: 50px;
+  border-radius: 9999px;
   font-weight: 600;
   cursor: pointer;
-  transition: background 0.3s;
+  transition: background 0.3s ease;
 }
 
 .btn.view-all-fixtures:hover {
   background: #fde68a;
 }
 
-/* Responsive: stack on narrow screens */
+/* Mobile Responsive */
 @media (max-width: 768px) {
   .overview-widgets {
     flex-direction: column;
   }
+  .fixture-item {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 6px;
+  }
+  .fixture-text {
+    text-align: left;
+    padding: 0;
+  }
+  .fixture-time {
+    text-align: left;
+  }
 }
+
 
 .overview-team-of-week h4 {
    margin-bottom: 10px; 
@@ -560,74 +542,7 @@
       vertical-align: middle;
     }
 
-#statistics {
-  padding: 2rem;
-  background: #111827;
-  color: #facc15;
-  border-radius: 1rem;
-  margin-top: 2rem;
-}
 
-.sub-tabs {
-  display: flex;
-  gap: 1rem;
-  margin-bottom: 1.5rem;
-}
-
-.sub-tab {
-  background: #1f2937;
-  border: none;
-  padding: 0.75rem 1.5rem;
-  color: #facc15;
-  cursor: pointer;
-  border-radius: 0.5rem;
-  font-weight: 600;
-}
-
-.sub-tab.active {
-  background: #facc15;
-  color: #111827;
-}
-
-.stat-block {
-  margin-bottom: 2rem;
-}
-
-.stat-block h4 {
-  font-size: 1.25rem;
-  margin-bottom: 0.75rem;
-  color: #facc15;
-}
-
-.stat-list,
-.extra-list {
-  list-style: none;
-  padding: 0;
-  margin: 0;
-}
-
-.stat-list li,
-.extra-list li {
-  padding: 0.5rem 0;
-  border-bottom: 1px solid #374151;
-  display: flex;
-  justify-content: space-between;
-  color: #d1d5db;
-}
-
-.view-more {
-  margin-top: 0.75rem;
-  background: #374151;
-  border: none;
-  padding: 0.5rem 1rem;
-  color: #facc15;
-  border-radius: 0.5rem;
-  cursor: pointer;
-}
-
-.hidden {
-  display: none;
-}
 
 
 
@@ -663,4 +578,151 @@
 .fixture-time {
   color: #facc15;
   font-weight: bold;
+}
+
+#fixtures select {
+  margin-right: 10px;
+  margin-bottom: 15px;
+  padding: 10px;
+  font-size: 16px;
+  background: #222;
+  color: #facc15;
+  border: 1px solid #facc15;
+  border-radius: 8px;
+}
+
+#stats-sections {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 32px;
+  padding: 50px 20px;
+  background-color: #0a0a0a;
+  border-radius: 20px;
+  box-shadow: 0 0 20px rgba(255, 215, 0, 0.07);
+}
+
+#stats-sections section {
+  background: linear-gradient(145deg, #111, #1a1a1a);
+  padding: 24px;
+  border-radius: 16px;
+  border: 1px solid rgba(250, 204, 21, 0.1);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.6);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+#stats-sections section:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 10px 20px rgba(250, 204, 21, 0.25);
+}
+
+#stats-sections h2 {
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: #facc15;
+  margin-bottom: 20px;
+  border-left: 4px solid #facc15;
+  padding-left: 12px;
+  letter-spacing: 0.5px;
+}
+
+ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+ul li {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 14px 0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+ul li:last-child {
+  border-bottom: none;
+}
+
+.info {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.info img {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 1px solid #444;
+}
+
+strong {
+  color: #fff;
+  font-size: 0.95rem;
+  font-weight: 500;
+}
+
+small {
+  color: #bbb;
+  font-size: 0.8rem;
+}
+
+span {
+  font-size: 0.9rem;
+  color: #facc15;
+  font-weight: 600;
+}
+
+.fixture-card {
+  background: #1c1c1c;
+  padding: 12px;
+  border-radius: 8px;
+  margin-bottom: 10px;
+}
+
+.fixture-content {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.team-side {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  flex: 1;
+}
+
+.match-score {
+  font-weight: bold;
+  font-size: 18px;
+  color: #facc15;
+  min-width: 50px;
+  text-align: center;
+}
+
+.fixture-time {
+  font-size: 12px;
+  color: #aaa;
+  text-align: right;
+  min-width: 70px;
+}
+
+@media (max-width: 500px) {
+  .team-name {
+    display: none;
+  }
+
+  .fixture-content {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .fixture-time {
+    align-self: flex-end;
+    text-align: right;
+  }
 }

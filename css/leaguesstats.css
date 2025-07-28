@@ -1,0 +1,187 @@
+/* STATS MAIN SECTION */
+#statistics {
+  background-color: #030712;
+  padding: 48px 20px;
+  text-align: center;
+}
+
+/* MAIN HEADER */
+#statistics h3 {
+  font-size: 1.8rem;
+  color: #facc15;
+  margin-bottom: 32px;
+}
+
+/* GRID CONTAINER */
+#stats-sections {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+  gap: 40px;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 16px;
+}
+
+/* INDIVIDUAL STAT CARD */
+#stats-sections section {
+  background-color: #111827;
+  border-radius: 16px;
+  padding: 24px;
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.4);
+  color: #f9fafb;
+  transition: transform 0.3s ease;
+  width: 100%;
+}
+
+#stats-sections section:hover {
+  transform: translateY(-3px);
+}
+
+/* SECTION TITLE */
+#stats-sections h2 {
+  font-size: 1.25rem;
+  color: #facc15;
+  margin-bottom: 16px;
+  font-weight: 600;
+  text-align: left;
+}
+
+/* PLAYER / TEAM LIST */
+ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  max-height: 360px;
+  overflow: hidden;
+  transition: max-height 0.4s ease;
+}
+
+ul.expanded {
+  max-height: 2000px;
+}
+
+/* EACH LIST ITEM */
+ul li {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 14px 0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+ul li:last-child {
+  border-bottom: none;
+}
+
+/* INFO LEFT SECTION */
+.info {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  text-align: left;
+}
+
+.info img {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 1px solid #333;
+}
+
+strong {
+  font-weight: 600;
+  color: #fff;
+}
+
+small {
+  color: #bbb;
+  font-size: 0.8rem;
+}
+
+span {
+  color: #facc15;
+  font-weight: bold;
+}
+
+/* VIEW MORE BUTTON */
+.view-more-btn {
+  background: none;
+  color: #facc15;
+  border: none;
+  font-size: 0.9rem;
+  margin-top: 10px;
+  cursor: pointer;
+  display: block;
+  width: fit-content;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* 🧠 MAKE IT WIDE + CENTERED ON MOBILE */
+@media (max-width: 768px) {
+  #stats-sections {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 0 16px;
+    width: 100%;
+  }
+
+  #stats-sections section {
+    width: 100%;
+    max-width: 500px;
+    background-color: #0e0e0e;
+    border-radius: 12px;
+    padding: 20px;
+    box-shadow: 0 0 10px rgba(255, 255, 255, 0.05);
+    margin-bottom: 24px;
+  }
+
+  #stats-sections h2 {
+    font-size: 18px;
+    color: #facc15;
+    margin-bottom: 12px;
+    text-align: center;
+  }
+
+  ul {
+    padding: 0;
+    list-style: none;
+    width: 100%;
+  }
+
+  li {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px 0;
+    border-bottom: 1px solid #222;
+  }
+
+  .info {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex-wrap: wrap;
+  }
+
+  .info img {
+    width: 32px;
+    height: 32px;
+    object-fit: cover;
+    border-radius: 50%;
+  }
+
+  .view-more-btn {
+    margin: 10px auto;
+    display: block;
+    padding: 8px 16px;
+    background-color: #facc15;
+    color: #000;
+    border: none;
+    border-radius: 6px;
+    font-weight: bold;
+    cursor: pointer;
+  }
+}
