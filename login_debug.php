@@ -62,8 +62,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>FootWire Admin Login (Debug)</title>
-  <link rel="stylesheet" href="style.css">
+  <title>SportsWire Admin Login (Debug)</title>
+  <link rel="stylesheet" href="styles.css">
   <style>
     body {
       background-color: #1e1e2f;

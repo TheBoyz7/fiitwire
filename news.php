@@ -6,8 +6,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>FootWire | News Hub</title>
-  <link rel="stylesheet" href="css/style.css">
+  <title>SportsWire | News Hub</title>
+  <link rel="stylesheet" href="css/styles.css">
   <link rel="stylesheet" href="css/news-hub.css">
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
 </head>
@@ -30,7 +30,7 @@ $latestStmt->close();
 <header class="site-header">
     <div class="container">
       <div class="logo">
-        <h1>FootWire</h1>
+        <h1>SportsWire</h1>
       </div>
       <nav class="main-nav">
         <ul>

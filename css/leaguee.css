@@ -1,0 +1,325 @@
+/* 📌 Leagues Page Styles */
+
+.leagues-container {
+  display: grid;
+  gap: 20px;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  padding: 30px;
+  background: linear-gradient(135deg, rgba(13, 17, 23, 0.9), rgba(0, 0, 40, 0.7));
+  backdrop-filter: blur(10px); /* Glassmorphism effect */
+  border-radius: 15px;
+  margin: 20px;
+  box-shadow: 0 0 10px rgba(250, 204, 21, 0.2); /* Simplified shadow */
+}
+
+.league-card {
+  background: rgba(30, 30, 30, 0.9);
+  padding: 20px;
+  border-radius: 18px;
+  border: 1px solid #333;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  color: #e5e5e5;
+  position: relative;
+  overflow: hidden;
+}
+
+.league-card::before {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: radial-gradient(circle, rgba(250, 204, 21, 0.03) 0%, transparent 70%);
+  animation: rotateGradient 20s linear infinite; /* Subtle background animation */
+  z-index: 0;
+}
+
+.league-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 6px 15px rgba(250, 204, 21, 0.3); /* Neon-inspired shadow */
+}
+
+.league-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 16px;
+  position: relative;
+  z-index: 1;
+}
+
+.league-header img {
+  width: 36px;
+  height: 36px;
+  border-radius: 5px;
+  box-shadow: 0 0 5px rgba(250, 204, 21, 0.2); /* Neon glow */
+  transition: transform 0.3s ease;
+}
+
+.league-header img:hover {
+  transform: scale(1.1);
+}
+
+.league-header h2 {
+  font-family: 'Orbitron', sans-serif;
+  font-size: 1.2rem;
+  color: #facc15;
+  text-shadow: 0 0 5px #facc15;
+  text-transform: uppercase;
+}
+
+.fixtures {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 16px 0;
+  position: relative;
+  z-index: 1;
+}
+
+.fixture-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 6px 0;
+  border-bottom: 1px solid #333;
+  transition: color 0.3s ease;
+}
+
+.fixture-logo {
+  width: 24px;
+  height: 24px;
+  border-radius: 4px;
+  box-shadow: 0 0 5px rgba(250, 204, 21, 0.2);
+  transition: transform 0.3s ease;
+}
+
+.home-logo {
+  margin-right: 5px;
+}
+
+.away-logo {
+  margin-left: 5px;
+}
+
+.fixture-logo:hover {
+  transform: scale(1.1);
+}
+
+.fixture-date {
+  font-family: 'Orbitron', sans-serif;
+  font-size: 0.85rem;
+  color: #a0a0ff;
+  text-shadow: 0 0 3px #a0a0ff;
+  margin-right: 10px;
+}
+
+.fixture-match {
+  font-family: 'Orbitron', sans-serif;
+  font-size: 0.95rem;
+  flex: 1;
+  transition: color 0.3s ease;
+}
+
+.fixture-item:hover .fixture-match {
+  color: #fff;
+}
+
+.view-more {
+  padding: 10px 18px;
+  background: #facc15;
+  color: #121212;
+  border: none;
+  border-radius: 50px;
+  font-family: 'Orbitron', sans-serif;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.3s ease, transform 0.3s ease;
+  width: 100%;
+  position: relative;
+  overflow: hidden;
+}
+
+.view-more::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 0;
+  height: 0;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+  transition: width 0.4s ease, height 0.4s ease;
+}
+
+.view-more:hover {
+  background: #fde68a;
+  transform: translateY(-2px);
+}
+
+.view-more:hover::before {
+  width: 150%;
+  height: 150%;
+}
+
+.toggle-fixtures {
+  padding: 8px 15px;
+  background: rgba(250, 204, 21, 0.2);
+  color: #e5e5e5;
+  border: 1px solid #333;
+  border-radius: 50px;
+  font-family: 'Orbitron', sans-serif;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.3s ease, transform 0.3s ease, color 0.3s ease;
+  width: 100%;
+  margin-bottom: 10px;
+  position: relative;
+  overflow: hidden;
+}
+
+.toggle-fixtures::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 0;
+  height: 0;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+  transition: width 0.4s ease, height 0.4s ease;
+}
+
+.toggle-fixtures:hover {
+  background: rgba(250, 204, 21, 0.4);
+  transform: translateY(-2px);
+  color: #fff;
+}
+
+.toggle-fixtures:hover::before {
+  width: 150%;
+  height: 150%;
+}
+
+.toggle-fixtures.active {
+  background: #facc15;
+  color: #121212;
+  border-color: #facc15;
+  box-shadow: 0 0 10px rgba(250, 204, 21, 0.3);
+}
+
+/* 🎵 Search Bar Styles */
+.search-container {
+  padding: 20px 30px;
+  margin: 20px;
+  text-align: center;
+}
+
+.search-bar {
+  width: 100%;
+  max-width: 500px;
+  padding: 12px 20px;
+  font-family: 'Orbitron', sans-serif;
+  font-size: 1.1rem;
+  color: #e5e5e5;
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid #333;
+  border-radius: 25px;
+  box-shadow: 0 0 10px rgba(250, 204, 21, 0.2), inset 0 0 5px rgba(250, 204, 21, 0.1);
+  transition: box-shadow 0.3s ease, transform 0.3s ease;
+  outline: none;
+}
+
+.search-bar::placeholder {
+  color: #a0a0ff;
+  font-weight: 500;
+  text-shadow: 0 0 3px #a0a0ff;
+}
+
+.search-bar:focus {
+  transform: scale(1.02);
+  box-shadow: 0 0 15px rgba(250, 204, 21, 0.4), inset 0 0 8px rgba(250, 204, 21, 0.2);
+  border-color: #facc15;
+}
+
+.search-bar:hover {
+  box-shadow: 0 0 12px rgba(250, 204, 21, 0.3), inset 0 0 6px rgba(250, 204, 21, 0.1);
+}
+
+/* 📱 Mobile Responsive */
+@media (max-width: 768px) {
+  .leagues-container {
+    grid-template-columns: 1fr;
+    padding: 20px;
+    margin: 10px;
+  }
+
+  .league-header img {
+    width: 32px;
+    height: 32px;
+  }
+
+  .league-header h2 {
+    font-size: 1.1rem;
+  }
+
+  .fixture-item {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 5px;
+  }
+
+  .fixture-logo {
+    width: 20px;
+    height: 20px;
+  }
+
+  .home-logo {
+    margin-right: 0;
+    margin-bottom: 5px;
+  }
+
+  .away-logo {
+    margin-left: 0;
+    margin-top: 5px;
+  }
+
+  .fixture-date {
+    font-size: 0.8rem;
+  }
+
+  .fixture-match {
+    font-size: 0.9rem;
+  }
+
+  .view-more, .toggle-fixtures {
+    padding: 8px 12px;
+    font-size: 0.9rem;
+  }
+
+  .search-container {
+    padding: 15px 20px;
+    margin: 10px;
+  }
+
+  .search-bar {
+    padding: 10px 15px;
+    font-size: 1rem;
+  }
+
+  /* Disable heavy animations on mobile */
+  .league-card:hover, .league-header img:hover, .view-more:hover, .toggle-fixtures:hover, .search-bar:hover, .search-bar:focus {
+    transform: none !important;
+  }
+  .league-card::before, .view-more::before, .toggle-fixtures::before {
+    display: none;
+  }
+}
+
+/* Animations */
+@keyframes rotateGradient {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}

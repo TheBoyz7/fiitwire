@@ -6,8 +6,8 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Article | FootWire</title>
-  <link rel="stylesheet" href="css/style.css" />
+  <title>Article | SportsWire</title>
+  <link rel="stylesheet" href="css/styles.css" />
   <link rel="stylesheet" href="css/article.css">
 </head>
 <body>
@@ -37,7 +37,7 @@ if (!$article) {
   <header class="site-header">
     <div class="container">
       <div class="logo">
-        <h1>FootWire</h1>
+        <h1>SportsWire</h1>
       </div>
       <nav class="main-nav">
         <ul>
@@ -114,7 +114,7 @@ if (!$article) {
   <!-- ⚫ FOOTER -->
   <footer class="site-footer">
     <div class="container">
-      <p>&copy; <?php echo date('Y'); ?> FootWire. All rights reserved.</p>
+      <p>&copy; <?php echo date('Y'); ?> SportsWire. All rights reserved.</p>
     </div>
   </footer>
 </body>

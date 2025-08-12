@@ -3,16 +3,16 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>FootWire | Live Scores</title>
-  <link rel="stylesheet" href="css/style.css" />
-  <link rel="stylesheet" href="css/lives.css" />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+  <title>SportsWire | Live Scores</title>
+  <link rel="stylesheet" href="css/styles.css" />
+  <link rel="stylesheet" href="css/welive.css" />
+  <!-- <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet"> -->
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&display=swap" rel="stylesheet">
 </head>
 <body>
-
   <header class="site-header">
     <div class="container">
-      <div class="logo"><h1>FootWire</h1></div>
+      <div class="logo"><h1>SportsWire</h1></div>
       <nav class="main-nav">
         <ul>
           <li><a href="index.php">Home</a></li>
@@ -22,10 +22,6 @@
           <li><a href="live.html">Live Scores</a></li>
         </ul>
       </nav>
-      <div class="auth-buttons">
-        <button class="login-btn">Login</button>
-        <button class="signup-btn">Sign Up</button>
-      </div>
     </div>
   </header>
 
@@ -36,18 +32,30 @@
     // --- Helper Functions ---
     function formatDateRelative(offset) {
       const d = new Date();
-      d.setDate(d.getDate() + offset);
-      return d.toLocaleDateString('en-US', { weekday: 'short', month: 'short', day: 'numeric' });
+      d.setUTCDate(d.getUTCDate() + offset);
+      return d.toLocaleDateString('en-US', { weekday: 'short', month: 'short', day: 'numeric', timeZone: 'UTC' });
     }
+
     function getDateString(offset = 0) {
       const d = new Date();
-      d.setDate(d.getDate() + offset);
+      d.setUTCDate(d.getUTCDate() + offset);
       return d.toISOString().split('T')[0];
+    }
+
+    function formatKickoffTime(startingAt) {
+      if (!startingAt) return 'TBD';
+      try {
+        const date = new Date(startingAt + 'Z'); // API returns UTC
+        return date.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit', hour12: false, timeZone: 'UTC' });
+      } catch (e) {
+        console.error('Invalid starting_at:', startingAt, e);
+        return 'TBD';
+      }
     }
 
     // --- Build Tabs ---
     const daysToRender = [{ label: 'Yesterday', offset: -1 }, { label: 'Today', offset: 0 }, { label: 'Tomorrow', offset: 1 }];
-    for (let i = 2; i <= 20; i++) daysToRender.unshift({ label: formatDateRelative(-i), offset: -i });
+    for (let i = 2; i <= 3; i++) daysToRender.unshift({ label: formatDateRelative(-i), offset: -i });
     for (let i = 2; i <= 20; i++) daysToRender.push({ label: formatDateRelative(i), offset: i });
 
     const scoreTabs = document.getElementById('scoreTabs');
@@ -67,111 +75,182 @@
     // --- Main Logic ---
     const matchList = document.getElementById('matchList');
     async function fetchFixturesForOffset(offset) {
+      matchList.innerHTML = '<p>Loading matches...</p>';
       const date = getDateString(offset);
       const url = `http://localhost:3000/api/fixtures?startDate=${date}&endDate=${date}`;
-      matchList.innerHTML = ''; // clear
       try {
         const res = await fetch(url);
+        if (!res.ok) throw new Error(`HTTP ${res.status}`);
         const fixtures = await res.json();
 
-        if (!fixtures.length) {
+        if (!Array.isArray(fixtures) || !fixtures.length) {
           matchList.innerHTML = `<p>No matches for ${formatDateRelative(offset)}.</p>`;
           return;
         }
         renderMatches(fixtures);
       } catch (err) {
-        console.error('Error fetching fixtures:', err);
-        matchList.innerHTML = '<p>NO MATCHES TODAY.</p>';
+        console.error('Error fetching fixtures for offset', offset, ':', err);
+        matchList.innerHTML = `<p>Error loading matches for ${formatDateRelative(offset)}. Please try again.</p>`;
       }
     }
-function renderMatches(matches) {
-  matchList.innerHTML = '';
 
-  matches.forEach(fixture => {
-    const participants = fixture.participants || [];
-    const home = participants.find(p => p.meta.location === 'home') || {};
-    const away = participants.find(p => p.meta.location === 'away') || {};
+    function renderMatches(fixtures) {
+      matchList.innerHTML = '';
 
-    // 🏟️ CURRENT scores
-    const scores = fixture.scores?.filter(s => s.description === 'CURRENT') || [];
-    const homeScoreRaw = scores.find(s => s.participant_id === home.id)?.score?.goals;
-    const awayScoreRaw = scores.find(s => s.participant_id === away.id)?.score?.goals;
-    const homeScore = Number.isFinite(homeScoreRaw) ? homeScoreRaw : '-';
-    const awayScore = Number.isFinite(awayScoreRaw) ? awayScoreRaw : '-';
+      // Group fixtures by league
+      const fixturesByLeague = {};
+      fixtures.forEach(fixture => {
+        const leagueName = fixture.league?.name || 'Unknown League';
+        if (!fixturesByLeague[leagueName]) {
+          fixturesByLeague[leagueName] = [];
+        }
+        fixturesByLeague[leagueName].push(fixture);
+      });
 
-    // ⏱️ Determine status text
-    const minute = fixture.time?.minute;
-    const statusName = (fixture.status?.name || '').toLowerCase();
+      // Sort by starting_at_timestamp (ascending)
+      Object.keys(fixturesByLeague).forEach(league => {
+        fixturesByLeague[league].sort((a, b) => {
+          const timeA = a.starting_at_timestamp || Infinity;
+          const timeB = b.starting_at_timestamp || Infinity;
+          return timeA - timeB;
+        });
+      });
 
-    let statusText;
-    if (minute != null) {
-      // live play
-      statusText = `${minute}′`;
-    } else if (statusName.includes('half')) {
-      // explicit half-time status
-      statusText = 'HT';
-    } else if (
-      Number.isFinite(homeScoreRaw) ||
-      Number.isFinite(awayScoreRaw)
-    ) {
-      // score exists, but no minute => match is finished
-      statusText = 'FT';
-    } else {
-      // not started yet: kickoff time
-      const kick = new Date(fixture.starting_at + 'Z');
-      statusText = kick.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+      // Render league cards
+      Object.entries(fixturesByLeague).forEach(([leagueName, leagueFixtures]) => {
+        const leagueCard = document.createElement('div');
+        leagueCard.className = 'league-card';
+        leagueCard.dataset.league = leagueName;
+
+        const leagueHeader = document.createElement('div');
+        leagueHeader.className = 'league-header';
+        leagueHeader.innerHTML = `
+          <a href="leagues.html?id=${leagueFixtures[0].league?.id || ''}" class="league-link">
+            <img src="${leagueFixtures[0].league?.image_path || 'https://cdn.sportmonks.com/images/soccer/placeholder.png'}" alt="${leagueName} Logo" class="league-logo" />
+            ${leagueName}
+          </a>
+          <button class="hide-button">Hide all △</button>
+        `;
+        leagueCard.appendChild(leagueHeader);
+
+        leagueFixtures.forEach(fixture => {
+          const participants = fixture.participants || [];
+          const home = participants.find(p => p.meta?.location === 'home') || { id: '', name: 'TBD', image_path: 'https://cdn.sportmonks.com/images/soccer/placeholder.png' };
+          const away = participants.find(p => p.meta?.location === 'away') || { id: '', name: 'TBD', image_path: 'https://cdn.sportmonks.com/images/soccer/placeholder.png' };
+
+          // Scores
+          const scores = fixture.scores?.filter(s => s.description === 'CURRENT' && s.type_id === 1525) || [];
+          const homeScore = scores.find(s => s.score?.participant === 'home')?.score?.goals ?? '-';
+          const awayScore = scores.find(s => s.score?.participant === 'away')?.score?.goals ?? '-';
+
+          // Status determination
+          const minute = fixture.time?.minute;
+          const statusCode = fixture.status?.code;
+          const statusName = (fixture.status?.name || '').toLowerCase();
+          let statusText = '';
+          let isLive = false;
+
+          if (statusCode) {
+            switch (statusCode) {
+              case 1: // Not started
+                statusText = formatKickoffTime(fixture.starting_at);
+                break;
+              case 3: // First half
+              case 4: // Second half
+              case 6: // Extra time
+              case 7: // Penalties
+                statusText = minute != null && minute >= 0 && minute <= 120 ? `${minute}′` : 'Live';
+                isLive = true;
+                break;
+              case 5: // Halftime
+                statusText = 'HT';
+                isLive = true;
+                break;
+              case 8: // Full time
+              case 9: // Extra time finished
+              case 10: // Penalties finished
+                statusText = 'FT';
+                break;
+              case 11: // Postponed
+              case 12: // Cancelled
+              case 13: // Abandoned
+                statusText = statusName.toUpperCase();
+                break;
+              default:
+                statusText = formatKickoffTime(fixture.starting_at);
+            }
+          } else {
+            if (minute != null && minute >= 0 && minute <= 120) {
+              statusText = `${minute}′`;
+              isLive = true;
+            } else if (statusName.includes('half')) {
+              statusText = 'HT';
+              isLive = true;
+            } else if (homeScore !== '-' || awayScore !== '-') {
+              statusText = 'FT';
+            } else {
+              statusText = formatKickoffTime(fixture.starting_at);
+            }
+          }
+
+          // Build match card
+          const cardLink = document.createElement('a');
+          cardLink.href = `match.html?id=${fixture.id}`;
+          cardLink.className = 'match-card-link';
+
+          cardLink.innerHTML = `
+            <div class="match-card">
+              <div class="match-header">
+                <em class="status ${isLive ? 'live' : 'scheduled'}">${statusText}</em>
+              </div>
+              <div class="teams">
+                <div class="team team--home">
+                  <a href="club.html?id=${home.id}" class="logo-link">
+                    <img src="${home.image_path}" alt="${home.name}" class="team-logo">
+                  </a>
+                  <div class="team-name">${home.name}</div>
+                </div>
+                <div class="score">
+                  <span>${homeScore}</span>
+                  <span class="vs">-</span>
+                  <span>${awayScore}</span>
+                </div>
+                <div class="team team--away">
+                  <a href="club.html?id=${away.id}" class="logo-link">
+                    <img src="${away.image_path}" alt="${away.name}" class="team-logo">
+                  </a>
+                  <div class="team-name">${away.name}</div>
+                </div>
+              </div>
+            </div>
+          `;
+
+          // Prevent match link when clicking logos
+          cardLink.querySelectorAll('.logo-link').forEach(link => {
+            link.addEventListener('click', e => e.stopPropagation());
+          });
+
+          leagueCard.appendChild(cardLink);
+        });
+
+        matchList.appendChild(leagueCard);
+
+        // Add hide/show functionality
+        const hideButton = leagueHeader.querySelector('.hide-button');
+        hideButton.addEventListener('click', () => {
+          const matches = leagueCard.querySelectorAll('.match-card-link');
+          const isHidden = matches[0].style.display === 'none';
+          matches.forEach(match => {
+            match.style.display = isHidden ? 'block' : 'none';
+          });
+          hideButton.textContent = isHidden ? 'Hide all △' : 'Show all ▽';
+          hideButton.classList.toggle('rotated', isHidden);
+        });
+      });
     }
-
-    const isLive = minute != null;
-
-    // 🃏 Build card link
-    const cardLink = document.createElement('a');
-    cardLink.href = `match.html?id=${fixture.id}`;
-    cardLink.className = 'match-card-link';
-
-    cardLink.innerHTML = `
-      <div class="match-card">
-        <div class="match-header">
-          <span>${fixture.league?.name || ''}</span>
-          <em class="status ${isLive ? 'live' : 'scheduled'}">${statusText}</em>
-        </div>
-
-        <div class="teams">
-          <div class="team team--home">
-            <a href="club.html?id=${home.id}" class="logo-link">
-              <img src="${home.image_path || ''}" alt="${home.name}" class="team-logo">
-            </a>
-            <div class="team-name">${home.name || 'TBD'}</div>
-          </div>
-
-          <div class="score">
-            <span>${homeScore}</span>
-            <span class="vs">-</span>
-            <span>${awayScore}</span>
-          </div>
-
-          <div class="team team--away">
-            <a href="club.html?id=${away.id}" class="logo-link">
-              <img src="${away.image_path || ''}" alt="${away.name}" class="team-logo">
-            </a>
-            <div class="team-name">${away.name || 'TBD'}</div>
-          </div>
-        </div>
-      </div>
-    `;
-
-    // 🚫 Prevent match link when clicking logos
-    cardLink.querySelectorAll('.logo-link').forEach(link => {
-      link.addEventListener('click', e => e.stopPropagation());
-    });
-
-    matchList.appendChild(cardLink);
-  });
-}
 
     // --- Initial Load for Today ---
     fetchFixturesForOffset(0);
   </script>
-
 </body>
 </html>

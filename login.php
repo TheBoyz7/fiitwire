@@ -54,8 +54,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>FootWire Admin Login</title>
-  <link rel="stylesheet" href="style.css">
+  <title>SportsWire Admin Login</title>
+  <link rel="stylesheet" href="styles.css">
   <style>
     /* Simple centered form styling */
     body {

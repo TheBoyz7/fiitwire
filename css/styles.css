@@ -6,7 +6,7 @@
   }
   
   body {
-    font-family: 'Inter', sans-serif;
+   font-family: 'Orbitron', 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
     background: #0d1117;
     color: #e5e5e5;
     line-height: 1.6;
@@ -27,6 +27,7 @@
     padding: 20px 0;
     position: sticky;
     top: 0;
+    font-family: 'Orbitron', 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
     z-index: 999;
     animation: slideDown 0.8s ease;
   }

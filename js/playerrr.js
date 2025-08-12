@@ -246,32 +246,40 @@ async function loadTrophies(playerId) {
 }
 
 
+let currentSortedStatistics = []; // Global variable to hold sortedStatistics
+
 async function loadStatistics(playerId) {
   const container = document.getElementById('statistics');
   container.innerHTML = '<p class="loading">Loading statistics...</p>';
 
   try {
     const res = await fetch(`http://localhost:3000/api/player/${playerId}`);
-    if (!res.ok) throw new Error('Failed to fetch player data');
+    if (!res.ok) throw new Error(`Failed to fetch player data: ${res.status}`);
     const player = await res.json();
     const statistics = Array.isArray(player.statistics) ? player.statistics : [];
 
-    // Sort seasons by ending_at in descending order
-    statistics.sort((a, b) => new Date(b.season?.ending_at) - new Date(a.season?.ending_at));
+    // Sort and filter seasons by ending_at in descending order, only include valid seasons
+    currentSortedStatistics = statistics
+      .filter(stat => stat.season?.ending_at && stat.season?.league?.name)
+      .sort((a, b) => new Date(b.season.ending_at) - new Date(a.season.ending_at));
 
-    const seasonOptions = statistics.map(stat => 
-      `<option value="${stat.season_id}">${stat.season?.name || 'Unknown'}</option>`
-    ).join('');
+    const seasonOptions = currentSortedStatistics.length > 0 ? currentSortedStatistics.map(stat => `
+      <option value="${stat.season_id}">
+        <img src="${stat.season.league.image_path || 'https://cdn.sportmonks.com/images/soccer/placeholder.png'}" alt="${stat.season.league.name || 'Unknown League'}" class="season-logo" style="width: 20px; height: 20px; vertical-align: middle; margin-right: 5px;">
+        ${stat.season.name || 'Unknown Season'} (${stat.season.league.name || 'Unknown League'})
+      </option>
+    `).join('') : '<option value="">No seasons available</option>';
 
-    const defaultSeasonId = statistics[0]?.season_id || null;
+    const defaultSeasonId = currentSortedStatistics[0]?.season_id || null;
 
     container.innerHTML = `
       <div class="season-selector">
         <label for="season-dropdown">Select Season: </label>
-        <select id="season-dropdown" onchange="updateStats(${playerId}, this.value)">
+        <select id="season-dropdown" onchange="updateStats(${playerId}, this.value)" ${currentSortedStatistics.length === 0 ? 'disabled' : ''} data-statistics='${JSON.stringify(currentSortedStatistics)}'>
           ${seasonOptions}
         </select>
       </div>
+      <div id="season-info" class="season-info"></div>
       <div id="stats-cards"></div>
       <canvas id="chart-canvas" width="400" height="200" style="width: 100%; height: 200px;"></canvas>
     `;
@@ -280,20 +288,34 @@ async function loadStatistics(playerId) {
     container.dataset.loaded = 'true';
   } catch (err) {
     console.error('Error loading statistics:', err);
-    container.innerHTML = '<p class="error">Could not load statistics.</p>';
+    container.innerHTML = `<p class="error">Could not load statistics: ${err.message}</p>`;
   }
 }
 
 function updateStats(playerId, seasonId = null) {
   fetch(`http://localhost:3000/api/player/${playerId}`)
     .then(res => {
-      if (!res.ok) throw new Error('Failed to fetch player data');
+      if (!res.ok) throw new Error(`Failed to fetch player data: ${res.status}`);
       return res.json();
     })
     .then(player => {
       const statistics = Array.isArray(player.statistics) ? player.statistics : [];
       const selectedStat = statistics.find(s => String(s.season_id) === String(seasonId)) || statistics[0] || {};
-      const details = selectedStat.details || [];
+      const details = selectedStat.details || {};
+
+      // Retrieve sortedStatistics from data attribute
+      const select = document.getElementById('season-dropdown');
+      const sortedStatistics = JSON.parse(select.dataset.statistics || '[]');
+
+      // Update season info with league logo, name, and team
+      const seasonInfo = document.getElementById('season-info');
+      seasonInfo.innerHTML = selectedStat.season ? `
+        <div class="season-info-content">
+          <img src="${selectedStat.season.league?.image_path || 'https://cdn.sportmonks.com/images/soccer/placeholder.png'}" alt="${selectedStat.season.league?.name || 'Unknown League'}" class="league-logo" style="width: 40px; height: 40px; vertical-align: middle; margin-right: 10px;">
+          <img src="${selectedStat.team?.image_path || 'https://cdn.sportmonks.com/images/soccer/placeholder.png'}" alt="${selectedStat.team?.name || 'Unknown Team'}" class="team-logo" style="width: 40px; height: 40px; vertical-align: middle; margin-right: 10px;">
+          <span>Season: ${selectedStat.season.name || 'Unknown'} - ${selectedStat.season.league?.name || 'Unknown League'} - Team: ${selectedStat.team?.name || 'Unknown Team'}</span>
+        </div>
+      ` : '<p>No season data available</p>';
 
       const statsCards = document.getElementById('stats-cards');
       statsCards.innerHTML = `
@@ -322,29 +344,31 @@ function updateStats(playerId, seasonId = null) {
       const canvas = document.getElementById('chart-canvas');
       const ctx = canvas.getContext('2d');
       ctx.clearRect(0, 0, canvas.width, canvas.height);
-      ctx.beginPath();
-
-      const goalsData = statistics.map((s, i) => ({
-        x: i * 50,
-        y: 100 - getStat(s.details, 52) * 10
-      }));
-
-      goalsData.forEach((point, index) => {
-        if (index === 0) ctx.moveTo(point.x, point.y);
-        else ctx.lineTo(point.x, point.y);
-      });
-
-      ctx.stroke();
+      if (sortedStatistics.length > 0) {
+        ctx.beginPath();
+        const goalsData = sortedStatistics.map((s, i) => ({
+          x: i * 50,
+          y: 100 - getStat(s.details, 52) * 10 || 100 // Fallback to 100 if no goals data
+        }));
+        goalsData.forEach((point, index) => {
+          if (index === 0) ctx.moveTo(point.x, point.y);
+          else ctx.lineTo(point.x, point.y);
+        });
+        ctx.stroke();
+      }
     })
-    .catch(err => console.error('Error updating stats:', err));
+    .catch(err => {
+      console.error('Error updating stats:', err);
+      document.getElementById('season-info').innerHTML = `<p class="error">Error updating stats: ${err.message}</p>`;
+      document.getElementById('stats-cards').innerHTML = '';
+      document.getElementById('chart-canvas').getContext('2d').clearRect(0, 0, 400, 200);
+    });
 }
 
 function getStat(details, typeId) {
   const item = Array.isArray(details) ? details.find(d => d.type_id === typeId) : null;
   return item ? item.value?.total || 0 : 0;
 }
-
-
 async function loadFixtures(playerId) {
   const container = document.getElementById('fixtures');
   container.innerHTML = '<p class="loading">Loading fixtures...</p>';

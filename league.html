@@ -3,147 +3,38 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>FootWire | Leagues</title>
-  <link rel="stylesheet" href="css/style.css">
-  <link rel="stylesheet" href="css/league.css">
+  <title>SportsWire | Leagues</title>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/styles.css">
+  <link rel="stylesheet" href="css/leaguee.css">
 </head>
 <body>
-    <header class="site-header">
+  <header class="site-header player-header">
     <div class="container">
       <div class="logo">
-        <h1>FootWire</h1>
+        <h1>SportsWire</h1>
       </div>
-      <nav class="main-nav">
+      <nav class="main-nav tabs">
         <ul>
-          <li><a href="index.php">Home</a></li>
-          <li><a href="news.php">News</a></li>
-          <li><a href="league.html">Leagues</a></li>
-          <li><a href="team.html">Teams</a></li>
-          <li><a href="live.html">Live Scores</a></li>
+          <li><a href="index.php" class="tab-btn">Home</a></li>
+          <li><a href="news.php" class="tab-btn">News</a></li>
+          <li><a href="league.html" class="tab-btn active">Leagues</a></li>
+          <li><a href="team.html" class="tab-btn">Teams</a></li>
+          <li><a href="live.html" class="tab-btn">Live Scores</a></li>
         </ul>
       </nav>
-      <div class="auth-buttons">
-        <button class="login-btn">Login</button>
-        <button class="signup-btn">Sign Up</button>
-      </div>
     </div>
   </header>
 
-
-  <main class="leagues-container">
-  <!-- in js -->
+  <main>
+    <div class="search-container">
+      <input type="text" id="league-search" placeholder="Search Leagues..." class="search-bar">
+    </div>
+    <div class="leagues-container tab-content">
+      <!-- Leagues will be rendered here by JavaScript -->
+    </div>
   </main>
 
-  <script>
-  // Sample data structure for leagues
-  const leaguesData = [
-    {
-      id: 1,
-      name: "Premier League",
-      logo: "images/premier-league-logo-5F922E3/premier-league-logo.png",
-      fixtures: [
-        "Arsenal vs Man City — 18:30",
-        "Liverpool vs Chelsea — 21:00"
-      ]
-    },
-    {
-       id: 2,
-      name: "La Liga",
-      logo: "images/La_Liga-2023-brandlogos.net-OBnr7x/la_liga-logo_brandlogos.net_e6gnt.png",
-      fixtures: [
-        "Real Madrid vs Barcelona — 19:45",
-        "Atletico vs Sevilla — 22:00"
-      ]
-    },
-    { 
-       id: 3,
-      name: "Serie A",
-      logo: "images/Serie_A-brandlogos.net-OVbpy8/serie_a-brandlogo.net.png",
-      fixtures: [
-        "Juventus vs Milan — 20:45",
-        "Inter vs Roma — 18:00"
-      ]
-    },
-    {
-       id: 4,
-      name: "Bundesliga",
-      logo: "images/bundesliga-logo-2AA0A/bundesliga-logo.png",
-      fixtures: [
-        "Bayern vs Dortmund — 20:30",
-        "Leipzig vs Leverkusen — 18:30"
-      ]
-    },
-    {
-       id: 5,
-      name: "Ligue 1",
-      logo: "images/Ligue_1-brandlogos.net-Nnef5/ligue_1-logo_brandlogos.net_ggpdc.png",
-      fixtures: [
-        "PSG vs Marseille — 21:00",
-        "Lyon vs Monaco — 18:00"
-      ]
-    }
-
-    
-    // Additional leagues can be added here
-  ];
-
-  // Function to create and render league cards
-  function renderLeagues(leagues) {
-    const container = document.querySelector('.leagues-container');
-    container.innerHTML = ''; // Clear existing content
-
-    leagues.forEach(league => {
-      // Create league card container
-      const card = document.createElement('div');
-      card.className = 'league-card';
-
-      // Create league header
-      const header = document.createElement('div');
-      header.className = 'league-header';
-
-      const logo = document.createElement('img');
-      logo.src = league.logo;
-      logo.alt = `${league.name} Logo`;
-
-      const title = document.createElement('h2');
-      title.textContent = league.name;
-
-      header.appendChild(logo);
-      header.appendChild(title);
-
-      // Create fixtures list
-      const fixturesList = document.createElement('ul');
-      fixturesList.className = 'fixtures';
-
-      league.fixtures.forEach(fixture => {
-        const listItem = document.createElement('li');
-        listItem.textContent = fixture;
-        fixturesList.appendChild(listItem);
-      });
-
-      // Create 'View More' button
-      const viewMoreBtn = document.createElement('button');
-      viewMoreBtn.className = 'view-more';
-      viewMoreBtn.textContent = 'View More';
-      viewMoreBtn.addEventListener('click', () => {
-          window.location.href = `leagues.html?id=${league.id}`
-      });
-
-      // Assemble the card
-      card.appendChild(header);
-      card.appendChild(fixturesList);
-      card.appendChild(viewMoreBtn);
-
-      // Append the card to the container
-      container.appendChild(card);
-    });
-  }
-
-  // Initialize the page with leagues
-  document.addEventListener('DOMContentLoaded', () => {
-    renderLeagues(leaguesData);
-  });
-
-  </script>
+  <script src="js/leaguee.js"></script>
 </body>
 </html>

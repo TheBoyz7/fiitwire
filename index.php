@@ -6,8 +6,8 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>FootWire | Football News Reimagined</title>
-  <link rel="stylesheet" href="css/style.css" />
+  <title>SportsWire | Football News Reimagined</title>
+  <link rel="stylesheet" href="css/styles.css" />
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
@@ -40,15 +40,15 @@ $latestStmt->close();
   <header class="site-header">
     <div class="container">
       <div class="logo">
-        <h1>FootWire</h1>
+        <h1>SportsWire</h1>
       </div>
       <nav class="main-nav">
         <ul>
           <li><a href="index.php">Home</a></li>
           <li><a href="news.php">News</a></li>
-          <li><a href="league.php">Leagues</a></li>
-          <li><a href="team.php">Teams</a></li>
-          <li><a href="live.php">Live Scores</a></li>
+          <li><a href="league.html">Leagues</a></li>
+          <li><a href="team.html">Teams</a></li>
+          <li><a href="live.html">Live Scores</a></li>
         </ul>
       </nav>
       <!-- <div class="auth-buttons">
@@ -129,7 +129,7 @@ $latestStmt->close();
   <!-- ⚫ FOOTER -->
   <footer class="site-footer">
     <div class="container">
-      <p>&copy; <?php echo date('Y'); ?> FootWire. All rights reserved.</p>
+      <p>&copy; <?php echo date('Y'); ?> SportsWire. All rights reserved.</p>
       <ul class="footer-links">
         <li><a href="">Privacy</a></li>
         <li><a href="">Terms</a></li>

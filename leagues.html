@@ -2,18 +2,33 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>FootWire | Premier League Overview</title>
-  <link rel="stylesheet" href="css/style.css">
-  <link rel="stylesheet" href="css/leagues.css">
-  <link rel="stylesheet" href="css/leaguesstats.css">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>SportWire | League Overview</title>
+  <link rel="stylesheet" href="css/styles.css">
+  <link rel="stylesheet" href="css/leaguesss.css">
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&display=swap" rel="stylesheet">
+  <style>
+    [data-tap].active { transform: scale(0.98); }
+    @media (max-width: 768px) {
+      .fixture-item { padding: 10px !important; gap: 8px !important; }
+      .fixture-item img { width: 24px !important; height: 24px !important; margin: 0 8px !important; }
+      .fixture-item span { font-size: 13px !important; }
+      .fixture-item a { font-size: 12px !important; }
+      .fixture-item a.view-match { flex-basis: 100%; text-align: center; }
+    }
+    @media (max-width: 480px) {
+      .fixture-item { padding: 8px !important; gap: 6px !important; }
+      .fixture-item img { width: 20px !important; height: 20px !important; margin: 0 6px !important; }
+      .fixture-item span { font-size: 12px !important; }
+      .fixture-item a { font-size: 11px !important; }
+    }
+  </style>
 </head>
 <body>
-
   <!-- Site Header -->
   <header class="site-header">
     <div class="container">
-      <h1>FootWire ⚽ Premier League</h1>
+      <h1>SportsWire ⚽ <span id="league-name">Loading...</span></h1>
       <nav class="main-nav">
         <ul>
           <li><a href="index.php">Home</a></li>
@@ -29,808 +44,798 @@
   <!-- League Banner -->
   <section class="league-banner">
     <div class="container">
-      <img src="images/premier-league-logo-5F922E3/premier-league-logo.png" alt="Premier League Logo" class="league-logo">
+      <img src="https://cdn.sportmonks.com/images/soccer/placeholder.png" alt="League Logo" class="league-logo" id="league-logo">
       <div class="league-info">
-        <h2>Premier League</h2>
-        <p class="league-description">England’s top-flight competition featuring 20 clubs battling for glory.</p>
+        <h2 id="league-title">Loading...</h2>
+        <p class="league-description" id="league-description">Loading league description...</p>
       </div>
     </div>
   </section>
 
   <!-- Primary Tabs -->
-  <nav class="league-tabs container">
-    <button class="tab-btn active" data-tab="overview">Overview</button>
-    <button class="tab-btn" data-tab="standings">Standings</button>
-    <button class="tab-btn" data-tab="fixtures">Fixtures</button>
-    <button class="tab-btn" data-tab="statistics">Statistics</button>
-    <!-- <button class="tab-btn" data-tab="news">News</button> -->
+  <nav class="league-tabs container" role="tablist">
+    <button class="tab-btn active" data-tab="overview" role="tab" aria-selected="true" aria-controls="overview">Overview</button>
+    <button class="tab-btn" data-tab="standings" role="tab" aria-selected="false" aria-controls="standings">Standings</button>
+    <button class="tab-btn" data-tab="fixtures" role="tab" aria-selected="false" aria-controls="fixtures">Fixtures</button>
+    <button class="tab-btn" data-tab="statistics" role="tab" aria-selected="false" aria-controls="statistics">Statistics</button>
   </nav>
 
   <!-- Tab Contents -->
   <main class="league-content container">
-
     <!-- Overview -->
-    <section id="overview" class="tab-content active">
-     <div class="overview-widgets">
-  <div class="overview-video">
-    <h4>Weekly League News</h4>
-    <div class="video-container"><!-- iframe injected here --></div>
-  </div>
-
-  <div class="overview-fixtures">
-    <br>
-    <h4>Upcoming Fixtures</h4>
-    <ul class="fixtures-preview">
-      <!-- JS will insert <li>Team A vs Team B — Time</li> here -->
-     
-       
-    </ul>
-    <button class="btn view-all-fixtures">View All Fixtures</button>
-  </div>
-</div>
-
-<div class="league-overview">
-  <div class="overview-team-of-week">
-    <h4>Team of the Week</h4>
-    <div class="pitch-container">
-      <!-- Player cards will be injected here -->
-    </div>
-  </div>
-  <div class="league-table-container">
-    <!-- League Table content will be injected here -->
-  </div>
-</div>
-
-
+    <section id="overview" class="tab-content active" role="tabpanel">
+      <div class="overview-widgets">
+        <div class="overview-video">
+          <h4>Weekly League News</h4>
+          <div class="video-container">
+            <p>Video content coming soon</p>
+          </div>
+        </div>
+        <div class="overview-fixtures">
+          <h4>Upcoming Fixtures</h4>
+          <ul class="fixtures" id="fixtures-preview"></ul>
+        </div>
+      </div>
+      <div class="league-overview">
+        <div class="overview-team-of-week">
+          <h4>Team of the Week</h4>
+          <div class="pitch-container">
+            <p>Team of the Week coming soon</p>
+          </div>
+        </div>
+        <div class="league-table-container" id="league-table-container"></div>
+      </div>
     </section>
 
     <!-- Standings -->
-    <section id="standings" class="tab-content">
+    <section id="standings" class="tab-content" role="tabpanel">
       <h3>Current Standings</h3>
-       <div id="error"></div>
-  <table>
-    <thead>
-      <tr>
-        <th>Position</th>
-        <th>Team</th>
-        <th>Points</th>
-      </tr>
-    </thead>
-    <tbody id="standings-body">
-      <!-- Data rows will go here -->
-    </tbody>
-  </table>
-
+      <div id="error" class="error"></div>
+      <div class="standings-container">
+        <table class="standings-table">
+         
+          <tbody id="standings-body"></tbody>
+        </table>
+      </div>
     </section>
 
     <!-- Fixtures -->
-    <section id="fixtures" class="tab-content">
-      <h3>Upcoming Fixtures </h3>
-      <div class="fixtures-list">
-        <!-- Fixture cards go here -->
-
-        <p id="no-fixtures" style="display:none; color:#facc15;">No fixtures found for this league in the selected date range.</p>
-
+    <section id="fixtures" class="tab-content" role="tabpanel">
+      <h3>Fixtures</h3>
+      <div id="fixtures-list">
+        <p id="no-fixtures" style="display:none; color:#facc15;">No fixtures found for this league.</p>
       </div>
     </section>
-    
-
 
     <!-- Statistics -->
-  <section id="statistics" class="tab-content">
-  <h3>Statistics123</h3>
-
-  <div id="stats-sections">
-    <section>
-      <h2>Top Scorers</h2>
-      <ul id="top-goals"></ul>
-    </section>
-
-    <section>
-      <h2>Top Assists</h2>
-      <ul id="top-assists"></ul>
-    </section>
-
-    <section>
-      <h2>Red Cards</h2>
-      <ul id="top-reds"></ul>
-    </section>
-
-    <section>
-      <h2>Yellow Cards</h2>
-      <ul id="top-yellows"></ul>
-    </section>
-
-    <section>
-      <h2>Most Goals (Team)</h2>
-      <ul id="team-goals"></ul>
-    </section>
-
-    <section>
-      <h2>Most Clean Sheets (Team)</h2>
-      <ul id="team-cleansheets"></ul>
-    </section>
-  </div>
-</section>
-
-
-
-    <!-- News -->
-    <section id="news" class="tab-content">
-      <h3>Latest League News</h3>
-      <div class="news-grid">
-        <!-- News cards here -->
+    <section id="statistics" class="tab-content" role="tabpanel">
+      <h3>Statistics</h3>
+      <div id="stats-sections">
+        <section>
+          <h2>Top Scorers</h2>
+          <ul id="top-goals"></ul>
+        </section>
+        <section>
+          <h2>Top Assists</h2>
+          <ul id="top-assists"></ul>
+        </section>
+        <section>
+          <h2>Red Cards</h2>
+          <ul id="top-reds"></ul>
+        </section>
+        <section>
+          <h2>Yellow Cards</h2>
+          <ul id="top-yellows"></ul>
+        </section>
+        <section>
+          <h2>Most Goals (Team)</h2>
+          <ul id="team-goals"></ul>
+        </section>
+        <section>
+          <h2>Most Clean Sheets (Team)</h2>
+          <ul id="team-cleansheets"></ul>
+        </section>
       </div>
-      <button class="view-more-news">View More News</button>
     </section>
-
-
-    
   </main>
-<!-- ⚫ FOOTER -->
+
+  <!-- Footer -->
   <footer class="site-footer">
     <div class="container">
-      <p>&copy; 2025 FootWire. All rights reserved.</p>
+      <p>&copy; 2025 SportsWire. All rights reserved.</p>
       <ul class="footer-links">
-        <li><a href="">Privacy</a></li>
-        <li><a href="">Terms</a></li>
-        <li><a href="">Contact</a></li>
+        <li><a href="#" aria-label="Privacy Policy">Privacy</a></li>
+        <li><a href="#" aria-label="Terms of Service">Terms</a></li>
+        <li><a href="#" aria-label="Contact Us">Contact</a></li>
       </ul>
       <ul class="social-icons">
-        <li><a href=""><img src="icons/x.svg" alt="Twitter/X"></a></li>
-        <li><a href=""><img src="icons/instagram.svg" alt="Instagram"></a></li>
-        <li><a href=""><img src="icons/youtube.svg" alt="YouTube"></a></li>
+        <li><a href="#" aria-label="Twitter/X"><img src="icons/x.svg" alt=""></a></li>
+        <li><a href="#" aria-label="Instagram"><img src="icons/instagram.svg" alt=""></a></li>
+        <li><a href="#" aria-label="YouTube"><img src="icons/youtube.svg" alt=""></a></li>
       </ul>
     </div>
   </footer>
+
   <script>
-  // Europe’s Top 5 Leagues Data
-const leagues = [
-  {
-    id: 1,
-    name: 'Premier League',
-    logo: 'images/premier-league-logo-5F922E3/premier-league-logo.png',
-    description: 'England’s top-flight competition featuring 20 clubs battling for glory.',
-     teamOfWeek: [
-      { name: 'Alisson', position: 'GK', rating: 7.8, img: 'images/players/alisson.png' },
-      { name: 'Trent Alexander-Arnold', position: 'RB', rating: 8.2, img: 'images/players/trent.png' },
-      { name: 'Virgil van Dijk', position: 'CB', rating: 8.5, img: 'images/players/vandijk.png' },
-      { name: 'Saliba', position: 'CB', rating: 8.0, img: 'images/players/rudiger.png' },
-      { name: 'Luke Shaw', position: 'LB', rating: 8.1, img: 'images/players/cancelo.png' },
-      { name: 'Kevin De Bruyne', position: 'CM', rating: 8.7, img: 'images/players/debruyne.png' },
-      { name: 'Bruno Fernandes', position: 'CM', rating: 8.3, img: 'images/players/fernandes.png' },
-      { name: 'Maddison', position: 'CM', rating: 8.4, img: 'images/players/modric.png' },
-      { name: 'Mohamed Salah', position: 'RW', rating: 8.6, img: 'images/players/salah.png' },
-      { name: 'Erling Haaland', position: 'ST', rating: 8.9, img: 'images/players/haaland.png' },
-      { name: 'Bukayo Saka', position: 'LW', rating: 8.2, img: 'images/players/saka.png' }
-    ],
-    seasonId:'23690',
-    league_id:'501',
-  },
-  {
-    id: 2,
-    name: 'La Liga',
-    logo: 'images/La_Liga-2023-brandlogos.net-OBnr7x/la_liga-logo_brandlogos.net_e6gnt.png',
-    description: 'Spain’s premier professional football division with fierce rivalries.',
-    teamOfWeek: [
-      { name: 'Jan Oblak', position: 'GK', rating: 8.0, img: 'images/players/oblak.png' },
-      { name: 'Dani Carvajal', position: 'RB', rating: 8.1, img: 'images/players/carvajal.png' },
-      { name: 'Éder Militão', position: 'CB', rating: 8.3, img: 'images/players/militao.png' },
-      { name: 'Asensio', position: 'CB', rating: 8.0, img: 'images/players/ramos.png' },
-      { name: 'Jordi Alba', position: 'LB', rating: 8.2, img: 'images/players/alba.png' },
-      { name: 'Jude Bellingham', position: 'CM', rating: 8.4, img: 'images/players/kroos.png' },
-      { name: 'Frenkie de Jong', position: 'CM', rating: 8.3, img: 'images/players/dejong.png' },
-      { name: 'Pedri', position: 'CM', rating: 8.1, img: 'images/players/pedri.png' },
-      { name: 'Mbappe', position: 'ST', rating: 8.5, img: 'images/players/benzema.png' },
-      { name: 'Yamal', position: 'LW', rating: 8.0, img: 'images/players/fati.png' },
-      { name: 'Vinícius Júnior', position: 'RW', rating: 8.2, img: 'images/players/vini.png' }
-    ],
-     seasonId:'23584',
-     league_id:'271',
-  },
-  {
-    id: 3,
-    name: 'Serie A',
-    logo: 'images/serie-a-logo.png',
-    description: 'Italy’s most prestigious football league, home to legendary clubs.',
-    seasonId:'23690',
-    league_id:'501',
-  },
-  {
-    id: 4,
-    name: 'Bundesliga',
-    logo: 'images/bundesliga-logo.png',
-    description: 'Germany’s top professional football league known for passionate fans.',
-     seasonId:'23584',
-     league_id:'271',
-  },
-  {
-    id: 5,
-    name: 'Ligue 1',
-    logo: 'images/ligue-1-logo.png',
-    description: 'France’s elite football division showcasing world-class talent.',
-     seasonId:'23584',
-     league_id:'271',
-  }
-];
 
-// Get league ID from URL param (as number string)
-const urlParams = new URLSearchParams(window.location.search);
-const leagueNumId = urlParams.get('id');
+// Configuration
+const API_BASE_URL = window.FOOTWIRE_API_BASE_URL || 'http://localhost:3000/api';
+const FALLBACK_LOGO = 'https://cdn.sportmonks.com/images/soccer/placeholder.png';
+const FALLBACK_TEXT = 'N/A';
+const DEFAULT_SEASON_ID = '25583'; // Fallback season ID
 
-// Convert to number and find corresponding league by array index (subtract 1 since arrays are 0-based)
-const selectedLeague = leagues[leagueNumId - 1] || leagues[0]; // fallback to first (Premier League)
-
-// If found, update page content dynamically
-if (selectedLeague) {
-  document.title = `FootWire | ${selectedLeague.name} Overview`;
-  document.querySelector('.site-header h1').textContent = `FootWire ⚽ ${selectedLeague.name}`;
-  document.querySelector('.league-logo').src = selectedLeague.logo;
-  document.querySelector('.league-logo').alt = `${selectedLeague.name} Logo`;
-  document.querySelector('.league-info h2').textContent = selectedLeague.name;
-  document.querySelector('.league-description').textContent = selectedLeague.description;
+// Utility to sanitize text to prevent XSS
+function sanitizeText(text) {
+  const div = document.createElement('div');
+  div.textContent = text || FALLBACK_TEXT;
+  return div.innerHTML;
 }
 
-// MAIN TAB SWITCHING
-const tabButtons = document.querySelectorAll('.tab-btn');
-const tabContents = document.querySelectorAll('.tab-content');
+// Utility to create an image element with fallback
+function createImage(src, alt, className) {
+  const img = document.createElement('img');
+  img.src = src || FALLBACK_LOGO;
+  img.alt = alt || FALLBACK_TEXT;
+  if (className) img.className = className;
+  img.onerror = () => { img.src = FALLBACK_LOGO; };
+  return img;
+}
 
-tabButtons.forEach(btn => {
-  btn.addEventListener('click', () => {
-    tabButtons.forEach(b => b.classList.remove('active'));
-    tabContents.forEach(c => c.classList.remove('active'));
-    btn.classList.add('active');
-    document.getElementById(btn.dataset.tab).classList.add('active');
-    btn.scrollIntoView({ behavior: 'smooth', inline: 'center' });
-  });
-});
+// Fetch league data and season ID
+async function fetchLeagueData(leagueId) {
+  try {
+    const response = await fetch(`${API_BASE_URL}/leagues?filters=leagueIds:${leagueId}&include=seasons`);
+    if (!response.ok) throw new Error(`HTTP ${response.status}: Failed to fetch league data`);
+    const data = await response.json();
+    console.log('League API Response:', data); // Debug
+    if (!data?.length) throw new Error('League not found');
+    const league = data[0];
+    return {
+      id: league.id,
+      name: league.name || FALLBACK_TEXT,
+      logo: league.image_path || FALLBACK_LOGO,
+      description: league.description || 'Top-flight football competition.',
+      seasonId: league.seasons?.find(s => s.is_current)?.id || DEFAULT_SEASON_ID,
+      seasonStart: league.seasons?.find(s => s.is_current)?.starting_at || '2024-08-01',
+      seasonEnd: league.seasons?.find(s => s.is_current)?.ending_at || '2026-12-31'
+    };
+  } catch (err) {
+    console.error('Error fetching league data:', err);
+    document.getElementById('error').textContent = `Failed to load league data: ${err.message}`;
+    return null;
+  }
+}
 
-// SUB-TAB SWITCHING (inside Statistics)
-const subTabButtons = document.querySelectorAll('.sub-tab');
-const subTabContents = document.querySelectorAll('.sub-tab-content');
+// Fetch standings using seasonId
+let standingsCache = null;
+async function fetchStandings(seasonId) {
+  if (standingsCache) return standingsCache;
+  try {
+    const response = await fetch(`${API_BASE_URL}/standings/${seasonId}`);
+    if (!response.ok) throw new Error(`HTTP ${response.status}: Failed to fetch standings`);
+    const data = await response.json();
+    console.log('Standings API Response:', data); // Debug
+    standingsCache = (data.data || []).map(item => ({
+      id: item.participant?.id || 0,
+      name: item.participant?.name || FALLBACK_TEXT,
+      image_path: item.participant?.image_path || FALLBACK_LOGO,
+      position: item.position || 0,
+      played: item.played || 0,
+      won: item.won || 0,
+      drawn: item.drawn || 0,
+      lost: item.lost || 0,
+      goals_scored: item.goals_for || 0,
+      goals_conceded: item.goals_against || 0,
+      points: item.points || 0
+    }));
+    if (!standingsCache.length) throw new Error('No standings data available for this season');
+    return standingsCache;
+  } catch (err) {
+    console.error('Error fetching standings:', err);
+    document.getElementById('error').textContent = `Failed to load standings: ${err.message}. The season may not have started yet.`;
+    return [];
+  }
+}
 
-subTabButtons.forEach(st => {
-  st.addEventListener('click', () => {
-    subTabButtons.forEach(b => b.classList.remove('active'));
-    subTabContents.forEach(c => c.classList.remove('active'));
-    st.classList.add('active');
-    document.getElementById(st.dataset.subtab).classList.add('active');
-  });
-});
+// Fetch fixtures with pagination support
+async function fetchFixtures(leagueId, startDate, endDate) {
+  try {
+    let formattedStartDate = new Date(startDate).toISOString().split('T')[0] || new Date().toISOString().split('T')[0];
+    let formattedEndDate = new Date(endDate).toISOString().split('T')[0] || formattedStartDate;
+    let allFixtures = [];
+    const seenFixtures = new Set(); // Track unique fixtures
+    let page = 1;
+    let totalPages = 1;
 
-// VIEW MORE / VIEW LESS TOGGLE FOR STAT LISTS
-const viewMoreButtons = document.querySelectorAll('.view-more');
+    do {
+      const url = `${API_BASE_URL}/fixtures?filters=leagueIds:${leagueId}&startDate=${formattedStartDate}&endDate=${formattedEndDate}&include=participants;league;scores&page=${page}`;
+      console.log(`Fixtures API URL (page ${page}/${totalPages}):`, url); // Debug
+      await new Promise(resolve => setTimeout(resolve, 100)); // Delay to respect rate limits
+      const response = await fetch(url);
+      if (!response.ok) throw new Error(`HTTP ${response.status}: Failed to fetch fixtures`);
+      const responseData = await response.json();
+      console.log(`Fixtures API Response (page ${page}):`, responseData); // Debug
+      const fixtures = Array.isArray(responseData.data) ? responseData.data : Array.isArray(responseData) ? responseData : [];
+      const filteredFixtures = fixtures.filter(f => String(f.league_id) === String(leagueId));
 
-viewMoreButtons.forEach(button => {
-  button.addEventListener('click', () => {
-    const targetList = document.getElementById(button.dataset.target);
-    const isHidden = targetList.classList.toggle('hidden');
-    button.textContent = isHidden ? 'View More' : 'View Less';
-    if (!isHidden) {
-      targetList.scrollIntoView({ behavior: 'smooth' });
-    }
-  });
-});
-
-// video 
-const weeklyNewsVideos = {
-  1: 'https://www.youtube.com/embed/https://youtu.be/XYoMhLSd3Ww?si=e_AmEjPWuONVtwQd',
-  2: 'https://www.youtube.com/embed/https://youtu.be/dz8uxFVRgrA?si=WouOZ-OPiPOMAH_k',
-  // …other leagues…
-};
-
-const overviewVideoContainer = document.querySelector('#overview .video-container');
-const leagueKey = selectedLeague.id; // from our league.js code above
-const videoURL = weeklyNewsVideos[leagueKey] || weeklyNewsVideos['premier-league'];
-
-overviewVideoContainer.innerHTML = `
-  <iframe
-    src="${videoURL}"
-    frameborder="0"
-    allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
-    allowfullscreen
-  ></iframe>
-`;
-
-// fixtures
-const fixturesPreview = document.querySelector('.fixtures-preview');
-fixturesPreview.innerHTML = '';
-
-// Get the current league_id from the global selectedLeague object
-const leagueId = selectedLeague.league_id;
-
-const startDate = '2025-07-01';
-const endDate = '2025-09-30';
-
-fetch(`http://localhost:3000/api/fixtures?startDate=${startDate}&endDate=${endDate}`)
-  .then(res => res.json())
-  .then(fixtures => {
-    const now = new Date();
-
-    const filtered = fixtures
-      .filter(f => f.league?.id == leagueId)
-      .filter(f => new Date(f.starting_at) > now); // Exclude past or ongoing fixtures
-
-    const latest3 = filtered.slice(0, 3); // Still show only top 3 upcoming
-
-    latest3.forEach(fx => {
-      const participants = fx.participants || [];
-      const home = participants.find(p => p.meta?.location === 'home') || participants[0];
-      const away = participants.find(p => p.meta?.location === 'away') || participants[1];
-
-      const homeName = home?.name || 'TBD';
-      const awayName = away?.name || 'TBD';
-      const homeLogo = home?.image_path || '';
-      const awayLogo = away?.image_path || '';
-      const kickoff = new Date(fx.starting_at).toLocaleString([], {  
-        day: 'numeric', 
-        month: 'short', 
-        hour: '2-digit', 
-        minute: '2-digit' 
+      filteredFixtures.forEach(fixture => {
+        const uniqueKey = fixture.id ? fixture.id.toString() : 
+          `${fixture.participants?.find(p => p.meta?.location === 'home')?.id || '0'}_${fixture.participants?.find(p => p.meta?.location === 'away')?.id || '0'}_${new Date(fixture.starting_at).toISOString()}`;
+        if (!seenFixtures.has(uniqueKey)) {
+          seenFixtures.add(uniqueKey);
+          allFixtures.push(fixture);
+        } else {
+          console.warn(`Duplicate fixture detected: ${uniqueKey}`); // Debug
+        }
       });
 
-      const a = document.createElement('a');
-      a.href = `match.html?id=${fx.id}`;
-      a.className = 'fixture-item';
+      if (responseData.meta?.pagination) {
+        totalPages = responseData.meta.pagination.total_pages || 1;
+        page++;
+      } else {
+        page = totalPages + 1;
+      }
+    } while (page <= totalPages);
 
-      a.innerHTML = `
-        <img src="${homeLogo}" alt="${homeName} logo" class="fixture-logo">
-        <span class="fixture-text">${homeName} vs ${awayName} — ${kickoff}</span>
-        <img src="${awayLogo}" alt="${awayName} logo" class="fixture-logo">
-      `;
-
-      fixturesPreview.appendChild(a);
-    });
-
-    if (latest3.length === 0) {
-      fixturesPreview.innerHTML = '<p style="color:#facc15;">No upcoming fixtures available.</p>';
-    }
-  })
-  .catch(err => {
-    console.error('Error fetching fixtures preview:', err);
-    fixturesPreview.innerHTML = '<p style="color:red;">Failed to load fixtures preview.</p>';
-  });
-
-
-// --- Team of the Week ---
-
-
-// position mapping
-const formationPositions = {
-  GK: { top: 90, left: 50 },
-  LB: { top: 70, left: 15 },
-  CB: [
-    { top: 70, left: 40 },
-    { top: 70, left: 60 }
-  ],
-  RB: { top: 70, left: 85 },
-  CM: [
-    { top: 50, left: 25 },
-    { top: 50, left: 50 },
-    { top: 50, left: 75 }
-  ],
-  LW: { top: 30, left: 20 },
-  ST: { top: 30, left: 50 },
-  RW: { top: 30, left: 80 }
-};
-
-
-
-const pitchContainer = document.querySelector('.pitch-container');
-const positionCounters = {}; // To handle multiple players in the same position
-
-selectedLeague.teamOfWeek.forEach(player => {
-  const pos = player.position;
-  let coords;
-
-  if (Array.isArray(formationPositions[pos])) {
-    // Initialize counter if not present
-    if (!positionCounters[pos]) positionCounters[pos] = 0;
-    // Assign coordinates based on the counter
-    coords = formationPositions[pos][positionCounters[pos]];
-    positionCounters[pos]++;
-  } else {
-    coords = formationPositions[pos];
+    console.log(`Fixtures fetched for ${formattedStartDate} to ${formattedEndDate}: ${allFixtures.length} items`); // Debug
+    return allFixtures;
+  } catch (err) {
+    console.error('Error fetching fixtures:', err);
+    document.getElementById('error').textContent = `Failed to load fixtures: ${err.message}`;
+    return [];
   }
-
-  if (!coords) return; // Skip if position is undefined
-
-  // Create player card element
-  const playerCard = document.createElement('a');
-  playerCard.href = `player.html?id=${encodeURIComponent(player.name.toLowerCase().replace(/\s+/g, '-'))}`;
-  playerCard.className = 'player-card';
-  playerCard.style.top = `${coords.top}%`;
-  playerCard.style.left = `${coords.left}%`;
-
-  playerCard.innerHTML = `
-    <img src="${player.img}" alt="${player.name}" class="player-img">
-    <span class="player-rating">${player.rating.toFixed(1)}</span>
-  `;
-
-  pitchContainer.appendChild(playerCard);
-});
-
-
-
-//table
-// Function to extract the 'id' parameter from the URL
-function getLeagueIdFromURL() {
-  const params = new URLSearchParams(window.location.search);
-  const idParam = params.get('id');
-  return idParam ? parseInt(idParam, 10) : null;
 }
 
-function renderLeagueTable(leaguesId) {
-  const league = leagues.find(l => l.id === leaguesId);
-  if (!league || !league.seasonId) return;
+// Fetch statistics
+async function fetchStat(endpoint, seasonId) {
+  try {
+    const res = await fetch(`${API_BASE_URL}${endpoint}/${seasonId}`);
+    if (!res.ok) throw new Error(`HTTP ${res.status}: Failed to fetch ${endpoint}`);
+    const text = await res.text();
+    const data = text ? JSON.parse(text) : {};
+    console.log(`Stat API Response (${endpoint}):`, data); // Debug
+    return Array.isArray(data) ? data : data.data || [];
+  } catch (err) {
+    console.error(`Error fetching ${endpoint}:`, err);
+    document.getElementById('error').textContent = `Failed to load statistics: ${err.message}`;
+    return [];
+  }
+}
 
-  const seasonId = league.seasonId;
-  const tableContainer = document.querySelector('.league-table-container');
-  tableContainer.innerHTML = `<p>Loading standings for ${league.name}...</p>`;
+// Render standings table
+function renderStandings(standings, containerId, limit = null) {
+  const container = document.getElementById(containerId);
+  if (!container) return;
+  container.innerHTML = '';
+  if (!standings?.length) {
+    container.textContent = 'No standings data available for this season. The season may not have started yet.';
+    return;
+  }
+  const table = document.createElement('table');
+  table.className = 'standings-table';
+  const thead = document.createElement('thead');
+  thead.innerHTML = `
+    <tr>
+      <th scope="col">Pos</th>
+      <th scope="col">Club</th>
+      <th scope="col">MP</th>
+      <th scope="col">W</th>
+      <th scope="col">D</th>
+      <th scope="col">L</th>
+      <th scope="col">GF</th>
+      <th scope="col">GA</th>
+      <th scope="col">GD</th>
+      <th scope="col">Pts</th>
+    </tr>
+  `;
+  const tbody = document.createElement('tbody');
+  const standingsToShow = limit ? standings.slice(0, limit) : standings;
+  standingsToShow.forEach(team => {
+    const goalDifference = team.goals_scored - team.goals_conceded;
+    const row = document.createElement('tr');
+    row.appendChild(document.createElement('td')).textContent = team.position || '-';
+    const teamCell = document.createElement('td');
+    teamCell.appendChild(createImage(team.image_path, `${team.name} logo`, 'club-logo-small'));
+    const teamLink = document.createElement('a');
+    teamLink.href = `club.html?id=${team.id}`;
+    teamLink.textContent = team.name;
+    teamCell.appendChild(teamLink);
+    row.appendChild(teamCell);
+    row.appendChild(document.createElement('td')).textContent = team.played || '0';
+    row.appendChild(document.createElement('td')).textContent = team.won || '0';
+    row.appendChild(document.createElement('td')).textContent = team.drawn || '0';
+    row.appendChild(document.createElement('td')).textContent = team.lost || '0';
+    row.appendChild(document.createElement('td')).textContent = team.goals_scored || '0';
+    row.appendChild(document.createElement('td')).textContent = team.goals_conceded || '0';
+    row.appendChild(document.createElement('td')).textContent = goalDifference || '0';
+    row.appendChild(document.createElement('td')).textContent = team.points || '0';
+    tbody.appendChild(row);
+  });
+  table.appendChild(thead);
+  table.appendChild(tbody);
+  container.appendChild(table);
+}
 
-  fetch(`http://localhost:3000/api/standings/${seasonId}`)
-    .then(response => {
-      if (!response.ok) throw new Error('Failed to fetch standings');
-      return response.json();
+// Render fixtures for overview tab
+function renderOverviewFixtures(fixtures, containerId) {
+  const container = document.getElementById(containerId);
+  const noFixturesMsg = document.getElementById('no-fixtures');
+  if (!container) {
+    console.error('Container not found:', containerId);
+    return;
+  }
+  container.innerHTML = '';
+  if (noFixturesMsg) noFixturesMsg.style.display = 'none';
+
+  const now = new Date('2025-08-12T13:54:00+01:00'); // Updated to 01:54 PM WAT
+  const upcomingFixtures = fixtures
+    .filter(f => {
+      const startTime = new Date(f.starting_at);
+      if (isNaN(startTime.getTime())) {
+        console.warn('Invalid starting_at for fixture:', f);
+        return false;
+      }
+      return startTime > now;
     })
-    .then(data => {
-      if (!data.data || data.data.length === 0) {
-        tableContainer.innerHTML = '<p>No standings data found.</p>';
-        return;
+    .sort((a, b) => {
+      const timeA = a.starting_at_timestamp || new Date(a.starting_at).getTime();
+      const timeB = b.starting_at_timestamp || new Date(b.starting_at).getTime();
+      return timeA - timeB;
+    })
+    .slice(0, 5); // Limit to 5 matches
+
+  console.log('Upcoming fixtures to render (overview):', upcomingFixtures); // Debug
+
+  if (!upcomingFixtures.length) {
+    console.warn('No upcoming fixtures found for rendering.');
+    if (noFixturesMsg) {
+      noFixturesMsg.textContent = 'No upcoming matches found.';
+      noFixturesMsg.style.display = 'block';
+    }
+    return;
+  }
+
+  upcomingFixtures.forEach(f => {
+    const home = f.participants?.find(p => p.meta?.location === 'home') || {};
+    const away = f.participants?.find(p => p.meta?.location === 'away') || {};
+    const time = new Date(f.starting_at).toLocaleTimeString('en-GB', { hour: '2-digit', minute: '2-digit' });
+    const date = new Date(f.starting_at).toLocaleDateString('en-GB', { day: '2-digit', month: 'short', year: 'numeric' });
+    const li = document.createElement('li');
+    li.className = 'fixture-item';
+    li.innerHTML = `
+      <img src="${home.image_path || FALLBACK_LOGO}" alt="${sanitizeText(home.name)} Logo" class="fixture-logo home-logo">
+      <span class="fixture-date">${date}</span>
+      <span class="fixture-match">${sanitizeText(home.name)} vs ${sanitizeText(away.name)} — ${time}</span>
+      <img src="${away.image_path || FALLBACK_LOGO}" alt="${sanitizeText(away.name)} Logo" class="fixture-logo away-logo">
+    `;
+    container.appendChild(li);
+  });
+}
+
+// Render fixtures for fixtures tab
+function renderFixtures(fixtures, containerId, append = false, prepend = false, showLoadPreviousButton = false, showScrollMessage = false) {
+  const container = document.getElementById(containerId);
+  const noFixturesMsg = document.getElementById('no-fixtures');
+  if (!container) return;
+
+  if (!append && !prepend) {
+    container.innerHTML = '';
+    if (noFixturesMsg) noFixturesMsg.style.display = 'none';
+    if (showLoadPreviousButton) {
+      container.insertAdjacentHTML('afterbegin', `
+        <button id="load-previous-matches" class="load-previous-btn" style="position: sticky; top: 0; background: #1a202c; padding: 10px; z-index: 10; width: 100%; border: 1px solid #facc15; border-radius: 8px; color: #facc15; font-size: 14px; cursor: pointer;">
+          Load Previous Fixtures
+        </button>
+      `);
+    }
+  }
+  if (!fixtures?.length && !append && !prepend) {
+    if (noFixturesMsg) {
+      noFixturesMsg.textContent = 'No matches found for this period.';
+      noFixturesMsg.style.display = 'block';
+    }
+    return;
+  }
+
+  if (prepend) {
+    fixtures = [...fixtures].reverse(); // Reverse to prepend in correct order (most recent at top)
+  }
+
+  fixtures.forEach(fixture => {
+    const home = fixture.participants?.find(p => p.meta?.location === 'home') || {};
+    const away = fixture.participants?.find(p => p.meta?.location === 'away') || {};
+    const now = new Date('2025-08-12T13:54:00+01:00'); // Updated to 01:54 PM WAT
+    const matchTime = new Date(fixture.starting_at);
+    const minutesSinceStart = (now - matchTime) / 1000 / 60;
+    let matchStatus = '';
+    let scoreDisplay = '';
+    if (matchTime > now) {
+      matchStatus = matchTime.toLocaleDateString('en-GB', { day: '2-digit', month: 'short', year: 'numeric' });
+    } else if (minutesSinceStart >= 0 && minutesSinceStart < 45) {
+      matchStatus = `${Math.floor(minutesSinceStart)}'`;
+    } else if (minutesSinceStart >= 45 && minutesSinceStart < 60) {
+      matchStatus = 'HT';
+    } else if (minutesSinceStart >= 60 && minutesSinceStart < 90 + 15) {
+      matchStatus = `${Math.floor(minutesSinceStart)}'`;
+    } else {
+      matchStatus = 'FT';
+    }
+    if (fixture.scores?.length >= 2 && (minutesSinceStart >= 0 || fixture.result_info)) {
+      const homeScore = fixture.scores.find(s => s.description === 'CURRENT' && s.score?.participant === 'home')?.score?.goals || 0;
+      const awayScore = fixture.scores.find(s => s.description === 'CURRENT' && s.score?.participant === 'away')?.score?.goals || 0;
+      scoreDisplay = `${homeScore} - ${awayScore}`;
+    } else {
+      scoreDisplay = '-';
+    }
+    const time = new Date(fixture.starting_at).toLocaleTimeString('en-GB', { hour: '2-digit', minute: '2-digit' });
+    const date = new Date(fixture.starting_at).toLocaleDateString('en-GB', { day: '2-digit', month: 'short', year: 'numeric' });
+    const html = `
+      <div class="fixture-item ${matchTime > now ? 'upcoming-match' : minutesSinceStart >= 0 && minutesSinceStart < 105 ? 'live-match' : 'past-match'}" data-tap style="display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; padding: 12px; margin: 8px 0; border: 1px solid #facc15; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.2); gap: 8px; transition: transform 0.2s;">
+        <img src="${home.image_path || FALLBACK_LOGO}" alt="${sanitizeText(home.name)} Logo" style="width: 28px; height: 28px; margin: 0 8px; border: 1px solid #facc15; border-radius: 50%; vertical-align: middle; transition: transform 0.2s;">
+        <span style="font-size: 14px; font-weight: 500; color: #fff; margin: 0 8px;">${date} ${time} (${matchStatus})</span>
+        <span style="font-size: 14px; font-weight: 500; color: #fff; margin: 0 8px; text-align: center; flex-grow: 1;">
+          <a href="club.html?id=${home.id || ''}" style="color: #facc15; text-decoration: none;">${sanitizeText(home.name)}</a> ${scoreDisplay} <a href="club.html?id=${away.id || ''}" style="color: #facc15; text-decoration: none;">${sanitizeText(away.name)}</a>
+        </span>
+        <img src="${away.image_path || FALLBACK_LOGO}" alt="${sanitizeText(away.name)} Logo" style="width: 28px; height: 28px; margin: 0 8px; border: 1px solid #facc15; border-radius: 50%; vertical-align: middle; transition: transform 0.2s;">
+        <a href="match.html?id=${fixture.id}" class="view-match" style="font-size: 12px; color: #facc15; text-decoration: none; margin: 0 8px;">View Match</a>
+      </div>
+    `;
+    container.insertAdjacentHTML(prepend ? 'afterbegin' : 'beforeend', html);
+  });
+
+  if (showScrollMessage) {
+    const existingScrollMessage = container.querySelector('.scroll-message');
+    if (existingScrollMessage) existingScrollMessage.remove();
+    container.insertAdjacentHTML('beforeend', `
+      <p class="scroll-message" style="text-align: center; color: #facc15; font-size: 14px; margin: 10px 0; position: sticky; bottom: 0; background: #1a202c; padding: 10px; z-index: 10;">
+        Scroll to load more
+      </p>
+    `);
+  }
+
+  const fixtureItems = container.querySelectorAll('[data-tap]');
+  fixtureItems.forEach(item => {
+    item.addEventListener('touchstart', () => item.classList.add('active'));
+    item.addEventListener('touchend', () => item.classList.remove('active'));
+    item.addEventListener('touchcancel', () => item.classList.remove('active'));
+  });
+}
+
+// Render player statistics
+function renderPlayerList(selector, players, valueLabel) {
+  const list = document.querySelector(selector);
+  if (!list) return;
+  list.innerHTML = '';
+  if (!players?.length) {
+    list.textContent = `No ${valueLabel} data available.`;
+    return;
+  }
+  players.slice(0, 5).forEach(player => {
+    const li = document.createElement('li');
+    li.appendChild(createImage(player.player?.image_path, player.player?.display_name));
+    const playerLink = document.createElement('a');
+    playerLink.href = `player.html?id=${player.player?.id}`;
+    playerLink.textContent = player.player?.display_name || FALLBACK_TEXT;
+    li.appendChild(playerLink);
+    li.appendChild(document.createElement('small')).textContent = `(${sanitizeText(player.participant?.name)})`;
+    li.appendChild(createImage(player.participant?.image_path, player.participant?.name, 'club-logo-small'));
+    const span = document.createElement('span');
+    span.innerHTML = `<strong>${player.total || 0}</strong> ${valueLabel}`;
+    li.appendChild(span);
+    list.appendChild(li);
+  });
+}
+
+// Render team statistics
+function renderTeamList(selector, teams, valueLabel) {
+  const list = document.querySelector(selector);
+  if (!list) return;
+  list.innerHTML = '';
+  if (!teams?.length) {
+    list.textContent = `No ${valueLabel} data available.`;
+    return;
+  }
+  teams.slice(0, 5).forEach(team => {
+    const li = document.createElement('li');
+    li.appendChild(createImage(team.image, team.name));
+    const teamLink = document.createElement('a');
+    teamLink.href = `club.html?id=${team.id}`;
+    teamLink.textContent = team.name;
+    li.appendChild(teamLink);
+    const span = document.createElement('span');
+    span.innerHTML = `<strong>${team.total || 0}</strong> ${valueLabel}`;
+    li.appendChild(span);
+    list.appendChild(li);
+  });
+}
+
+// Initialize page
+async function init() {
+  const urlParams = new URLSearchParams(window.location.search);
+  const leagueId = urlParams.get('id');
+  if (!leagueId || isNaN(leagueId)) {
+    document.getElementById('error').textContent = 'Invalid or missing league ID.';
+    return;
+  }
+
+  const league = await fetchLeagueData(leagueId);
+  if (!league) return;
+
+  document.title = `FootWire | ${sanitizeText(league.name)} Overview`;
+  document.getElementById('league-name').textContent = league.name;
+  document.getElementById('league-logo').src = league.logo;
+  document.getElementById('league-logo').alt = `${league.name} Logo`;
+  document.getElementById('league-title').textContent = league.name;
+  document.getElementById('league-description').textContent = league.description;
+
+  const tabButtons = document.querySelectorAll('.tab-btn');
+  const tabContents = document.querySelectorAll('.tab-content');
+  tabButtons.forEach(btn => {
+    btn.addEventListener('click', async () => {
+      tabButtons.forEach(b => {
+        b.classList.remove('active');
+        b.setAttribute('aria-selected', 'false');
+      });
+      tabContents.forEach(c => c.classList.remove('active'));
+      btn.classList.add('active');
+      btn.setAttribute('aria-selected', 'true');
+      const tabContent = document.getElementById(btn.dataset.tab);
+      tabContent.classList.add('active');
+      if (btn.dataset.tab === 'fixtures' && !tabContent.dataset.loaded) {
+        await loadFixtures(leagueId, league.seasonStart, league.seasonEnd);
+        tabContent.dataset.loaded = 'true';
+      }
+      if (btn.dataset.tab === 'standings' && !tabContent.dataset.loaded) {
+        const standings = await fetchStandings(league.seasonId);
+        renderStandings(standings, 'standings-body');
+        tabContent.dataset.loaded = 'true';
+      }
+    });
+  });
+
+  const now = new Date('2025-08-12T13:54:00+01:00'); // Updated to 01:54 PM WAT
+  let allFixtures = [];
+  const maxDays = 90;
+  let daysChecked = 0;
+  let currentDate = new Date(now);
+
+  while (allFixtures.length < 5 && daysChecked < maxDays) {
+    const dateStr = currentDate.toISOString().split('T')[0];
+    const dailyFixtures = await fetchFixtures(leagueId, dateStr, dateStr);
+    const upcomingDailyFixtures = dailyFixtures.filter(f => {
+      const startTime = new Date(f.starting_at);
+      return !isNaN(startTime.getTime()) && startTime > now;
+    });
+    allFixtures.push(...upcomingDailyFixtures);
+    daysChecked++;
+    currentDate.setDate(currentDate.getDate() + 1);
+    console.log(`Checked ${dateStr} for overview, total upcoming fixtures: ${allFixtures.length}`); // Debug
+  }
+
+  renderOverviewFixtures(allFixtures, 'fixtures-preview');
+
+  const standings = await fetchStandings(league.seasonId);
+  renderStandings(standings, 'league-table-container', Math.ceil(standings.length / 2));
+
+  async function loadFixtures(leagueId, seasonStart, seasonEnd) {
+    const container = document.getElementById('fixtures-list');
+    container.innerHTML = '<p>Loading fixtures...</p>';
+    try {
+      let upcomingPage = 1;
+      let pastPage = 1;
+      const perPageUpcoming = 10;
+      const perPagePast = 15; // 15 past fixtures per page
+      const maxDays = 90;
+      let futureDaysChecked = 0;
+      let pastDaysChecked = 0;
+      let allFixtures = [];
+      let pastFixtures = [];
+      const now = new Date('2025-08-12T13:54:00+01:00'); // Updated to 01:54 PM WAT
+      let currentFutureDate = new Date(now);
+      let currentPastDate = new Date(now);
+      currentPastDate.setDate(currentPastDate.getDate() - 1); // Start from yesterday
+      const daysPerBatch = 14;
+      const seasonStartDate = new Date(seasonStart || '2024-08-01');
+      let hasMorePastFixtures = true; // Assume more fixtures until proven otherwise
+
+      // Fetch future and live fixtures
+      while (allFixtures.filter(f => {
+        const startTime = new Date(f.starting_at);
+        return !isNaN(startTime.getTime()) && startTime >= new Date(now.getTime() - 105 * 60 * 1000);
+      }).length < 5 && futureDaysChecked < maxDays) {
+        const startDate = new Date(currentFutureDate);
+        const endDate = new Date(currentFutureDate);
+        endDate.setDate(endDate.getDate() + daysPerBatch - 1);
+        const startDateStr = startDate.toISOString().split('T')[0];
+        const endDateStr = endDate.toISOString().split('T')[0];
+        const batchFixtures = await fetchFixtures(leagueId, startDateStr, endDateStr);
+        const validBatchFixtures = batchFixtures.filter(f => {
+          const startTime = new Date(f.starting_at);
+          return !isNaN(startTime.getTime());
+        });
+        allFixtures.push(...validBatchFixtures);
+        futureDaysChecked += daysPerBatch;
+        currentFutureDate.setDate(currentFutureDate.getDate() + daysPerBatch);
+        console.log(`Checked ${startDateStr} to ${endDateStr} for upcoming fixtures, total fixtures: ${allFixtures.length}`); // Debug
       }
 
-      // Limit to top half of table
-      const standings = data.data.slice(0, Math.ceil(data.data.length / 2));
+      // Fetch initial past fixtures (for button click)
+      const pastBatchStart = new Date(currentPastDate);
+      pastBatchStart.setDate(pastBatchStart.getDate() - daysPerBatch + 1);
+      const pastStartDateStr = pastBatchStart.toISOString().split('T')[0];
+      const pastEndDateStr = currentPastDate.toISOString().split('T')[0];
+      const pastBatchFixtures = await fetchFixtures(leagueId, pastStartDateStr, pastEndDateStr);
+      const validPastFixtures = pastBatchFixtures.filter(f => {
+        const startTime = new Date(f.starting_at);
+        const isValid = !isNaN(startTime.getTime());
+        if (!isValid) console.warn('Invalid starting_at for fixture:', f);
+        return isValid && startTime < now;
+      });
+      pastFixtures.push(...validPastFixtures);
+      pastDaysChecked += daysPerBatch;
+      currentPastDate.setDate(currentPastDate.getDate() - daysPerBatch);
+      console.log(`Initial past fixtures fetched (${pastStartDateStr} to ${pastEndDateStr}): ${validPastFixtures.length} items, total past fixtures: ${pastFixtures.length}`); // Debug
+      if (validPastFixtures.length === 0) {
+        console.warn(`No past fixtures found for ${pastStartDateStr} to ${pastEndDateStr}. Checking if more can be fetched.`);
+        hasMorePastFixtures = currentPastDate >= seasonStartDate;
+      }
 
-      const tableHTML = `
-        <h2>${league.name} Standings</h2>
-        <table>
-          <thead>
-            <tr>
-              <th>Pos</th>
-              <th>Team</th>
-              <th>Pts</th>
-            </tr>
-          </thead>
-          <tbody>
-            ${standings.map(team => `
-              <tr>
-                <td>${team.position}</td>
-                <td>
-                  <img src="${team.participant.image_path}" alt="${team.participant.name}" class="team-logo" />
-                  ${team.participant.name}
-                </td>
-                <td>${team.points}</td>
-              </tr>
-            `).join('')}
-          </tbody>
-        </table>
-      `;
+      const liveAndUpcomingFixtures = allFixtures
+        .filter(f => {
+          const startTime = new Date(f.starting_at);
+          const isValid = !isNaN(startTime.getTime());
+          if (!isValid) console.warn('Invalid starting_at for fixture:', f);
+          return isValid && startTime >= new Date(now.getTime() - 105 * 60 * 1000);
+        })
+        .sort((a, b) => (a.starting_at_timestamp || new Date(a.starting_at).getTime()) - (b.starting_at_timestamp || new Date(b.starting_at).getTime()));
+      const sortedPastFixtures = pastFixtures
+        .sort((a, b) => (b.starting_at_timestamp || new Date(b.starting_at).getTime()) - (a.starting_at_timestamp || new Date(a.starting_at).getTime()));
+      console.log(`Filtered live/upcoming: ${liveAndUpcomingFixtures.length}, past: ${sortedPastFixtures.length}`); // Debug
 
-      tableContainer.innerHTML = tableHTML;
-    })
-    .catch(err => {
-      console.error('Error:', err);
-      tableContainer.innerHTML = `<p>Error loading standings.</p>`;
-    });
-}
+      // Render only live and upcoming fixtures initially
+      renderFixtures(
+        liveAndUpcomingFixtures.slice(0, perPageUpcoming), 
+        'fixtures-list', 
+        false, 
+        false, 
+        hasMorePastFixtures || pastPage * perPagePast < sortedPastFixtures.length, 
+        futureDaysChecked < maxDays
+      );
 
-const leaguesId = parseInt(urlParams.get('id'));
-renderLeagueTable(leaguesId);
+      let isLoading = false;
 
+      const loadPreviousButton = document.getElementById('load-previous-matches');
+      if (loadPreviousButton) {
+        loadPreviousButton.addEventListener('click', async () => {
+          if (isLoading) return;
+          isLoading = true;
+          loadPreviousButton.textContent = 'Loading...';
+          loadPreviousButton.disabled = true;
+          await new Promise(resolve => setTimeout(resolve, 500));
+          console.log(`Rendering past fixtures: page=${pastPage}, perPagePast=${perPagePast}, current past fixtures=${sortedPastFixtures.length}, pastDaysChecked=${pastDaysChecked}, hasMorePastFixtures=${hasMorePastFixtures}, currentPastDate=${currentPastDate.toISOString().split('T')[0]}`); // Debug
+          
+          if (pastPage * perPagePast >= sortedPastFixtures.length && hasMorePastFixtures && currentPastDate >= seasonStartDate) {
+            const pastBatchStart = new Date(currentPastDate);
+            pastBatchStart.setDate(pastBatchStart.getDate() - daysPerBatch + 1);
+            const pastStartDateStr = pastBatchStart.toISOString().split('T')[0];
+            const pastEndDateStr = currentPastDate.toISOString().split('T')[0];
+            const additionalPastFixtures = await fetchFixtures(leagueId, pastStartDateStr, pastEndDateStr);
+            const newPastFixtures = additionalPastFixtures.filter(f => {
+              const startTime = new Date(f.starting_at);
+              const isValid = !isNaN(startTime.getTime());
+              if (!isValid) console.warn('Invalid starting_at for fixture:', f);
+              return isValid && startTime < now;
+            });
+            sortedPastFixtures.unshift(...newPastFixtures.sort((a, b) => (b.starting_at_timestamp || new Date(b.starting_at).getTime()) - (a.starting_at_timestamp || new Date(a.starting_at).getTime())));
+            pastDaysChecked += daysPerBatch;
+            currentPastDate.setDate(currentPastDate.getDate() - daysPerBatch);
+            if (newPastFixtures.length === 0) {
+              hasMorePastFixtures = false;
+              console.log(`No more past fixtures fetched (${pastStartDateStr} to ${pastEndDateStr}), hasMorePastFixtures updated to ${hasMorePastFixtures}`); // Debug
+            }
+            console.log(`Fetched additional past fixtures (${pastStartDateStr} to ${pastEndDateStr}): ${newPastFixtures.length}, total past fixtures: ${sortedPastFixtures.length}`); // Debug
+          }
 
-// testing api
-//standings
-if (!leagueNumId) {
-  document.getElementById('error').textContent = 'No league ID provided in URL.';
-} else {
-  const selectedLeague = leagues.find(l => l.id.toString() === leagueNumId);
+          const nextPastFixtures = sortedPastFixtures.slice((pastPage - 1) * perPagePast, pastPage * perPagePast);
+          renderFixtures(
+            nextPastFixtures, 
+            'fixtures-list', 
+            true, 
+            true, 
+            hasMorePastFixtures || (pastPage * perPagePast < sortedPastFixtures.length), 
+            futureDaysChecked < maxDays
+          );
+          pastPage++;
 
-  if (!selectedLeague) {
-    document.getElementById('error').textContent = 'League not found.';
-  } else {
-    const seasonId = selectedLeague.seasonId;
+          loadPreviousButton.textContent = 'Load Previous Fixtures';
+          loadPreviousButton.disabled = false;
 
-    fetch(`http://localhost:3000/api/standings/${seasonId}`)
-      .then(response => {
-        if (!response.ok) {
-          throw new Error('Network response was not ok');
-        }
-        return response.json();
-      })
-      .then(data => {
-        const standingsBody = document.getElementById('standings-body');
-        standingsBody.innerHTML = ''; 
-
-        if (!data.data || data.data.length === 0) {
-          document.getElementById('error').textContent = 'No standings data found.';
-          return;
-        }
-
-        data.data.forEach(team => {
-          const row = document.createElement('tr');
-
-          const positionCell = document.createElement('td');
-          positionCell.textContent = team.position;
-          row.appendChild(positionCell);
-
-          const teamCell = document.createElement('td');
-          const teamImg = document.createElement('img');
-          teamImg.src = team.participant.image_path;
-          teamImg.alt = team.participant.name;
-          teamImg.className = 'team-logo';
-          teamCell.appendChild(teamImg);
-          teamCell.appendChild(document.createTextNode(' ' + team.participant.name));
-          row.appendChild(teamCell);
-
-          const pointsCell = document.createElement('td');
-          pointsCell.textContent = team.points;
-          row.appendChild(pointsCell);
-
-          standingsBody.appendChild(row);
+          // Hide button only when all past fixtures are loaded after this click
+          if (!hasMorePastFixtures && (pastPage - 1) * perPagePast >= sortedPastFixtures.length) {
+            loadPreviousButton.style.display = 'none';
+            console.log('Hiding Load Previous Fixtures button: all past fixtures exhausted, page=', pastPage - 1, 'total=', sortedPastFixtures.length); // Debug
+          }
+          isLoading = false;
         });
-      })
-      .catch(error => {
-        console.error('Error fetching standings:', error);
-        document.getElementById('error').textContent = 'Failed to load standings data.';
+      } else {
+        console.error('Load Previous Fixtures button not found after rendering'); // Debug
+      }
+
+      window.addEventListener('scroll', async () => {
+        if (isLoading) return;
+        const { scrollTop, scrollHeight, clientHeight } = document.documentElement;
+        if (scrollTop + clientHeight >= scrollHeight - 50 && futureDaysChecked < maxDays) {
+          isLoading = true;
+          container.insertAdjacentHTML('beforeend', '<p class="loading">Loading more fixtures...</p>');
+          await new Promise(resolve => setTimeout(resolve, 500));
+          const startDate = new Date(currentFutureDate);
+          const endDate = new Date(currentFutureDate);
+          endDate.setDate(endDate.getDate() + daysPerBatch - 1);
+          const startDateStr = startDate.toISOString().split('T')[0];
+          const endDateStr = endDate.toISOString().split('T')[0];
+          if (startDateStr > seasonEnd) {
+            container.querySelector('.loading')?.remove();
+            isLoading = false;
+            return;
+          }
+          const additionalFixtures = await fetchFixtures(leagueId, startDateStr, endDateStr);
+          const sortedAdditionalFixtures = additionalFixtures
+            .filter(f => {
+              const startTime = new Date(f.starting_at);
+              const isValid = !isNaN(startTime.getTime());
+              if (!isValid) console.warn('Invalid starting_at for fixture:', f);
+              return isValid && startTime >= now;
+            })
+            .sort((a, b) => (a.starting_at_timestamp || new Date(a.starting_at).getTime()) - (b.starting_at_timestamp || new Date(b.starting_at).getTime()));
+          renderFixtures(
+            sortedAdditionalFixtures, 
+            'fixtures-list', 
+            true, 
+            false, 
+            hasMorePastFixtures || (pastPage * perPagePast < sortedPastFixtures.length), 
+            futureDaysChecked + daysPerBatch < maxDays
+          );
+          futureDaysChecked += daysPerBatch;
+          currentFutureDate.setDate(currentFutureDate.getDate() + daysPerBatch);
+          console.log(`Checked ${startDateStr} to ${endDateStr} for infinite scroll, additional fixtures: ${sortedAdditionalFixtures.length}`); // Debug
+          container.querySelector('.loading')?.remove();
+          isLoading = false;
+        }
       });
-  }
-}
-
-// fixtures api
-
-document.addEventListener("DOMContentLoaded", () => {
-  const fixturesTab = document.querySelector('#fixtures');
-
-  if (!fixturesTab) return;
-
-  // Only load fixtures when the tab becomes visible
-  const observer = new MutationObserver(() => {
-    if (!fixturesTab.classList.contains('active')) return;
-    observer.disconnect(); // Run only once
-    fetchFixtures();
-  });
-
-  observer.observe(fixturesTab, { attributes: true, attributeFilter: ['class'] });
-
-  // Fallback: manual trigger if you know tab is already active
-  if (fixturesTab.classList.contains('active')) {
-    fetchFixtures();
-  }
-});
-
-async function fetchFixtures() {
-  const startDate = '2025-07-01';
-  const endDate = '2025-09-30';
-
-  const list = document.querySelector('.fixtures-list');
-  const noFixturesMsg = document.getElementById('no-fixtures');
-  if (!list) return;
-
-  list.innerHTML = '';
-  noFixturesMsg.style.display = 'none';
-
-  const urlParams = new URLSearchParams(window.location.search);
-  const localLeagueId = urlParams.get('id');
-
-  if (!localLeagueId) {
-    list.innerHTML = '<p style="color:red;">League ID not found in URL.</p>';
-    return;
-  }
-
-  const league = leagues.find(l => l.id == localLeagueId);
-  if (!league) {
-    list.innerHTML = '<p style="color:red;">League not found.</p>';
-    return;
-  }
-
-  const leagueId = league.league_id;
-
-  try {
-    const response = await fetch(`http://localhost:3000/api/fixtures?startDate=${startDate}&endDate=${endDate}`);
-    const fixtures = await response.json();
-
-    const leagueFixtures = fixtures.filter(f => f.league?.id == leagueId);
-
-    if (!leagueFixtures.length) {
-      noFixturesMsg.style.display = 'block';
-      return;
-    }
-
-    leagueFixtures.forEach(fixture => {
-      const participants = fixture.participants || [];
-      let home = participants.find(p => p.meta?.location === 'home') || participants[0];
-      let away = participants.find(p => p.meta?.location === 'away') || participants[1];
-
-      const homeName = home?.name || 'TBD';
-      const awayName = away?.name || 'TBD';
-      const homeLogo = home?.image_path ? `<img src="${home.image_path}" alt="${homeName}" height="30" style="border-radius:50%">` : '';
-      const awayLogo = away?.image_path ? `<img src="${away.image_path}" alt="${awayName}" height="30" style="border-radius:50%">` : '';
-
-      const kickoff = new Date(fixture.starting_at).toLocaleString();
-      const scores = fixture.scores?.filter(s => s.description === 'CURRENT') || [];
-      const homeScore = scores.find(s => s.participant_id === home?.id)?.score?.goals ?? '-';
-      const awayScore = scores.find(s => s.participant_id === away?.id)?.score?.goals ?? '-';
-
-      const a = document.createElement('a');
-      a.href = `match.html?id=${fixture.id}`;
-      a.style = 'text-decoration: none; color: inherit;';
-
-      const div = document.createElement('div');
-      div.className = 'fixture-card';
-      div.style = `
-        background:#222;
-        padding:15px;
-        margin-bottom:10px;
-        border-radius:8px;
-        color:#facc15;
-        font-family:'Inter',sans-serif;
-        box-shadow:0 2px 4px rgba(255,255,255,0.05);
-      `;
-
-      div.innerHTML = `
-        <div style="display:flex;align-items:center;justify-content:space-between;">
-          <div style="display:flex;align-items:center;gap:10px;">
-            ${homeLogo} <strong>${homeName}</strong>
-          </div>
-          <div style="font-weight:bold; font-size:18px;">${homeScore} - ${awayScore}</div>
-          <div style="display:flex;align-items:center;gap:10px;">
-            <strong>${awayName}</strong> ${awayLogo}
-          </div>
-        </div>
-        <em style="font-size:14px;color:#aaa;">${kickoff}</em>
-      `;
-
-      a.appendChild(div);
-      list.appendChild(a);
-    });
-  } catch (error) {
-    console.error('Error fetching fixtures:', error);
-    list.innerHTML = '<p style="color:red;">Failed to fetch fixtures.</p>';
-  }
-}
-
-//stats
-const baseURL = 'http://localhost:3000/api';
-
-if (!selectedLeague || !selectedLeague.seasonId) {
-  console.error('❌ League not found or season ID missing.');
-} else {
-  const seasonId = selectedLeague.seasonId;
-
-  const fetchStat = async (endpoint) => {
-    try {
-      const res = await fetch(`${baseURL}${endpoint}`);
-      const data = await res.json();
-      return Array.isArray(data) ? data : data.data || [];
     } catch (err) {
-      console.error('❌ Error fetching:', endpoint, err);
-      return [];
+      console.error('Failed to load fixtures:', err);
+      container.innerHTML = '<p class="error">No fixtures available for this date range. Try again later or check server logs.</p>';
     }
-  };
-
-  const renderPlayerList = (selector, items, valueLabel = '') => {
-    const list = document.querySelector(selector);
-    if (!list) return;
-
-    list.innerHTML = '';
-    items.forEach(item => {
-      const playerName = item.player?.display_name || 'Unknown';
-      const playerImg = item.player?.image_path || 'https://via.placeholder.com/32';
-      const teamName = item.participant?.name || 'Unknown Team';
-      const teamImg = item.participant?.image_path || 'https://via.placeholder.com/32';
-      const value = item.total ?? 0;
-
-      const li = document.createElement('li');
-      li.innerHTML = `
-        <div class="info">
-          <img src="${playerImg}" alt="${playerName}">
-          <strong>${playerName}</strong>
-          <small>(${teamName})</small>
-          <img src="${teamImg}" alt="${teamName}" style="width:24px;height:24px;">
-        </div>
-        <span><strong>${value}</strong> ${valueLabel}</span>
-      `;
-      list.appendChild(li);
-    });
-  };
-
-  const renderTeamList = (selector, teams, label = '') => {
-    const list = document.querySelector(selector);
-    if (!list) return;
-
-    list.innerHTML = '';
-    teams
-      .sort((a, b) => b.total - a.total)
-      .slice(0, 5)
-      .forEach(team => {
-        const li = document.createElement('li');
-        li.innerHTML = `
-          <div class="info">
-            <img src="${team.image}" alt="${team.name}">
-            <strong>${team.name}</strong>
-          </div>
-          <span><strong>${team.total}</strong> ${label}</span>
-        `;
-        list.appendChild(li);
-      });
-  };
-
-  const loadAllStats = async () => {
-    const [
-      topScorers,
-      topAssisters,
-      redCards,
-      yellowCards,
-      teamGoals,
-      teamCleansheets
-    ] = await Promise.all([
-      fetchStat(`/topscorers/${seasonId}?filters=seasonTopscorerTypes:208`),
-      fetchStat(`/topassists/${seasonId}`),
-      fetchStat(`/redcards/${seasonId}`),
-      fetchStat(`/yellowcards/${seasonId}`),
-      fetchStat(`/teamstats/goals/${seasonId}`),
-      fetchStat(`/teamstats/cleansheets/${seasonId}`)
-    ]);
-
-    renderPlayerList('#top-goals', topScorers.slice(0, 5), 'goals');
-    renderPlayerList('#top-assists', topAssisters.slice(0, 5), 'assists');
-    renderPlayerList('#top-reds', redCards.slice(0, 5), 'reds');
-    renderPlayerList('#top-yellows', yellowCards.slice(0, 5), 'yellows');
-    renderTeamList('#team-goals', teamGoals, 'goals');
-    renderTeamList('#team-cleansheets', teamCleansheets, 'clean sheets');
-  };
-
-  document.querySelectorAll('ul').forEach(ul => {
-  if (ul.children.length > 5) {
-    const btn = document.createElement('button');
-    btn.textContent = 'View More';
-    btn.className = 'view-more-btn';
-
-    btn.addEventListener('click', () => {
-      ul.classList.toggle('expanded');
-      btn.textContent = ul.classList.contains('expanded') ? 'View Less' : 'View More';
-    });
-
-    ul.parentElement.appendChild(btn);
   }
-});
 
+  const seasonId = league.seasonId;
+  const [
+    topScorers,
+    topAssisters,
+    redCards,
+    yellowCards,
+    teamGoals,
+    teamCleanSheets
+  ] = await Promise.all([
+    fetchStat('/topscorers', seasonId),
+    fetchStat('/topassists', seasonId),
+    fetchStat('/redcards', seasonId),
+    fetchStat('/yellowcards', seasonId),
+    fetchStat('/teamstats/goals', seasonId),
+    fetchStat('/teamstats/cleansheets', seasonId)
+  ]);
+  renderPlayerList('#top-goals', topScorers, 'goals');
+  renderPlayerList('#top-assists', topAssisters, 'assists');
+  renderPlayerList('#top-reds', redCards, 'reds');
+  renderPlayerList('#top-yellows', yellowCards, 'yellows');
+  renderTeamList('#team-goals', teamGoals, 'goals');
+  renderTeamList('#team-cleansheets', teamCleanSheets, 'clean sheets');
 
-  loadAllStats();
-
-  document.querySelectorAll('ul').forEach(ul => {
-  if (ul.children.length > 5) {
-    const btn = document.createElement('button');
-    btn.textContent = 'View More';
-    btn.className = 'view-more-btn';
-
-    btn.addEventListener('click', () => {
-      ul.classList.toggle('expanded');
-      btn.textContent = ul.classList.contains('expanded') ? 'View Less' : 'View More';
-    });
-
-    ul.parentElement.appendChild(btn);
-  }
-});
-
+  const overviewTab = document.querySelector('.tab-btn[data-tab="overview"]');
+  if (overviewTab) overviewTab.click();
 }
 
-
-  </script>
-
-  <script>
-    const sections = document.querySelectorAll('#stats-sections section');
-sections.forEach((sec, i) => {
-  sec.style.opacity = 0;
-  sec.style.transform = 'translateY(30px)';
-  sec.style.transition = `opacity 0.6s ease ${i * 0.1}s, transform 0.6s ease ${i * 0.1}s`;
-
-  setTimeout(() => {
-    sec.style.opacity = 1;
-    sec.style.transform = 'translateY(0)';
-  }, 300);
-});
+init();
 
   </script>
 </body>

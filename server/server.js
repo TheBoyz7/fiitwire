@@ -9,7 +9,7 @@ const port = 3000;
 app.use(cors());
 
 // 🔐 Sportmonks API token
-const apiToken = 'lARRrh4DmR4zOY4mMDEPlX7H44hE8SxRRKc9P7rwta12qLlguJVbLN2TF1i5';
+const apiToken = 'q3yfglJHbGTY8qXKg3TnwA6JIiuFCzbAaOCy7wYpHU2xJqIonKBPbp4iKxh0';
 const BASE_URL = 'https://api.sportmonks.com/v3/football';
 
 // 📊 Standings
@@ -26,16 +26,59 @@ app.get('/api/standings/:seasonId', async (req, res) => {
   }
 });
 
-// 📅 Fixtures within date range
+// 📅 Fixtures within date range (auto-fetch all pages)
 app.get('/api/fixtures', async (req, res) => {
-  const { startDate, endDate } = req.query;
-  const url = `${BASE_URL}/fixtures/between/${startDate}/${endDate}?api_token=${apiToken}&include=participants;league;scores`;
+  const { startDate, endDate, filters } = req.query;
+
+  // ✅ Validate date format
+  const dateRegex = /^\d{4}-\d{2}-\d{2}$/;
+  if (!startDate || !endDate || !dateRegex.test(startDate) || !dateRegex.test(endDate)) {
+    return res.status(400).json({ error: 'Invalid or missing startDate/endDate. Use YYYY-MM-DD format.' });
+  }
+
+  // ✅ Ensure startDate <= endDate
+  if (new Date(startDate) > new Date(endDate)) {
+    return res.status(400).json({ error: 'startDate cannot be after endDate.' });
+  }
+
+  const perPage = 1000; // Max allowed per Sportmonks docs
+  let page = 1;
+  let allFixtures = [];
+
   try {
-    const response = await axios.get(url);
-    res.json(response.data.data);
+    while (true) {
+      const url = `${BASE_URL}/fixtures/between/${startDate}/${endDate}` +
+                  `?api_token=${apiToken}` +
+                  `&per_page=${perPage}` +
+                  `&page=${page}` +
+                  `&include=participants;league;scores` +
+                  `${filters ? `&${filters}` : ''}`;
+
+      const response = await axios.get(url);
+      const fixtures = response.data.data || [];
+
+      console.log(`Page ${page}: fetched ${fixtures.length} fixtures`);
+
+      if (fixtures.length === 0) {
+        break; // ✅ Stop if no more results
+      }
+
+      allFixtures = allFixtures.concat(fixtures);
+      page++;
+    }
+
+    console.log(`Total fixtures fetched for ${startDate} to ${endDate}: ${allFixtures.length}`);
+    res.json(allFixtures);
   } catch (error) {
-    console.error("Error fetching fixtures:", error.message);
-    res.status(500).json({ error: "Failed to fetch fixtures" });
+    console.error('Error fetching fixtures:', {
+      message: error.message,
+      response: error.response?.data || 'No response data',
+      status: error.response?.status
+    });
+    res.status(500).json({
+      error: 'Failed to fetch fixtures',
+      details: error.response?.data?.message || error.message
+    });
   }
 });
 
@@ -208,25 +251,57 @@ app.get('/api/fixture/:fixtureId', async (req, res) => {
   }
 });
 
-// Team info & Trophies
+// 🏆 Team info & all trophies (uncapped)
 app.get('/api/teams/:teamId', async (req, res) => {
   const { teamId } = req.params;
 
-  try {
-    const response = await axios.get(`${BASE_URL}/teams/${teamId}`, {
-      params: {
-        api_token: apiToken,
-        include: 'venue;coaches;coaches.coach;trophies;trophies.trophy;trophies.season;trophies.league'
-      }
-    });
+  const perPage = 1000; // Large page size to reduce calls
+  let page = 1;
+  let allTrophies = null;
 
-    res.json(response.data.data);
+  try {
+    // First request to get team info + first batch of trophies
+    const baseUrl = `${BASE_URL}/teams/${teamId}`;
+    const params = {
+      api_token: apiToken,
+      per_page: perPage,
+      page: page,
+      include: 'venue;coaches;coaches.coach;trophies;trophies.trophy;trophies.season;trophies.league'
+    };
+
+    const firstRes = await axios.get(baseUrl, { params });
+    const teamData = firstRes.data.data || {};
+
+    // Extract initial trophies (if any)
+    allTrophies = teamData.trophies?.data || [];
+
+    // Keep fetching trophies until no more results
+    while ((teamData.trophies?.data?.length || 0) === perPage) {
+      page++;
+      const nextRes = await axios.get(baseUrl, {
+        params: {
+          ...params,
+          page
+        }
+      });
+      const trophiesPage = nextRes.data.data?.trophies?.data || [];
+      if (trophiesPage.length === 0) break;
+      allTrophies = allTrophies.concat(trophiesPage);
+    }
+
+    // Replace trophies in teamData with full uncapped list
+    if (teamData.trophies) {
+      teamData.trophies.data = allTrophies;
+    }
+
+    res.json(teamData);
 
   } catch (err) {
     console.error('🛑 Error fetching team info:', err.response?.data || err.message);
     res.status(500).json({ error: 'Failed to fetch team info' });
   }
 });
+
 
 // 📅 Full schedule tree for a team (league → rounds → fixtures)
 app.get('/api/team-schedule/:teamId', async (req, res) => {
@@ -425,6 +500,119 @@ app.get('/api/player/:playerId', async (req, res) => {
   }
 });
 
+
+// 🌍 Get all leagues
+app.get('/api/leagues', async (req, res) => {
+  try {
+    const { include, select, filters, locale, per_page = 500, page = 1, order = 'asc' } = req.query;
+
+    const response = await axios.get(`${BASE_URL}/leagues`, {
+      params: {
+        api_token: apiToken,
+        include,
+        select,
+        filters,
+        locale,
+        per_page,
+        page,
+        order,
+        include:[
+          'seasons',
+        ].join(';')
+      }
+    });
+
+    res.json(response.data.data); 
+  } catch (err) {
+    console.error('🛑 Error fetching leagues:', err.response?.data || err.message);
+    res.status(500).json({ error: 'Failed to fetch leagues' });
+  }
+});
+
+// 🌐 Get all teams
+app.get('/api/teams', async (req, res) => {
+  const {
+    page = 1,
+    per_page = 25,
+    order = 'asc',
+    include, // e.g. players, venue, etc.
+    select,
+    filters,
+    locale,
+  } = req.query;
+
+  try {
+    const response = await axios.get(`${BASE_URL}/teams`, {
+      params: {
+        api_token: apiToken,
+        page,
+        per_page,
+        order,
+        include,
+        select,
+        filters,
+        locale,
+        include:[
+          'seasons'
+        ].join(';')
+      },
+    });
+
+    res.json(response.data.data); // send only the relevant data array
+  } catch (err) {
+    console.error('🛑 Error fetching teams:', err.response?.data || err.message);
+    res.status(500).json({ error: 'Failed to fetch teams' });
+  }
+});
+
+
+// 📅 Get All Fixtures (Safe Full Include)
+app.get('/api/all-fixtures', async (req, res) => {
+  const {
+    select,
+    sortBy,
+    filters,
+    locale,
+    page = 1,
+    per_page = 10,
+    order = 'asc'
+  } = req.query;
+
+  // Safe include list for fixtures (based on docs)
+  const defaultIncludes = [
+    'round',
+    'stage',
+    'group',
+    'aggregate',
+    'league',
+    'venue',
+    'periods',
+    'currentPeriod',
+    'participants',
+    'scores'
+  ].join(';');
+
+  try {
+    const response = await axios.get(`${BASE_URL}/fixtures`, {
+      params: {
+        api_token: apiToken,
+        include: defaultIncludes,
+        select,
+        sortBy,
+        filters,
+        locale,
+        page,
+        per_page,
+        order
+      }
+    });
+
+    res.json(response.data.data);
+  } catch (err) {
+    console.error('🛑 Error fetching all fixtures:', err.response?.data || err.message);
+    res.status(500).json({ error: 'Failed to fetch all fixtures', details: err.response?.data || err.message });
+  }
+});
 
 
 

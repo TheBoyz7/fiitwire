@@ -1,19 +1,17 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>FootWire | Teams</title>
-  <link rel="stylesheet" href="css/style.css">
-  <link rel="stylesheet" href="css/team.css">
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>SportsWire | Teams</title>
+  <link rel="stylesheet" href="css/styles.css" />
+  <link rel="stylesheet" href="css/teams.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet" />
 </head>
 <body>
-    <header class="site-header">
+  <header class="site-header">
     <div class="container">
-      <div class="logo">
-        <h1>FootWire</h1>
-      </div>
+      <div class="logo"><h1>SportsWire</h1></div>
       <nav class="main-nav">
         <ul>
           <li><a href="index.php">Home</a></li>
@@ -23,124 +21,125 @@
           <li><a href="live.html">Live Scores</a></li>
         </ul>
       </nav>
-      <div class="auth-buttons">
-        <button class="login-btn">Login</button>
-        <button class="signup-btn">Sign Up</button>
-      </div>
+     
     </div>
   </header>
 
-  
-  <div class="team-tabs">
-    <button class="tab active" data-league="epl">Premier League</button>
-    <button class="tab" data-league="laliga">LaLiga</button>
-    <button class="tab" data-league="seriea">Serie A</button>
-    <button class="tab" data-league="bundesliga">Bundesliga</button>
-    <button class="tab" data-league="ligue1">Ligue 1</button>
+  <div class="team-tabs" id="league-tabs">
+    <!-- Tabs will be loaded here dynamically -->
   </div>
 
   <div id="team-sections">
-
-    <!-- EPL -->
-    <div class="teams-grid" id="epl">
-      <div class="team-card">
-        <img src="images/Manchester_United_F.C.-brandlogos.net-Oe5zmr/manchester_united_f.c.-logo_brandlogos.net_uw5rg.png" alt="Manchester United">
-        <h2>Manchester United</h2>
-        <p>20-time English champions, known for their legendary dominance in English football history.</p>
-        <a href="#">View News</a>
-      </div>
-      <div class="team-card">
-        <img src="images/Liverpool_F.C.-brandlogos.net-OsACpl/liverpool_f.c.-logo_brandlogos.net_vr9dx.png" alt="Liverpool">
-        <h2>Liverpool</h2>
-        <p>Iconic Merseyside club with 19 league titles and 6 European Cups to their name.</p>
-        <a href="#">View News</a>
-      </div>
-    </div>
-
-    <!-- LaLiga -->
-    <div class="teams-grid hidden" id="laliga">
-      <div class="team-card">
-        <img src="images/Real_Madrid_CF-brandlogos.net-OSKWeR/real_madrid_cf-brandlogo.net.png" alt="Real Madrid">
-        <h2>Real Madrid</h2>
-        <p>The most decorated club in Europe with 35 LaLiga titles and 14 UEFA Champions Leagues.</p>
-        <a href="#">View News</a>
-      </div>
-      <div class="team-card">
-        <img src="images/FC_Barcelona-brandlogos.net-O8Y3mE/fc_barcelona-logo_brandlogos.net_tmdd6.png" alt="Barcelona">
-        <h2>Barcelona</h2>
-        <p>Historic Catalan side with a record of 27 league titles and a legacy of attacking football.</p>
-        <a href="#">View News</a>
-      </div>
-    </div>
-
-    <!-- Serie A -->
-    <div class="teams-grid hidden" id="seriea">
-      <div class="team-card">
-        <img src="images/Juventus_FC-brandlogos.net-O1ivIU/juventus_fc-brandlogo.net.png" alt="Juventus">
-        <h2>Juventus</h2>
-        <p>Italy’s most successful club with 36 Serie A titles and a history of defensive mastery.</p>
-        <a href="#">View News</a>
-      </div>
-      <div class="team-card">
-        <img src="images/AC_Milan-brandlogos.net-OTEfVk/ac_milan-logo_brandlogos.net_xh3sl.png" alt="AC Milan">
-        <h2>AC Milan</h2>
-        <p>7-time European champions with a legacy of iconic players and unforgettable nights.</p>
-        <a href="#">View News</a>
-      </div>
-    </div>
-
-    <!-- Bundesliga -->
-    <div class="teams-grid hidden" id="bundesliga">
-      <div class="team-card">
-        <img src="images/FC_Bayern_Munich-brandlogos.net-OGhbUG/fc_bayern_munich-logo_brandlogos.net_kqzlr.png" alt="Bayern Munich">
-        <h2>Bayern Munich</h2>
-        <p>Germany’s dominant force with 33 Bundesliga titles and 6 UEFA Champions Leagues.</p>
-        <a href="#">View News</a>
-      </div>
-      <div class="team-card">
-        <img src="images/Borussia_Dortmund-brandlogos.net-O9DpWn/borussia_dortmund-brandlogo.net.png" alt="Borussia Dortmund">
-        <h2>Borussia Dortmund</h2>
-        <p>Famed for its passionate fans and attacking football, with 8 league titles.</p>
-        <a href="#">View News</a>
-      </div>
-    </div>
-
-    <!-- Ligue 1 -->
-    <div class="teams-grid hidden" id="ligue1">
-      <div class="team-card">
-        <img src="images/paris-saint-germain-logo-E5F49D4/paris-saint-germain-logo.png" alt="Paris Saint-Germain">
-        <h2>Paris Saint-Germain</h2>
-        <p>France’s leading club with 11 Ligue 1 titles and superstar-laden squads.</p>
-        <a href="#">View News</a>
-      </div>
-      <div class="team-card">
-        <img src="images/olympique-de-marseille-D44521D5-logoeps.com/olympique-de-marseille-logo-vector.png" alt="Marseille">
-        <h2>Olympique Marseille</h2>
-        <p>The only French side to win the UEFA Champions League (1993) with 9 league titles.</p>
-        <a href="#">View News</a>
-      </div>
-    </div>
-
+    <!-- Team cards will be rendered here -->
   </div>
 
-<script>
-  const tabs = document.querySelectorAll('.tab');
-  const sections = document.querySelectorAll('.teams-grid');
+  <script>
+    const leagueTabs = document.getElementById("league-tabs");
+    const teamSections = document.getElementById("team-sections");
 
-  tabs.forEach(tab => {
-    tab.addEventListener('click', () => {
-      tabs.forEach(t => t.classList.remove('active'));
-      tab.classList.add('active');
+    const apiBase = "http://localhost:3000/api"; // 🔁 Adjust if hosted elsewhere
 
-      sections.forEach(sec => {
-        sec.classList.add('hidden');
+    async function fetchLeagues() {
+      try {
+        const res = await fetch(`${apiBase}/leagues?include=seasons`);
+        const leagues = await res.json();
+
+        // Filter for domestic leagues only
+        const domesticLeagues = leagues.filter(league => league.sub_type === "domestic");
+
+        leagueTabs.innerHTML = ""; // Clear tabs
+        domesticLeagues.forEach((league, index) => {
+          // Find the current season for the league
+          const currentSeason = league.seasons?.find(season => season.is_current) || {};
+          const btn = document.createElement("button");
+          btn.className = `tab${index === 0 ? " active" : ""}`;
+          btn.setAttribute("data-league-id", league.id);
+          btn.setAttribute("data-season-id", currentSeason.id || "");
+          btn.innerText = league.name;
+          btn.addEventListener("click", () => handleTabClick(btn, league.id, currentSeason.id));
+          leagueTabs.appendChild(btn);
+        });
+
+        // Load the first league by default if available
+        if (domesticLeagues.length) {
+          const firstTab = leagueTabs.querySelector(".tab");
+          const firstLeague = domesticLeagues[0];
+          const currentSeason = firstLeague.seasons?.find(season => season.is_current) || {};
+          handleTabClick(firstTab, firstLeague.id, currentSeason.id);
+        } else {
+          teamSections.innerHTML = `<p>No domestic leagues available.</p>`;
+        }
+      } catch (err) {
+        console.error("🛑 Failed to fetch leagues", err);
+        teamSections.innerHTML = `<p>Failed to load leagues. Please try again later.</p>`;
+      }
+    }
+
+    async function fetchTeams(seasonId, leagueId) {
+      try {
+        if (!seasonId) {
+          console.warn("⚠️ No season ID provided, skipping standings fetch");
+          return [];
+        }
+        // Fetch standings for the given season
+        const res = await fetch(`${apiBase}/standings/${seasonId}`);
+        const standings = await res.json();
+
+        // Filter teams by league_id and map to required fields
+        const filteredTeams = standings.data
+          .filter(standing => standing.league_id === leagueId)
+          .map(standing => ({
+            id: standing.participant.id,
+            name: standing.participant.name,
+            short_code: standing.participant.short_code,
+            image_path: standing.participant.image_path,
+            position: standing.position // Include position for display
+          }));
+
+        // Sort teams alphabetically by name
+        filteredTeams.sort((a, b) => a.name.localeCompare(b.name));
+
+        return filteredTeams;
+      } catch (err) {
+        console.error("🛑 Failed to fetch teams from standings", err);
+        return [];
+      }
+    }
+
+    async function handleTabClick(tabBtn, leagueId, seasonId) {
+      document.querySelectorAll(".tab").forEach(btn => btn.classList.remove("active"));
+      tabBtn.className = "tab active";
+
+      teamSections.innerHTML = `<p>Loading teams...</p>`;
+
+      const teams = await fetchTeams(seasonId, leagueId);
+
+      if (!teams.length) {
+        teamSections.innerHTML = `<p>No teams available for this league.</p>`;
+        return;
+      }
+
+      const grid = document.createElement("div");
+      grid.className = "teams-grid";
+
+      teams.forEach(team => {
+        const card = document.createElement("div");
+        card.className = "team-card";
+        card.innerHTML = `
+          <img src="${team.image_path || 'images/default-logo.png'}" alt="${team.name}" />
+          <h2>${team.name}</h2>
+          <p>${team.short_code || "Top tier football club"} (Position: ${team.position})</p>
+          <a href="club.html?id=${team.id}">View</a>
+        `;
+        grid.appendChild(card);
       });
 
-      const league = tab.getAttribute('data-league');
-      document.getElementById(league).classList.remove('hidden');
-    });
-  });
-</script>
+      teamSections.innerHTML = "";
+      teamSections.appendChild(grid);
+    }
 
+    // Initialize on load
+    document.addEventListener("DOMContentLoaded", fetchLeagues);
+  </script>
 </body>
 </html>

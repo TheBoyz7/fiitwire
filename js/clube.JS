@@ -553,6 +553,7 @@ function renderTransfers(transfers, append = false, hasMore = false) {
               <th>To</th>
               <th>Position</th>
               <th>Date</th>
+              <th>Price</th>
             </tr>
           </thead>
           <tbody></tbody>
@@ -561,7 +562,7 @@ function renderTransfers(transfers, append = false, hasMore = false) {
     `;
   }
   if (!transfers.length && !append) {
-    container.querySelector('tbody').innerHTML = '<tr><td colspan="6">No transfers available.</td></tr>';
+    container.querySelector('tbody').innerHTML = '<tr><td colspan="7">No transfers available.</td></tr>';
     return;
   }
 
@@ -574,6 +575,8 @@ function renderTransfers(transfers, append = false, hasMore = false) {
     const toTeam = transfer.toteam || {};
     const position = transfer.detailedposition?.name || transfer.position?.name || 'Footballer';
     const transferDate = transfer.date ? new Date(transfer.date).toLocaleDateString('en-GB', { day: 'numeric', month: 'numeric', year: '2-digit' }) : 'N/A';
+    // New price logic: "Loan" for type "Loan", "Free" for non-loan with null amount, formatted amount otherwise
+    const amount = type === 'Loan' ? 'Loan' : transfer.amount === null ? 'Free' : `£${(transfer.amount / 1000000).toFixed(0)}M`;
 
     rows += `
       <tr>
@@ -598,6 +601,7 @@ function renderTransfers(transfers, append = false, hasMore = false) {
         </td>
         <td>${position}</td>
         <td>${transferDate}</td>
+        <td>${amount}</td>
       </tr>
     `;
   });
@@ -635,6 +639,9 @@ async function loadTeamHonours(teamId) {
     const teamData = await res.json();
     const trophies = Array.isArray(teamData.trophies) ? teamData.trophies : [];
 
+    // Log trophies for name crosschecking
+    console.log('Raw Trophies Data:', trophies);
+
     renderHonours(trophies);
     container.dataset.loaded = 'true';
   } catch (err) {
@@ -646,46 +653,11 @@ async function loadTeamHonours(teamId) {
 function renderHonours(trophies) {
   const container = document.getElementById('honours');
 
-  // Count "Winner" trophies by league and "Runner-up" trophies
-  const winnerCounts = trophies
-    .filter(t => t.trophy?.name === 'Winner')
-    .reduce((acc, trophy) => {
-      const leagueName = trophy.league?.name || 'Other Competitions';
-      const leagueImage = trophy.league?.image_path || 'https://cdn.sportmonks.com/images/soccer/placeholder.png';
-      if (!acc[leagueName]) {
-        acc[leagueName] = { count: 0, image: leagueImage };
-      }
-      acc[leagueName].count += 1;
-      return acc;
-    }, {});
-  
-  const runnerUpCount = trophies.filter(t => t.trophy?.name === 'Runner-up').length;
-
-  // Generate trophy cards HTML
-  const trophyCardsHtml = `
-    <div class="trophy-cards">
-      ${Object.entries(winnerCounts).length || runnerUpCount ? `
-        ${Object.entries(winnerCounts).map(([leagueName, { count, image }]) => `
-          <div class="trophy-card">
-            <img src="${image}" alt="${leagueName}" class="trophy-img">
-            <div class="trophy-name">${leagueName}</div>
-            <div class="trophy-count">Won ${count} ${count === 1 ? 'time' : 'times'}</div>
-          </div>
-        `).join('')}
-        ${runnerUpCount ? `
-          <div class="trophy-card">
-            <i class="fas fa-wine-bottle trophy-icon"></i>
-            <div class="trophy-name">Runner-up</div>
-            <div class="trophy-count">${runnerUpCount} ${runnerUpCount === 1 ? 'time' : 'times'}</div>
-          </div>
-        ` : ''}
-      ` : '<p>No relevant trophies available.</p>'}
-    </div>
-  `;
+  // Log raw data for debugging
+  console.log('Raw Trophies Data:', trophies);
 
   // Table HTML
   container.innerHTML = `
-    ${trophyCardsHtml}
     <div class="honours-table-wrapper">
       <table class="honours-table">
         <thead>
@@ -705,10 +677,25 @@ function renderHonours(trophies) {
     return;
   }
 
+  // Sort trophies by season year (descending)
+  const sortedTrophies = [...trophies].sort((a, b) => {
+    const getYear = (seasonName) => {
+      if (!seasonName || seasonName === '0') return -Infinity;
+      const match = seasonName.match(/^(\d{4})/);
+      return match ? parseInt(match[1], 10) : -Infinity;
+    };
+    const yearA = getYear(a.season?.name);
+    const yearB = getYear(b.season?.name);
+    return yearB - yearA; // Descending order
+  });
+
+  // Log sorted trophies for debugging
+  console.log('Sorted Trophies by Season:', sortedTrophies);
+
   const tbody = container.querySelector('tbody');
   let rows = '';
-  trophies.forEach(trophy => {
-    const trophyName = trophy.trophy?.name || 'Unknown';
+  sortedTrophies.forEach(trophy => {
+    const trophyName = trophy.trophy?.name || 'Unknown Trophy';
     const leagueName = trophy.league?.name || 'Unknown League';
     const leagueImage = trophy.league?.image_path || 'https://cdn.sportmonks.com/images/soccer/placeholder.png';
     const seasonName = trophy.season?.name || 'Unknown Season';

@@ -108,8 +108,8 @@ if ($tab === 'all_news') {
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>FootWire Admin Dashboard</title>
-  <link rel="stylesheet" href="../css/style.css">
+  <title>SportsWire Admin Dashboard</title>
+  <link rel="stylesheet" href="../css/styles.css">
   <link rel="stylesheet" href="../css/admin.css">
 </head>
 <body>
